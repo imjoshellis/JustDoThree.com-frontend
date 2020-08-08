@@ -7,30 +7,33 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     super(props)
 
     this.state = {
-      status: this.props.status || 'todo',
+      status: this.props.status,
       hover: false
     }
   }
 
   public static defaultProps = {
-    hideLabel: false
+    dotOnly: false
   }
 
-  handleChange = () => {
+  handleClick = () => {
     this.setState({ status: this.state.status === 'done' ? 'todo' : 'done' })
   }
 
+  hoverOn = () => this.setState({ hover: true })
+  hoverOff = () => this.setState({ hover: false })
+
   render () {
     return (
-      <>
+      <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
         <TaskView
           name={this.props.name}
           status={this.state.status}
-          hideLabel={this.props.hideLabel}
+          dotOnly={this.props.dotOnly}
           hover={this.state.hover}
-          handleChange={this.handleChange}
+          handleClick={this.handleClick}
         />
-      </>
+      </div>
     )
   }
 }
