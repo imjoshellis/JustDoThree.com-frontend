@@ -4,8 +4,12 @@
 
 body {
 <<<<<<< HEAD
+<<<<<<< HEAD
   @apply bg-gray-900 text-gray-200;
 =======
   @apply bg-gray-100 text-gray-10;
 >>>>>>> parent of 359897a... Remove Tailwindcss
+=======
+  @apply bg-gray-900 text-gray-200;
+>>>>>>> parent of 569ef30... Implement Carbon Design System into Task
 }
