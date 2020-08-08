@@ -4,7 +4,7 @@ import { CardPropTypes } from './CardTypes'
 
 export const CardView: FunctionComponent<CardPropTypes> = ({ kind }) => {
   let classes = {
-    base: 'bg-gray-800 rounded-lg rounded-b overflow-hidden',
+    base: 'bg-gray-90 rounded-lg rounded-b overflow-hidden',
     hover: ''
   }
   return (

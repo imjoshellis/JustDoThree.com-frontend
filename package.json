@@ -3,13 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "@carbon/colors": "^10.11.0",
->>>>>>> parent of 359897a... Remove Tailwindcss
-=======
->>>>>>> parent of 569ef30... Implement Carbon Design System into Task
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -25,19 +19,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-<<<<<<< HEAD
-    "uuid": "^8.3.0",
     "tailwindcss": "^1.6.2",
-    "typescript": "~3.7.2"
-=======
-    "tailwindcss": "^1.6.2",
-<<<<<<< HEAD
     "typescript": "~3.7.2",
     "uuid": "^8.3.0"
->>>>>>> parent of 359897a... Remove Tailwindcss
-=======
-    "typescript": "~3.7.2"
->>>>>>> parent of 569ef30... Implement Carbon Design System into Task
   },
   "scripts": {
     "build:tailwind": "tailwind build src/tailwind.css -o src/tailwind.output.css",
@@ -53,7 +37,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
