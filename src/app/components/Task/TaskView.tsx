@@ -1,27 +1,22 @@
+import { Checkbox } from 'carbon-components-react'
 import React, { FunctionComponent } from 'react'
-import Dot from './Dot'
+import { v4 as uuidv4 } from 'uuid'
 import { TaskPropTypes } from './TaskTypes'
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
   name,
   status,
-  handleClick,
-  hover,
-  dotOnly
+  handleChange,
+  hideLabel
 }) => {
-  let classes = {
-    base: 'flex flex-row items-center p-1 w-full rounded',
-    hover: dotOnly ? '' : 'font-bold bg-gray-700'
-  }
-
   return (
-    <button
-      onClick={handleClick}
-      className={hover ? classes.base + ' ' + classes.hover : classes.base}
-    >
-      <Dot status={status} hover={hover} />
-      { dotOnly || <><span className='w-2' /> {name}</> }
-    </button>
+    <Checkbox
+      checked={status === 'done'}
+      hideLabel={hideLabel}
+      labelText={name}
+      id={uuidv4()}
+      onChange={handleChange}
+    />
   )
 }
 
