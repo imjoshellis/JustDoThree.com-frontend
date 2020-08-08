@@ -1,9 +1,13 @@
-import { render } from '@testing-library/react'
+import { shallow } from 'enzyme'
 import React from 'react'
 import App from './App'
+import Header from './components/Header'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />)
-  const linkElement = getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+it('renders without crashing', () => {
+  shallow(<App />)
+})
+
+it('renders a <Header />', () => {
+  const wrapper = shallow(<App />)
+  expect(wrapper.contains(<Header />)).toEqual(true)
 })
