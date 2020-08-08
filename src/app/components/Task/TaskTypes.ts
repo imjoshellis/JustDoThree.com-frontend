@@ -1,12 +1,13 @@
 export interface TaskPropTypes {
   name: string,
-  status?: 'done' | 'doing' | 'todo',
+  status: 'done' | 'todo',
   dotOnly?: boolean,
   handleClick?: () => void,
-  hover?: boolean
+  hover?: boolean,
+  disabled?: boolean
 }
 
 export interface TaskStateTypes {
   hover?: boolean,
-  status?: 'done' | 'doing' | 'todo'
+  status: 'done' | 'todo'
 }
