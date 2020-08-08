@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import App from './App'
 import Header from './components/Header'
+import Main from './components/Main'
 
 it('renders without crashing', () => {
   shallow(<App />)
