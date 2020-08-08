@@ -17092,10 +17092,6 @@ body {
   color: rgba(244, 244, 244, var(--text-opacity));
 }
 
-* {
-  transition: all 0.125s ease-out;
-}
-
 button:focus {
   outline: none;
 }

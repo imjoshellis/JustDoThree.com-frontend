@@ -16,8 +16,8 @@ export const CardView: FunctionComponent<CardPropTypes> = ({ kind }) => {
         />
       </div>
 
-      <div className='p-4'>
-        <h2 className='uppercase text-sm font-bold tracking-wider mb-2'>{kind}</h2>
+      <div className='p-2'>
+        <h2 className='uppercase text-sm font-bold tracking-wider mb-2 px-2'>{kind}</h2>
         <Task name='Task' status='done' />
         <Task name='Task' />
         <Task name='Task' />

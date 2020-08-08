@@ -11,8 +11,8 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   disabled
 }) => {
   let classes = {
-    base: 'flex flex-row items-center p-1 w-full rounded focus:bg-gray-80',
-    hover: dotOnly ? '' : 'font-bold bg-gray-70'
+    base: 'flex flex-row items-center p-1 px-2 w-full rounded focus:bg-gray-80',
+    hover: dotOnly ? '' : 'bg-gray-80'
   }
 
   if (disabled) return (
