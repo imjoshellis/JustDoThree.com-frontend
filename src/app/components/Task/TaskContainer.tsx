@@ -13,7 +13,9 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   }
 
   public static defaultProps = {
-    dotOnly: false
+    dotOnly: false,
+    status: 'todo',
+    disabled: false
   }
 
   handleClick = () => {
@@ -32,6 +34,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
           dotOnly={this.props.dotOnly}
           hover={this.state.hover}
           handleClick={this.handleClick}
+          disabled={this.props.disabled}
         />
       </div>
     )
