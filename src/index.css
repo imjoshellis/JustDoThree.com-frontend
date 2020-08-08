@@ -11,7 +11,3 @@ code {
   font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas,
     'Courier New', monospace;
 }
-
-* {
-  transition: all 0.125s ease-out;
-}
