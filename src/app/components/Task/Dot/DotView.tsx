@@ -1,21 +1,23 @@
 import React, { FunctionComponent } from 'react'
 import { DotPropTypes } from './DotTypes'
 
+const base = 'rounded-full w-3 h-3 border-solid border-2 border-blue-60 p-1 block'
 const classes = {
-  base: 'rounded-full w-4 h-4 border-solid border-2 border-blue-60',
   done: {
-    idle: 'bg-blue-60',
-    hover: 'bg-blue-80'
+    idle: base + ' bg-blue-60',
+    hover: base + ' bg-blue-80'
   },
   todo: {
-    idle: 'bg-blue-20',
-    hover: 'bg-blue-90'
+    idle: base + ' bg-blue-90',
+    hover: base + ' bg-blue-20'
   }
 }
 
 export const DotView: FunctionComponent<DotPropTypes> = ({ status, hover }) => {
-  if (status === 'done') return <div className={classes.base} />
-  if (status === 'todo') return <div className={classes.base} />
+  if (status === 'done')
+    return <div className={hover ? classes.done.hover : classes.done.idle} />
+  if (status === 'todo')
+    return <div className={hover ? classes.todo.hover : classes.todo.idle} />
   return null
 }
 
