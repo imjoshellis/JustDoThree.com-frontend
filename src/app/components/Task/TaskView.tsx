@@ -2,12 +2,27 @@ import React, { FunctionComponent } from 'react'
 import Dot from './Dot'
 import { TaskPropTypes } from './TaskTypes'
 
-export const TaskView: FunctionComponent<TaskPropTypes> = ({ name, status }) => (
-  <div className='flex flex-row items-center'>
-    <Dot status={status} />
-    <span className='w-2' />
-    {name}
-  </div>
-)
+export const TaskView: FunctionComponent<TaskPropTypes> = ({
+  name,
+  status,
+  handleClick,
+  hover,
+  dotOnly
+}) => {
+  let classes = {
+    base: 'flex flex-row items-center p-1 w-full rounded',
+    hover: dotOnly ? '' : 'font-bold bg-gray-700'
+  }
+
+  return (
+    <button
+      onClick={handleClick}
+      className={hover ? classes.base + ' ' + classes.hover : classes.base}
+    >
+      <Dot status={status} hover={hover} />
+      { dotOnly || <><span className='w-2' /> {name}</> }
+    </button>
+  )
+}
 
 export default TaskView

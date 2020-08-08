@@ -6,25 +6,13 @@ export class DotContainer extends Component<DotPropTypes, DotStateTypes> {
   constructor (props: DotPropTypes) {
     super(props)
 
-    this.state = {
-      hover: false,
-      status: this.props.status
-    }
+    this.state = {}
   }
-
-  hoverOn = () => this.setState({ hover: true })
-  hoverOff = () => this.setState({ hover: false })
-  changeStatus = () =>
-    this.setState({ status: this.state.status === 'done' ? 'todo' : 'done' })
 
   render () {
     return (
-      <div
-        onClick={this.changeStatus}
-        onMouseEnter={this.hoverOn}
-        onMouseLeave={this.hoverOff}
-      >
-        <Dot hover={this.state.hover} status={this.state.status} />
+      <div>
+        <Dot hover={this.props.hover} status={this.props.status} />
       </div>
     )
   }

@@ -4,6 +4,4 @@ export interface DotPropTypes {
 }
 
 export interface DotStateTypes {
-  hover: boolean,
-  status?: 'done' | 'doing' | 'todo'
 }
