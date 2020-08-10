@@ -1,0 +1,117 @@
+{
+  "life": {
+    "id": 1,
+    "tasks": [
+      {
+        "id": 1,
+        "title": "I became a Senior Developer at a high growth organization",
+        "completed": false,
+        "start": "2020-01-01",
+        "deadline": "2025-12-31",
+        "kind": "life",
+        "kind_id": 1
+      },
+      {
+        "id": 2,
+        "title": "I published a board game",
+        "completed": false,
+        "start": "2020-01-01",
+        "deadline": "2022-12-31",
+        "kind": "life",
+        "kind_id": 1
+      },
+      {
+        "id": 3,
+        "title": "I ran a marathon",
+        "completed": false,
+        "start": "2020-01-01",
+        "deadline": "2020-12-31",
+        "kind": "life",
+        "kind_id": 1
+      }
+    ],
+    "years": [
+      {
+        "id": 1,
+        "life_id": 1,
+        "tasks": [
+          {
+            "id": 3,
+            "title": "I ran a marathon",
+            "completed": false,
+            "start": "2020-01-01",
+            "deadline": "2020-12-31",
+            "kind": "life",
+            "kind_id": 1
+          },
+          {
+            "id": 4,
+            "title": "I prepared to move",
+            "completed": false,
+            "start": "2020-01-01",
+            "deadline": "2021-12-31",
+            "kind": "year",
+            "kind_id": 1
+          },
+          {
+            "id": 5,
+            "title": "I accepted a job at a company that I admire",
+            "completed": false,
+            "start": "2020-01-01",
+            "deadline": "2021-12-31",
+            "kind": "year",
+            "kind_id": 1
+          }
+        ],
+        "quarters": [
+          {
+            "id": 1,
+            "year_id": 1,
+            "tasks": [],
+            "months": [
+              {
+                "id": 1,
+                "quarter_id": 1,
+                "tasks": [],
+                "weeks": [
+                  {
+                    "id": 1,
+                    "month_id": 1,
+                    "tasks": [],
+                    "days": [
+                      {
+                        "id": 1,
+                        "week_id": 1,
+                        "tasks": []
+                      }
+                    ]
+                  },
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {},
+              {}
+            ]
+          },
+          {
+            "id": 2
+          },
+          {
+            "id": 3
+          },
+          {
+            "id": 4
+          }
+        ]
+      },
+      {
+        "id": 2
+      },
+      {
+        "id": 3
+      }
+    ]
+  }
+}
