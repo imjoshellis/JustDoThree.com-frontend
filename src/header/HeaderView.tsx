@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import MiniCard from '../MiniCard'
+import MiniCard from './MiniCard'
 import { HeaderPropTypes } from './HeaderTypes'
 
 export const HeaderView: FunctionComponent<HeaderPropTypes> = () => {
@@ -11,7 +11,7 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = () => {
   return (
     <header className={classes.base}>
       <div>Just Do Three</div>
-      <div className='grid grid-cols-6 gap-4 flex-grow max-w-3xl'>
+      <div className='grid flex-grow max-w-3xl grid-cols-6 gap-4'>
         <MiniCard kind='L' />
         <MiniCard kind='Y' />
         <MiniCard kind='Q' />
@@ -20,9 +20,9 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = () => {
         <MiniCard kind='D' />
       </div>
       <div className='flex flex-col items-center justify-center ml-4'>
-        <div className='h-1 w-8 mb-1 bg-gray-700' />
-        <div className='h-1 w-8 mb-1 bg-gray-700' />
-        <div className='h-1 w-8 bg-gray-700' />
+        <div className='w-8 h-1 mb-1 bg-gray-700' />
+        <div className='w-8 h-1 mb-1 bg-gray-700' />
+        <div className='w-8 h-1 bg-gray-700' />
       </div>
     </header>
   )

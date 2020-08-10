@@ -4,7 +4,7 @@ import { TaskPropTypes } from './TaskTypes'
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
   name,
-  status,
+  completed,
   handleClick,
   hover,
   dotOnly,
@@ -19,7 +19,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
     <div
       className={classes.base}
     >
-      <Dot status={status} hover={false} />
+      <Dot completed={completed} hover={false} />
       { dotOnly || <><span className='w-2' /> {name}</> }
     </div>
   )
@@ -28,7 +28,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
       onClick={handleClick}
       className={hover ? classes.base + ' ' + classes.hover : classes.base}
     >
-      <Dot status={status} hover={hover} />
+      <Dot completed={completed} hover={hover} />
       { dotOnly || <><span className='w-2' /> {name}</> }
     </button>
   )
