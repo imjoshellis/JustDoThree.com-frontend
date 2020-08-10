@@ -1,3 +1,4 @@
+import { configureStore, createSlice } from '@reduxjs/toolkit'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './app'
@@ -5,36 +6,18 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 import './tailwind.output.css'
 
-const ADD_TASK = 'ADD_TASK'
-const REMOVE_TASK = 'REMOVE_TASK'
-const TOGGLE_TASK = 'TOGGLE_TASK'
-
-interface Action {
-  type: string
-  payload?: any
-  id?: number
-}
-
-const task = ({ state = [], action }: { state: Array<object>; action: Action }) => {
-  interface Task {
-    id: number
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    increment: (state) => state + 1,
+    decrement: (state) => state - 1
   }
-  switch (action.type) {
-    case ADD_TASK:
-      return [...state, action.payload]
-    case REMOVE_TASK:
-      return state.filter((task: { id?: number }): boolean => task.id !== action.id)
-    case TOGGLE_TASK:
-      return state.map((task: { id?: number }): any => {
-        if (task.id === action.id) {
-          return { ...task, completed: true }
-        }
-        return task
-      })
-    default:
-      return state
-  }
-}
+})
+
+const store = configureStore({
+  reducer: counterSlice.reducer
+})
 
 ReactDOM.render(
   <React.StrictMode>
