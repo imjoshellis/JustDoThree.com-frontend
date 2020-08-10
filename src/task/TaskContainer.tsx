@@ -1,26 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { TaskPropTypes, TaskStateTypes } from './TaskTypes'
 import TaskView from './TaskView'
+import { toggleTask } from './tasksSlice'
 
 export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   constructor (props: TaskPropTypes) {
     super(props)
 
     this.state = {
-      completed: this.props.completed,
       hover: false
     }
   }
 
   public static defaultProps = {
-    dotOnly: false,
-    disabled: false
-  }
-
-  handleClick = () => {
-    this.setState((state) => ({
-      completed: !state.completed
-    }))
+    dotOnly: false
   }
 
   hoverOn = () => this.setState({ hover: true })
@@ -29,15 +23,12 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   render () {
     return (
       <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-        <TaskView
-          {...this.props}
-          hover={this.state.hover}
-          handleClick={this.handleClick}
-          completed={this.state.completed}
-        />
+        <TaskView {...this.props} hover={this.state.hover} />
       </div>
     )
   }
 }
 
-export default TaskContainer
+const mapDispatchToProps = { toggleTask }
+
+export default connect(null, mapDispatchToProps)(TaskContainer)

@@ -3,10 +3,11 @@ import Dot from './Dot'
 import { TaskPropTypes } from './TaskTypes'
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
+  id,
   title,
   completed,
-  handleClick,
   hover,
+  toggleTask,
   dotOnly
 }) => {
   let classes = {
@@ -25,7 +26,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   // )
   return (
     <button
-      onClick={handleClick}
+      onClick={() => toggleTask(id)}
       className={hover ? classes.base + ' ' + classes.hover : classes.base}
     >
       <Dot completed={completed} hover={hover} />

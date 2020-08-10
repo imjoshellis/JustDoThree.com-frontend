@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {taskList} from './initialState'
-import { TaskPropTypes } from './TaskTypes'
+
+export interface TaskPropTypes {
+  id: number
+  title: string
+  completed: boolean
+}
 
 const tasksSlice = createSlice({
   name: 'tasks',
