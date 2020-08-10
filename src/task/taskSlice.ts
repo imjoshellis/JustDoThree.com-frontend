@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {taskList} from './initialState'
 import { TaskPropTypes } from './TaskTypes'
 
 const taskSlice = createSlice({
   name: 'task',
-  initialState: [] as TaskPropTypes[],
+  initialState: taskList as TaskPropTypes[],
   reducers: {
     addTask (state, action) {
       const { id, title } = action.payload
