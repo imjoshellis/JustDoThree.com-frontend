@@ -4,7 +4,7 @@ import X from '../../assets/x'
 import { DotPropTypes } from './DotTypes'
 
 const base =
-  'rounded border-solid border block items-center justify-center flex text-gray-10 w-4 h-4'
+  'rounded border-solid border block items-center justify-center flex text-gray-10 w-4 h-4 mt-1'
 const classes = {
   done: {
     idle: base + ' border-gray-60 bg-gray-60 text-gray-90',
