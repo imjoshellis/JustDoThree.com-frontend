@@ -1,28 +1,23 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import App from './app'
 import './index.css'
+import rootReducer from './reducers'
 import * as serviceWorker from './serviceWorker'
 import './tailwind.output.css'
 
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: 0,
-  reducers: {
-    increment: (state) => state + 1,
-    decrement: (state) => state - 1
-  }
-})
-
 const store = configureStore({
-  reducer: counterSlice.reducer
+  reducer: rootReducer
 })
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 )
 

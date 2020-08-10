@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import {taskList} from './initialState'
 import { TaskPropTypes } from './TaskTypes'
 
-const taskSlice = createSlice({
-  name: 'task',
+const tasksSlice = createSlice({
+  name: 'tasks',
   initialState: taskList as TaskPropTypes[],
   reducers: {
     addTask (state, action) {
@@ -19,6 +19,6 @@ const taskSlice = createSlice({
   }
 })
 
-export const { addTask, toggleTask } = taskSlice.actions
+export const { addTask, toggleTask } = tasksSlice.actions
 
-export default taskSlice.reducer
+export default tasksSlice.reducer
