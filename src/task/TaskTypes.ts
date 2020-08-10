@@ -1,5 +1,6 @@
 export interface TaskPropTypes {
-  name: string
+  id: number
+  title: string
   completed: boolean
   dotOnly?: boolean
   handleClick?: () => void

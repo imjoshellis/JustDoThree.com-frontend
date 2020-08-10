@@ -3,33 +3,33 @@ import Dot from './Dot'
 import { TaskPropTypes } from './TaskTypes'
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
-  name,
+  title,
   completed,
   handleClick,
   hover,
-  dotOnly,
-  disabled
+  dotOnly
 }) => {
   let classes = {
-    base: 'flex flex-row items-center p-1 px-2 w-full rounded focus:bg-gray-80',
-    hover: dotOnly ? '' : 'bg-gray-80'
+    base: 'flex flex-row items-start p-1 px-2 w-full rounded focus:bg-gray-80 mt-1',
+    hover: dotOnly ? '' : 'bg-gray-80',
+    title: 'ml-2 flex-grow text-left'
   }
 
-  if (disabled) return (
-    <div
-      className={classes.base}
-    >
-      <Dot completed={completed} hover={false} />
-      { dotOnly || <><span className='w-2' /> {name}</> }
-    </div>
-  )
+  // if (disabled) return (
+  //   <div
+  //     className={classes.base}
+  //   >
+  //     <Dot completed={completed} hover={false} />
+  //     { dotOnly || <><span className='w-2' /> {title}</> }
+  //   </div>
+  // )
   return (
     <button
       onClick={handleClick}
       className={hover ? classes.base + ' ' + classes.hover : classes.base}
     >
       <Dot completed={completed} hover={hover} />
-      { dotOnly || <><span className='w-2' /> {name}</> }
+      <span className={classes.title}>{title}</span>
     </button>
   )
 }

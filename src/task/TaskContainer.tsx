@@ -30,12 +30,10 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     return (
       <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
         <TaskView
-          name={this.props.name}
-          completed={this.state.completed}
-          dotOnly={this.props.dotOnly}
+          {...this.props}
           hover={this.state.hover}
           handleClick={this.handleClick}
-          disabled={this.props.disabled}
+          completed={this.state.completed}
         />
       </div>
     )
