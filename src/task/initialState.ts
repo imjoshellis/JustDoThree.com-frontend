@@ -1,4 +1,4 @@
-[
+export const taskList = [
   {
     "id": 1,
     "title": "I became a Senior Developer at a high growth organization",
