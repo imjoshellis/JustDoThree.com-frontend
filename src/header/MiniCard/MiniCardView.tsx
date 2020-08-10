@@ -10,9 +10,9 @@ const classes = {
 export const MiniCardView: FunctionComponent<MiniCardPropTypes> = ({ kind }) => (
   <div className={classes.base}>
     <div>{kind}</div>
-    <TaskContainer name='n' completed={true} dotOnly={true} disabled={true} />
-    <TaskContainer name='n' completed={false} dotOnly={true} disabled={true} />
-    <TaskContainer name='n' completed={false} dotOnly={true} disabled={true} />
+    {/* <TaskContainer name='n' completed={true} dotOnly={true} disabled={true} /> */}
+    {/* <TaskContainer name='n' completed={false} dotOnly={true} disabled={true} /> */}
+    {/* <TaskContainer name='n' completed={false} dotOnly={true} disabled={true} /> */}
   </div>
 )
 
