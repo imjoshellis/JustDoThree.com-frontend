@@ -15,13 +15,13 @@ export const MainView: FunctionComponent<Props> = ({ tasks }) => {
   return (
     <section className={classes.base}>
       <TaskBlock tasks={tasks} />
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
-      {/* <TaskBlock tasks={tasks} /> */}
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
+      <TaskBlock tasks={tasks} />
     </section>
   )
 }

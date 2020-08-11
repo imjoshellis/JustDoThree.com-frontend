@@ -8,29 +8,33 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   completed,
   hover,
   toggleTask,
-  dotOnly
+  dotOnly,
+  disabled
 }) => {
   let classes = {
-    base: 'flex flex-row items-start p-1 px-2 w-full rounded focus:bg-gray-80 mt-1',
+    base: 'flex flex-row items-start p-1 px-2 w-full rounded',
     hover: dotOnly ? '' : 'bg-gray-80',
     title: 'ml-2 flex-grow text-left'
   }
 
-  // if (disabled) return (
-  //   <div
-  //     className={classes.base}
-  //   >
-  //     <Dot completed={completed} hover={false} />
-  //     { dotOnly || <><span className='w-2' /> {title}</> }
-  //   </div>
-  // )
+  if (!dotOnly) {
+    classes.base += ' focus:bg-gray-80 mt-1'
+  }
+
+  if (disabled)
+    return (
+      <div className={hover ? classes.base + ' ' + classes.hover : classes.base}>
+        <Dot completed={completed} hover={false} />
+        {dotOnly || <span className={classes.title}>{title}</span>}
+      </div>
+    )
   return (
     <button
       onClick={() => toggleTask(id)}
       className={hover ? classes.base + ' ' + classes.hover : classes.base}
     >
       <Dot completed={completed} hover={hover} />
-      <span className={classes.title}>{title}</span>
+      {dotOnly || <span className={classes.title}>{title}</span>}
     </button>
   )
 }
