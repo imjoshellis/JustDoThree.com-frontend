@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import MiniCard from './MiniCard'
 import { HeaderPropTypes } from './HeaderTypes'
-import { TaskPropTypes } from '../task/TaskTypes'
+import { TaskPropTypes } from '../task/TaskContainer'
 
 export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
   let classes = {

@@ -208,7 +208,11 @@ module.exports = {
       yellow: yellow,
       orange: orange
     },
-    extend: {}
+    extend: {
+      spacing: {
+        '15': '.375rem'
+      }
+    }
   },
   variants: {},
   plugins: []

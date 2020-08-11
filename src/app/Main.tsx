@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { TaskBlock } from '../task'
-import { TaskPropTypes } from '../task/TaskTypes'
+import { TaskPropTypes } from '../task/TaskContainer'
 
 interface Props {
   tasks?: TaskPropTypes[]
