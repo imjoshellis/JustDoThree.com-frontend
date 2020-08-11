@@ -11,3 +11,26 @@ code {
   font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas,
     'Courier New', monospace;
 }
+
+.check-input::after {
+  font-size: 0.375rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.check-input:checked::after,
+.check-input:hover::after {
+  content: '✓';
+}
+
+.check-input:checked:hover::after {
+  content: '✗';
+}

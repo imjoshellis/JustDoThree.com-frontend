@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react'
-import Dot from './Dot'
 import { TaskPropTypes } from './TaskTypes'
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
@@ -11,10 +10,13 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   dotOnly,
   disabled
 }) => {
-  const checkBase =
-    'rounded border-solid border block items-center justify-center flex text-gray-10 w-4 h-4 mt-1'
+  let checkBase =
+    'check-input rounded border-solid border mt-1 appearance-none p-15 w-1 h-1 relative'
+  if (disabled) {
+    checkBase += ' pointer-events-none'
+  }
   let classes = {
-    base: 'flex flex-row items-start p-1 px-2 w-full rounded',
+    base: 'p-1 px-2 w-full rounded flex',
     hover: dotOnly ? '' : 'bg-gray-80',
     checkbox: {
       done: {
@@ -26,7 +28,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
         hover: checkBase + ' border-gray-40 bg-gray-70 text-gray-10 opacity-50'
       }
     },
-    label: 'ml-2 flex-grow text-left'
+    label: 'ml-2 text-left'
   }
 
   const checkboxClass = completed ? classes.checkbox.done : classes.checkbox.todo
@@ -34,15 +36,6 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   if (!dotOnly) {
     classes.base += ' focus:bg-gray-80 mt-1'
   }
-  /*
-  if (disabled)
-    return (
-      <div className={hover ? classes.base + ' ' + classes.hover : classes.base}>
-        <Dot completed={completed} hover={false} />
-        {dotOnly || <span className={classes.title}>{title}</span>}
-      </div>
-    )
-*/
   const handleChange = () => null
 
   return (
@@ -50,7 +43,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
       <input
         type='checkbox'
         name={'task-' + id}
-        className={hover ? checkboxClass.hover : checkboxClass.idle}
+        className={hover && !dotOnly ? checkboxClass.hover : checkboxClass.idle}
         checked={completed}
         onChange={() => toggleTask(id)}
       />
