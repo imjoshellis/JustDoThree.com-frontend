@@ -1,5 +1,17 @@
 import React, { FunctionComponent } from 'react'
-import { TaskPropTypes } from './TaskTypes'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+
+interface TaskPropTypes {
+  id: number
+  title: string
+  completed: boolean
+  dotOnly?: boolean
+  hover: boolean
+  disabled?: boolean
+  toggleTask: ActionCreatorWithPayload<any>
+  toggleEdit: () => void
+  editing: boolean
+}
 
 export const TaskView: FunctionComponent<TaskPropTypes> = ({
   id,
@@ -8,6 +20,8 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   hover,
   toggleTask,
   dotOnly,
+  toggleEdit,
+  editing,
   disabled
 }) => {
   let checkBase =
@@ -16,7 +30,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
     checkBase += ' pointer-events-none'
   }
   let classes = {
-    base: 'p-1 px-2 w-full rounded flex',
+    base: 'p-1 px-2 w-full rounded flex select-none',
     hover: dotOnly ? '' : 'bg-gray-80',
     checkbox: {
       done: {
@@ -36,7 +50,6 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   if (!dotOnly) {
     classes.base += ' focus:bg-gray-80 mt-1'
   }
-  const handleChange = () => null
 
   return (
     <form className={hover ? classes.base + ' ' + classes.hover : classes.base}>
@@ -47,7 +60,11 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
         checked={completed}
         onChange={() => toggleTask(id)}
       />
-      {dotOnly || <label className={classes.label}>{title}</label>}
+      {dotOnly || (
+        <label onDoubleClick={() => toggleEdit()} className={classes.label}>
+          {title}
+        </label>
+      )}
     </form>
   )
 }

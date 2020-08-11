@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import TaskContainer from './TaskContainer'
-import { TaskPropTypes } from './TaskTypes'
+import { TaskPropTypes } from './TaskContainer'
 
 interface Props {
   tasks: TaskPropTypes[] | undefined
