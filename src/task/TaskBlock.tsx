@@ -3,7 +3,7 @@ import TaskContainer from './TaskContainer'
 import { TaskPropTypes } from './TaskContainer'
 
 interface Props {
-  tasks: TaskPropTypes[] | undefined
+  tasks: TaskPropTypes[]
 }
 
 export const TaskBlock: FunctionComponent<Props> = ({ tasks }) => {
