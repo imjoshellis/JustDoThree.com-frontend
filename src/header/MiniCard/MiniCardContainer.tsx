@@ -4,7 +4,7 @@ import MiniCardView from './MiniCardView'
 
 export class MiniCardContainer extends Component<MiniCardPropTypes> {
   render () {
-    return <MiniCardView kind={this.props.kind} />
+    return <MiniCardView {...this.props} />
   }
 }
 

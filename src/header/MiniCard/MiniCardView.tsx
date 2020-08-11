@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import Task from '../Task'
+import TaskContainer from '../../task/TaskContainer'
 import { MiniCardPropTypes } from './MiniCardTypes'
 
 const classes = {
@@ -7,12 +7,13 @@ const classes = {
     'px-4 py-2 bg-gray-90 rounded grid grid-cols-4 items-center gap-1 text-sm font-bold'
 }
 
-export const MiniCardView: FunctionComponent<MiniCardPropTypes> = ({ kind }) => (
+export const MiniCardView: FunctionComponent<MiniCardPropTypes> = ({ kind, tasks }) => (
   <div className={classes.base}>
     <div>{kind}</div>
-    <Task name='n' dotOnly={true} disabled={true} />
-    <Task name='n' dotOnly={true} disabled={true} />
-    <Task name='n' dotOnly={true} disabled={true} />
+    {tasks &&
+      tasks.map((t) => (
+        <TaskContainer key={t.id} {...t} dotOnly={true} disabled={true} />
+      ))}
   </div>
 )
 

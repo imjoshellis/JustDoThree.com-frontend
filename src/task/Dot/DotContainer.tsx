@@ -12,7 +12,7 @@ export class DotContainer extends Component<DotPropTypes, DotStateTypes> {
   render () {
     return (
       <div>
-        <Dot hover={this.props.hover} status={this.props.status} />
+        <Dot hover={this.props.hover} completed={this.props.completed} />
       </div>
     )
   }
