@@ -27,7 +27,6 @@ export const MainView: FunctionComponent<Props> = ({ tasks }) => {
 }
 
 const mapStateToProps = (state: { tasks: TaskPropTypes[] }) => {
-  console.log(state)
   return {
     tasks: state.tasks
   }

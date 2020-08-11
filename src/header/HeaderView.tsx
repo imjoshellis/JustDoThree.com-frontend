@@ -31,7 +31,6 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
 }
 
 const mapStateToProps = (state: { tasks: TaskPropTypes[] }) => {
-  console.log(state)
   return {
     tasks: state.tasks
   }
