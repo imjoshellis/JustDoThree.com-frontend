@@ -13,6 +13,7 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
   return (
     <header className={classes.base}>
       <div>Just Do Three</div>
+      {/*
       <div className='grid flex-grow max-w-3xl grid-cols-6 gap-4'>
         <MiniCard kind='L' tasks={tasks} />
         <MiniCard kind='Y' tasks={tasks} />
@@ -25,7 +26,7 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
         <div className='w-8 h-1 mb-1 bg-gray-700' />
         <div className='w-8 h-1 mb-1 bg-gray-700' />
         <div className='w-8 h-1 bg-gray-700' />
-      </div>
+      </div>*/}
     </header>
   )
 }

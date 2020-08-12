@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import BlockGridView from '../block/BlockGrid'
+import BlockGrid from '../block/BlockGrid'
 import { TaskPropTypes } from '../task/TaskContainer'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
@@ -15,16 +15,16 @@ export const Main: FunctionComponent<Props> = () => {
 
   return (
     <section className={classes.base}>
-      <ConnectedBlockGrid />
+      <ConnectedBlockGrid level={0} />
     </section>
   )
 }
 
-const mapStateToProps = (state: RootState) => ({
-  topBlocks: state.blocks,
-  bottomBlocks: state.blocks
+const mapStateToProps = (state: RootState, ownProps: { level: number }) => ({
+  blocks: state.blocks,
+  ...ownProps
 })
 
-const ConnectedBlockGrid = connect(mapStateToProps)(BlockGridView)
+const ConnectedBlockGrid = connect(mapStateToProps)(BlockGrid)
 
 export default Main

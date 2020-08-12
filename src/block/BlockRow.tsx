@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import TaskBlock from './Block'
+import ConnectedBlock from './Block'
 import { BlockTypes } from './blocksSlice'
 
 interface Props {
@@ -14,7 +14,7 @@ export const TaskBlockRow: FunctionComponent<Props> = ({ blocks }) => {
   return (
     <div className={classes.row}>
       {blocks.map((b: BlockTypes) => (
-        <TaskBlock block={b.id} />
+        <ConnectedBlock block={b} />
       ))}
     </div>
   )

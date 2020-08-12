@@ -10,6 +10,11 @@ export const data = {
         id: 2,
         title: 'Y2020',
         level: 1
+      },
+      {
+        id: 3,
+        title: 'Y2021',
+        level: 1
       }
     ],
     tasks: [
