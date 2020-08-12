@@ -12,10 +12,12 @@ export const Main: FunctionComponent<Props> = () => {
   let classes = {
     base: 'm-8 p-8'
   }
+  const currentLevel = 0
 
   return (
     <section className={classes.base}>
-      <ConnectedBlockGrid level={0} />
+      <ConnectedBlockGrid level={currentLevel} />
+      current level: {currentLevel}
     </section>
   )
 }
