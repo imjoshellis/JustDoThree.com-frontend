@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {taskList} from './initialState'
+import { taskList } from './initialState'
 
 export interface TaskPropTypes {
   id: number
