@@ -6,7 +6,7 @@ interface Props {
   blocks: BlockTypes[]
 }
 
-export const TaskBlockRow: FunctionComponent<Props> = ({ blocks }) => {
+export const BlockRow: FunctionComponent<Props> = ({ blocks }) => {
   const classes = {
     row: 'grid grid-cols-4 gap-4'
   }
@@ -20,4 +20,4 @@ export const TaskBlockRow: FunctionComponent<Props> = ({ blocks }) => {
   )
 }
 
-export default TaskBlockRow
+export default BlockRow
