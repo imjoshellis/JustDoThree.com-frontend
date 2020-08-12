@@ -14,7 +14,7 @@ export const BlockRow: FunctionComponent<Props> = ({ blocks }) => {
   return (
     <div className={classes.row}>
       {blocks.map((b: BlockTypes) => (
-        <ConnectedBlock block={b} />
+        <ConnectedBlock block={b} key={b.id} />
       ))}
     </div>
   )
