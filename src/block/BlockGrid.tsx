@@ -8,9 +8,9 @@ interface Props {
 }
 
 export const BlockGrid: FunctionComponent<Props> = ({ blocks, level }) => {
-  const topBlocks = [] as BlockTypes[]
+  let topBlocks = [] as BlockTypes[]
   topBlocks.push(blocks.filter(b => b.level === level)[0])
-  topBlocks.concat(blocks.filter(b => b.level === level + 1))
+  topBlocks = topBlocks.concat(blocks.filter(b => b.level === level + 1))
   const bottomBlocks = blocks.filter(b => b.level === level + 2)
   return (
     <div className='grid grid-rows-2 gap-4'>
