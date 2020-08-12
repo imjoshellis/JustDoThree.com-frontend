@@ -55,6 +55,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
     <form className={hover ? classes.base + ' ' + classes.hover : classes.base}>
       <input
         type='checkbox'
+        disabled={disabled}
         name={'task-' + id}
         className={hover && !dotOnly ? checkboxClass.hover : checkboxClass.idle}
         checked={completed}

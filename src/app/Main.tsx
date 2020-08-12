@@ -1,35 +1,32 @@
 import React, { FunctionComponent } from 'react'
-import { connect } from 'react-redux'
-import { TaskBlock } from '../task'
+import BlockGrid from '../block/BlockGrid'
 import { TaskPropTypes } from '../task/TaskContainer'
+import { connect } from 'react-redux'
+import { RootState } from '../reducers'
 
 interface Props {
   tasks?: TaskPropTypes[]
 }
 
-export const MainView: FunctionComponent<Props> = ({ tasks }) => {
+export const Main: FunctionComponent<Props> = () => {
   let classes = {
-    base: 'grid grid-flow-row grid-rows-2 grid-cols-4 gap-4 m-8 p-8'
+    base: 'm-8 p-8'
   }
+  const currentLevel = 0
 
   return (
     <section className={classes.base}>
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
-      <TaskBlock tasks={tasks} />
+      <ConnectedBlockGrid level={currentLevel} />
+      current level: {currentLevel}
     </section>
   )
 }
 
-const mapStateToProps = (state: { tasks: TaskPropTypes[] }) => {
-  return {
-    tasks: state.tasks
-  }
-}
+const mapStateToProps = (state: RootState, ownProps: { level: number }) => ({
+  blocks: state.blocks,
+  ...ownProps
+})
 
-export default connect(mapStateToProps)(MainView)
+const ConnectedBlockGrid = connect(mapStateToProps)(BlockGrid)
+
+export default Main

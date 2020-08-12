@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {taskList} from './initialState'
+import { data } from '../data'
 
-export interface TaskPropTypes {
+export interface TaskTypes {
   id: number
   title: string
   completed: boolean
+  block: number
 }
 
 const tasksSlice = createSlice({
   name: 'tasks',
-  initialState: taskList as TaskPropTypes[],
+  initialState: data.entities.tasks as TaskTypes[],
   reducers: {
     addTask (state, action) {
-      const { id, title } = action.payload
-      state.push({ id, title, completed: false })
+      const { id, title, block } = action.payload
+      state.push({ id, title, block, completed: false })
     },
     toggleTask (state, action) {
-      const t = state.find((t) => t.id === action.payload)
+      const t = state.find(t => t.id === action.payload)
       if (t) {
         t.completed = !t.completed
       }
