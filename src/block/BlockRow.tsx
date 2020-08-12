@@ -4,9 +4,13 @@ import { BlockTypes } from './blocksSlice'
 
 interface Props {
   blocks: BlockTypes[]
+  changeTopBlock: (block: BlockTypes) => void
 }
 
-export const BlockRow: FunctionComponent<Props> = ({ blocks }) => {
+export const BlockRow: FunctionComponent<Props> = ({
+  blocks,
+  changeTopBlock
+}) => {
   const classes = {
     row: 'grid grid-cols-4 gap-4'
   }
@@ -14,7 +18,15 @@ export const BlockRow: FunctionComponent<Props> = ({ blocks }) => {
   return (
     <div className={classes.row}>
       {blocks.map((b: BlockTypes) => (
-        <ConnectedBlock block={b} key={b.id} />
+        <>
+          {b && (
+            <ConnectedBlock
+              block={b}
+              key={b.id}
+              changeTopBlock={changeTopBlock}
+            />
+          )}
+        </>
       ))}
     </div>
   )
