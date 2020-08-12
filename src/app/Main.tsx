@@ -1,32 +1,16 @@
 import React, { FunctionComponent } from 'react'
-import BlockGrid from '../block/BlockGrid'
-import { TaskPropTypes } from '../task/TaskContainer'
-import { connect } from 'react-redux'
-import { RootState } from '../reducers'
+import ConnectedBlockGridContainer from '../block/BlockGridContainer'
 
-interface Props {
-  tasks?: TaskPropTypes[]
-}
-
-export const Main: FunctionComponent<Props> = () => {
+export const Main: FunctionComponent = () => {
   let classes = {
     base: 'm-8 p-8'
   }
-  const currentLevel = 0
 
   return (
     <section className={classes.base}>
-      <ConnectedBlockGrid level={currentLevel} />
-      current level: {currentLevel}
+      <ConnectedBlockGridContainer />
     </section>
   )
 }
-
-const mapStateToProps = (state: RootState, ownProps: { level: number }) => ({
-  blocks: state.blocks,
-  ...ownProps
-})
-
-const ConnectedBlockGrid = connect(mapStateToProps)(BlockGrid)
 
 export default Main
