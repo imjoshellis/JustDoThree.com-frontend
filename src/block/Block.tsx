@@ -1,20 +1,21 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
-import { TaskTypes } from '../task/tasksSlice'
+import { TaskTypes, addTask } from '../task/tasksSlice'
 import TaskContainer from '../task/TaskContainer'
 import { BlockTypes } from './blocksSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 interface Props {
   tasks: TaskTypes[]
-  title: string
+  block: BlockTypes
   changeTopBlock: () => void
-  addTask?: () => void
+  addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
 }
 
 export const Block: FunctionComponent<Props> = ({
   tasks,
-  title,
+  block,
   changeTopBlock,
   addTask
 }) => {
@@ -35,11 +36,14 @@ export const Block: FunctionComponent<Props> = ({
           className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
           onClick={() => changeTopBlock()}
         >
-          {title}
+          {block.title}
         </h2>
         {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
-        {addTask && (
-          <button onClick={() => addTask()} className={classes.addTask.base}>
+        {tasks.length < 3 && (
+          <button
+            onClick={() => addTask({ title: 'new task', block })}
+            className={classes.addTask.base}
+          >
             Add Task
           </button>
         )}
@@ -56,10 +60,12 @@ const mapStateToProps = (
   }: { block: BlockTypes; changeTopBlock: (block: BlockTypes) => void }
 ) => ({
   tasks: state.tasks.filter(t => t.block === block.id),
-  title: block.title,
+  block: block,
   changeTopBlock: () => changeTopBlock(block)
 })
 
-const ConnectedBlock = connect(mapStateToProps)(Block)
+const mapDispatchToProps = { addTask }
+
+const ConnectedBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
 
 export default ConnectedBlock
