@@ -9,16 +9,21 @@ interface Props {
   tasks: TaskTypes[]
   title: string
   changeTopBlock: () => void
+  addTask?: () => void
 }
 
 export const Block: FunctionComponent<Props> = ({
   tasks,
   title,
-  changeTopBlock
+  changeTopBlock,
+  addTask
 }) => {
   let classes = {
     base: 'bg-gray-90 rounded-lg rounded-b overflow-hidden',
-    hover: ''
+    hover: '',
+    addTask: {
+      base: 'px-3 py-1 bg-gray-80 rounded'
+    }
   }
 
   return (
@@ -33,6 +38,11 @@ export const Block: FunctionComponent<Props> = ({
           {title}
         </h2>
         {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
+        {addTask && (
+          <button onClick={() => addTask()} className={classes.addTask.base}>
+            Add Task
+          </button>
+        )}
       </div>
     </div>
   )
