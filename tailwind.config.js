@@ -170,6 +170,7 @@ var gray70 = '#525252'
 var gray80 = '#393939'
 var gray85 = '#333333'
 var gray90 = '#262626'
+var gray95 = '#212121'
 var gray100 = '#161616'
 var gray = {
   10: gray10,
@@ -182,6 +183,7 @@ var gray = {
   80: gray80,
   85: gray85,
   90: gray90,
+  95: gray95,
   100: gray100
 }
 

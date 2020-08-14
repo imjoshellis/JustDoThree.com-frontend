@@ -1,10 +1,5 @@
 import React, { FunctionComponent } from 'react'
 
-export const Footer: FunctionComponent = () => {
-  let classes = {
-    base: ''
-  }
-  return <div className={classes.base} />
-}
+export const Footer: FunctionComponent = () => <div />
 
 export default Footer
