@@ -5,7 +5,7 @@ interface Props {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   text: string
 }
-export const NewTaskView: FunctionComponent<Props> = ({
+export const NewTaskFormView: FunctionComponent<Props> = ({
   handleChange,
   handleSubmit,
   text
@@ -33,4 +33,4 @@ export const NewTaskView: FunctionComponent<Props> = ({
   )
 }
 
-export default NewTaskView
+export default NewTaskFormView

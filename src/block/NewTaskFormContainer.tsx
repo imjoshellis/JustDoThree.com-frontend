@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BlockTypes } from './blocksSlice'
-import { NewTaskView } from './NewTaskView'
+import NewTaskFormView from './NewTaskFormView'
 
 interface Props {
   addTask: ({ title, block }: { title: string; block: BlockTypes }) => void
@@ -37,7 +37,7 @@ export class NewTaskFormContainer extends Component<Props, State> {
 
   render () {
     return (
-      <NewTaskView
+      <NewTaskFormView
         text={this.state.text}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
