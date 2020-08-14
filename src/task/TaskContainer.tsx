@@ -38,7 +38,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   hoverOn = () => this.setState({ hover: true })
   hoverOff = () => this.setState({ hover: false })
   toggleEdit = () =>
-    this.setState((s) => ({
+    this.setState(s => ({
       editing: !s.editing
     }))
 

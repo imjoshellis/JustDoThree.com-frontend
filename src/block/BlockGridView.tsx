@@ -13,7 +13,7 @@ export const BlockGridView: FunctionComponent<Props> = ({
   bottomBlocks,
   changeTopBlock
 }) => (
-  <div className='grid grid-rows-2 gap-4'>
+  <div className='flex flex-col'>
     <BlockRow blocks={topBlocks} changeTopBlock={changeTopBlock} />
     <BlockRow blocks={bottomBlocks} changeTopBlock={changeTopBlock} />
   </div>

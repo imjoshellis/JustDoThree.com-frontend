@@ -47,12 +47,6 @@ export const data = {
         completed: true,
         id: 5,
         title: 'I did another thing this year'
-      },
-      {
-        block: 2,
-        completed: false,
-        id: 6,
-        title: 'I did a third thing'
       }
     ]
   }

@@ -12,7 +12,7 @@ export const BlockRow: FunctionComponent<Props> = ({
   changeTopBlock
 }) => {
   const classes = {
-    row: 'grid grid-cols-4 gap-4'
+    row: 'flex flex-col md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-4 mt-4'
   }
 
   return (
