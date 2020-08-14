@@ -21,28 +21,24 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   toggleTask,
   dotOnly,
   toggleEdit,
-  editing,
   disabled
 }) => {
   let checkBase =
-    'check-input rounded border-solid border mt-1 appearance-none p-15 w-1 h-1 relative'
+    'check-input rounded border-solid border-2 mt-1 appearance-none p-15 w-1 h-1 relative cursor-pointer hover:border-gray-60'
   if (disabled) {
     checkBase += ' pointer-events-none'
   }
   let classes = {
-    base: 'p-1 px-2 w-full rounded flex select-none',
-    hover: dotOnly ? '' : 'bg-gray-80',
+    base:
+      'p-1 px-2 w-full rounded flex select-none transition-all duration-200 ease-out',
     checkbox: {
-      done: {
-        idle: checkBase + ' border-gray-60 bg-gray-60 text-gray-90',
-        hover: checkBase + ' border-gray-40 bg-gray-70 text-gray-10 opacity-50'
-      },
-      todo: {
-        idle: checkBase + ' border-gray-60 bg-gray-100 text-gray-10',
-        hover: checkBase + ' border-gray-40 bg-gray-70 text-gray-10 opacity-50'
-      }
+      done: checkBase + ' border-gray-70 bg-gray-70 text-gray-90',
+      todo: checkBase + ' border-gray-80 bg-gray-100 text-gray-10'
     },
-    label: 'ml-2 text-left'
+    label: {
+      base: 'ml-2 text-left transition-all duration-200',
+      done: 'text-gray-60'
+    }
   }
 
   const checkboxClass = completed
@@ -53,25 +49,25 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
     classes.base += ' focus:bg-gray-80 mt-1'
   }
 
-  if (hover) {
-    classes.base = classes.base
-      .split(' ')
-      .filter(c => c !== 'truncate')
-      .join(' ')
-  }
-
   return (
-    <form className={hover ? classes.base + ' ' + classes.hover : classes.base}>
+    <form className={classes.base}>
       <input
         type='checkbox'
         disabled={disabled}
         name={'task-' + id}
-        className={hover && !dotOnly ? checkboxClass.hover : checkboxClass.idle}
+        className={checkboxClass}
         checked={completed}
         onChange={() => toggleTask(id)}
       />
       {dotOnly || (
-        <label onDoubleClick={() => toggleEdit()} className={classes.label}>
+        <label
+          onDoubleClick={() => toggleEdit()}
+          className={
+            completed
+              ? classes.label.base + ' ' + classes.label.done
+              : classes.label.base
+          }
+        >
           {title}
         </label>
       )}

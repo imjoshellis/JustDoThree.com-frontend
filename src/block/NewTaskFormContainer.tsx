@@ -9,6 +9,7 @@ interface Props {
 
 interface State {
   text: string
+  valid: boolean
 }
 
 export class NewTaskFormContainer extends Component<Props, State> {
@@ -16,7 +17,8 @@ export class NewTaskFormContainer extends Component<Props, State> {
     super(props)
 
     this.state = {
-      text: ''
+      text: '',
+      valid: false
     }
   }
 
@@ -33,12 +35,16 @@ export class NewTaskFormContainer extends Component<Props, State> {
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ text: e.target.value })
+    this.setState({ valid: this.validate(e.target.value) })
   }
+
+  validate = (t: string) => !!t.trim()
 
   render () {
     return (
       <NewTaskFormView
         text={this.state.text}
+        valid={this.state.valid}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
       />
