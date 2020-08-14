@@ -30,14 +30,14 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   }
   let classes = {
     base:
-      'p-1 px-2 w-full rounded flex select-none transition-all duration-200 ease-out',
+      'p-1 px-2 w-full rounded flex select-none cursor-pointer transition-all duration-200 ease-out hover:bg-gray-85',
     checkbox: {
       done: checkBase + ' border-gray-70 bg-gray-70 text-gray-90',
       todo: checkBase + ' border-gray-80 bg-gray-100 text-gray-10'
     },
     label: {
-      base: 'ml-2 text-left transition-all duration-200',
-      done: 'text-gray-60'
+      base: 'ml-2 text-left transition-all duration-200 cursor-pointer',
+      done: 'opacity-50'
     }
   }
 
@@ -50,7 +50,7 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
   }
 
   return (
-    <form className={classes.base}>
+    <form className={classes.base} onClick={() => toggleTask(id)}>
       <input
         type='checkbox'
         disabled={disabled}
@@ -61,7 +61,6 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
       />
       {dotOnly || (
         <label
-          onDoubleClick={() => toggleEdit()}
           className={
             completed
               ? classes.label.base + ' ' + classes.label.done
