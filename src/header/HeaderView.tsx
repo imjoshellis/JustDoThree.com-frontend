@@ -4,16 +4,10 @@ import MiniCard from './MiniCard'
 import { HeaderPropTypes } from './HeaderTypes'
 import { TaskPropTypes } from '../task/TaskContainer'
 
-export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
-  let classes = {
-    base:
-      'z-50 flex flex-row items-center justify-between bg-gray-900 p-4 px-16 fixed top-0 left-0 right-0 ',
-    hover: ''
-  }
-  return (
-    <header className={classes.base}>
-      <div>Just Do Three</div>
-      {/*
+export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => (
+  <header className='fixed top-0 left-0 right-0 z-50 flex flex-row items-center justify-between p-4 px-16 bg-gray-900'>
+    <div>Just Do Three</div>
+    {/*
       <div className='grid flex-grow max-w-3xl grid-cols-6 gap-4'>
         <MiniCard kind='L' tasks={tasks} />
         <MiniCard kind='Y' tasks={tasks} />
@@ -27,9 +21,8 @@ export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => {
         <div className='w-8 h-1 mb-1 bg-gray-700' />
         <div className='w-8 h-1 bg-gray-700' />
       </div>*/}
-    </header>
-  )
-}
+  </header>
+)
 
 const mapStateToProps = (state: { tasks: TaskPropTypes[] }) => {
   return {

@@ -10,26 +10,20 @@ interface Props {
 export const BlockRow: FunctionComponent<Props> = ({
   blocks,
   changeTopBlock
-}) => {
-  const classes = {
-    row: 'flex flex-col md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-4 mt-4'
-  }
-
-  return (
-    <div className={classes.row}>
-      {blocks.map((b: BlockTypes) => (
-        <>
-          {b && (
-            <ConnectedBlock
-              block={b}
-              key={b.id}
-              changeTopBlock={changeTopBlock}
-            />
-          )}
-        </>
-      ))}
-    </div>
-  )
-}
+}) => (
+  <div className='flex flex-col mt-4 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-4'>
+    {blocks.map((b: BlockTypes) => (
+      <>
+        {b && (
+          <ConnectedBlock
+            block={b}
+            key={b.id}
+            changeTopBlock={changeTopBlock}
+          />
+        )}
+      </>
+    ))}
+  </div>
+)
 
 export default BlockRow
