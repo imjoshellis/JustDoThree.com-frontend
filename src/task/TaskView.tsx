@@ -45,10 +45,19 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
     label: 'ml-2 text-left'
   }
 
-  const checkboxClass = completed ? classes.checkbox.done : classes.checkbox.todo
+  const checkboxClass = completed
+    ? classes.checkbox.done
+    : classes.checkbox.todo
 
   if (!dotOnly) {
     classes.base += ' focus:bg-gray-80 mt-1'
+  }
+
+  if (hover) {
+    classes.base = classes.base
+      .split(' ')
+      .filter(c => c !== 'truncate')
+      .join(' ')
   }
 
   return (
