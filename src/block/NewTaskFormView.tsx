@@ -19,7 +19,7 @@ export const NewTaskFormView: FunctionComponent<Props> = ({
     btn: {
       base:
         'p-1 px-2 ml-2 rounded bg-gray-80 shadow-lg border-2 border-gray-80 focus:border-gray-70 text-xs font-bold uppercase tracking-wide block whitespace-no-wrap',
-      disabled: 'bg-gray-85 text-gray-50'
+      disabled: 'bg-gray-85 border-gray-85 cursor-not-allowed text-gray-50'
     }
   }
   return (
