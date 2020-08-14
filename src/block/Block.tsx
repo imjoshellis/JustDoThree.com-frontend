@@ -24,7 +24,8 @@ export const Block: FunctionComponent<Props> = ({
     base:
       'bg-gray-90 rounded-lg rounded-b overflow-hidden flex flex-col mt-4 md:mt-0 max-w-xs',
     hover: '',
-    taskWrap: 'flex flex-col justify-between flex-grow'
+    fullTaskWrap: 'flex-grow flex flex-col justify-between',
+    formTaskWrap: 'flex-grow grid grid-rows-3'
   }
 
   return (
@@ -38,12 +39,16 @@ export const Block: FunctionComponent<Props> = ({
         >
           {block.title}
         </h2>
-        <div className={classes.taskWrap}>
-          {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
-          {tasks.length < 3 && (
+        {tasks.length === 3 ? (
+          <div className={classes.fullTaskWrap}>
+            {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
+          </div>
+        ) : (
+          <div className={classes.formTaskWrap}>
+            {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
             <NewTaskFormContainer block={block} addTask={addTask} />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   )
