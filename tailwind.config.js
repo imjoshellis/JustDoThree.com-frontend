@@ -186,13 +186,16 @@ var gray = {
 }
 
 module.exports = {
-  purge: [
-    'src/**/*.js',
-    'public/**/*.html',
-    'src/**/*.jsx',
-    'src/**/*.ts',
-    'src/**/*.tsx'
-  ],
+  purge: {
+    enabled: process.env.REACT_APP_PRODUCTION,
+    content: [
+      'src/**/*.js',
+      'public/**/*.html',
+      'src/**/*.jsx',
+      'src/**/*.ts',
+      'src/**/*.tsx'
+    ]
+  },
   theme: {
     colors: {
       /* via IBM Carbon System */
