@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import DueDate from './DueDate'
+import DueDateContainer from './DueDateContainer'
 
 interface Props {
   id: number
@@ -46,7 +46,7 @@ export const TaskView: FunctionComponent<Props> = ({
           </>
         )}
       </form>
-      <DueDate />
+      <DueDateContainer />
     </div>
   )
 }
