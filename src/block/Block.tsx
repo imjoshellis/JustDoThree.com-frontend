@@ -5,6 +5,7 @@ import { TaskTypes, addTask } from '../task/tasksSlice'
 import TaskContainer from '../task/TaskContainer'
 import { BlockTypes } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import NewTaskFormContainer from './NewTaskFormContainer'
 
 interface Props {
   tasks: TaskTypes[]
@@ -20,33 +21,28 @@ export const Block: FunctionComponent<Props> = ({
   addTask
 }) => {
   let classes = {
-    base: 'bg-gray-90 rounded-lg rounded-b overflow-hidden',
+    base: 'bg-gray-90 rounded-lg rounded-b overflow-hidden flex flex-col',
     hover: '',
-    addTask: {
-      base: 'px-3 py-1 bg-gray-80 rounded'
-    }
+    taskWrap: 'flex flex-col justify-between flex-grow'
   }
 
   return (
     <div className={classes.base}>
       <div className='h-32 overflow-hidden' />
 
-      <div className='p-2'>
+      <div className='flex flex-col flex-grow p-2'>
         <h2
           className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
           onClick={() => changeTopBlock()}
         >
           {block.title}
         </h2>
-        {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
-        {tasks.length < 3 && (
-          <button
-            onClick={() => addTask({ title: 'new task', block })}
-            className={classes.addTask.base}
-          >
-            Add Task
-          </button>
-        )}
+        <div className={classes.taskWrap}>
+          {tasks && tasks.map(t => <TaskContainer key={t.id} {...t} />)}
+          {tasks.length < 3 && (
+            <NewTaskFormContainer block={block} addTask={addTask} />
+          )}
+        </div>
       </div>
     </div>
   )
