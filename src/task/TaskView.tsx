@@ -57,7 +57,6 @@ export const TaskView: FunctionComponent<TaskPropTypes> = ({
         name={'task-' + id}
         className={checkboxClass}
         checked={completed}
-        onChange={() => toggleTask(id)}
       />
       {dotOnly || (
         <label
