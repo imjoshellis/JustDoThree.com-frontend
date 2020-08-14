@@ -21,7 +21,8 @@ export const Block: FunctionComponent<Props> = ({
   addTask
 }) => {
   let classes = {
-    base: 'bg-gray-90 rounded-lg rounded-b overflow-hidden flex flex-col',
+    base:
+      'bg-gray-90 rounded-lg rounded-b overflow-hidden flex flex-col mt-4 md:mt-0 max-w-xs',
     hover: '',
     taskWrap: 'flex flex-col justify-between flex-grow'
   }
