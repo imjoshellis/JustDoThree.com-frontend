@@ -24,7 +24,7 @@ export const Block: FunctionComponent<Props> = ({
     base:
       'bg-gray-90 rounded-lg rounded-b overflow-hidden flex flex-col mt-4 md:mt-0 max-w-xs',
     hover: '',
-    fullTaskWrap: 'flex-grow flex flex-col justify-between',
+    fullTaskWrap: 'flex-grow flex flex-col',
     formTaskWrap: 'flex-grow grid grid-rows-3'
   }
 
