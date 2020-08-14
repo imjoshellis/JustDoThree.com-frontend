@@ -9,7 +9,6 @@ export interface TaskPropTypes {
   title: string
   completed: boolean
   dotOnly?: boolean
-  hover?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
   toggleEdit?: () => void
@@ -17,7 +16,6 @@ export interface TaskPropTypes {
 }
 
 interface TaskStateTypes {
-  hover: boolean
   editing: boolean
 }
 
@@ -26,7 +24,6 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     super(props)
 
     this.state = {
-      hover: false,
       editing: false
     }
   }
@@ -35,8 +32,8 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     dotOnly: false
   }
 
-  hoverOn = () => this.setState({ hover: true })
-  hoverOff = () => this.setState({ hover: false })
+  // hoverOn = () => this.setState({ hover: true })
+  // hoverOff = () => this.setState({ hover: false })
   toggleEdit = () =>
     this.setState(s => ({
       editing: !s.editing
@@ -44,13 +41,8 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
 
   render () {
     return (
-      <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-        <TaskView
-          {...this.props}
-          hover={this.state.hover}
-          editing={this.state.editing}
-          toggleEdit={this.toggleEdit}
-        />
+      <div>
+        <TaskView {...this.props} editing={this.state.editing} />
       </div>
     )
   }
