@@ -4,6 +4,7 @@ import { data } from '../data'
 export interface TaskTypes {
   id: number
   title: string
+  dueDate?: moment.Moment
   completed: boolean
   block: number
 }
@@ -22,7 +23,7 @@ const tasksSlice = createSlice({
       })
     },
     toggleTask (state, action) {
-      const t = state.find(t => t.id === action.payload)
+      const t = state.find((t) => t.id === action.payload)
       if (t) {
         t.completed = !t.completed
       }

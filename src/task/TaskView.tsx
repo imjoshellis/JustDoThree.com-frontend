@@ -6,6 +6,7 @@ interface Props {
   id: number
   title: string
   completed: boolean
+  dueDate?: moment.Moment
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
@@ -15,6 +16,7 @@ interface Props {
 export const TaskView: FunctionComponent<Props> = ({
   id,
   title,
+  dueDate,
   completed,
   toggleTask,
   dotOnly,
@@ -46,7 +48,7 @@ export const TaskView: FunctionComponent<Props> = ({
           </>
         )}
       </form>
-      <DueDateContainer completed={completed} />
+      {dueDate && <DueDateContainer dueDate={dueDate} completed={completed} />}
     </div>
   )
 }
