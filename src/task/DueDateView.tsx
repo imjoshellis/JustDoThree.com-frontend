@@ -3,16 +3,19 @@ import React, { FunctionComponent } from 'react'
 interface DueDateViewProps {
   date: string
   overdue: boolean
+  onClick?: () => void
 }
 
 export const DueDateView: FunctionComponent<DueDateViewProps> = ({
   date,
-  overdue
+  overdue,
+  onClick
 }) => (
   <>
     <button
       className={`flex items-center h-6 px-1 ml-1 text-xs whitespace-no-wrap border border-transparent rounded text-gray-30 hover:border-solid hover:border-gray-70 transition duration-200 ease-out hover:ease-in ${overdue &&
         'text-red-50'}`}
+      onClick={onClick}
     >
       <svg
         className='h-3'
