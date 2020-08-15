@@ -23,7 +23,9 @@ moment.updateLocale('en', {
   }
 })
 
-interface DueDateContainerProps {}
+interface DueDateContainerProps {
+  completed: boolean
+}
 
 interface DueDateContainerState {
   date: moment.Moment
@@ -52,11 +54,12 @@ export class DueDateContainer extends Component<
 
   render () {
     const overdue = this.state.date.isBefore(moment())
+    const soon = this.state.date.isAfter(moment().add(1, 'y'))
     const date = overdue
       ? this.state.date.fromNow()
-      : this.state.date.isAfter(moment().add(1, 'y'))
-      ? this.state.date.format('M/Y')
-      : this.state.date.format('MMM D')
+      : soon
+      ? this.state.date.format('MMM D')
+      : this.state.date.format('M/Y')
 
     return (
       <>
@@ -77,7 +80,9 @@ export class DueDateContainer extends Component<
         <DueDateView
           date={date}
           overdue={overdue}
+          soon={soon}
           onClick={() => this.open()}
+          completed={this.props.completed}
         />
       </>
     )

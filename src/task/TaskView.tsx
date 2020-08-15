@@ -46,7 +46,7 @@ export const TaskView: FunctionComponent<Props> = ({
           </>
         )}
       </form>
-      <DueDateContainer />
+      <DueDateContainer completed={completed} />
     </div>
   )
 }
