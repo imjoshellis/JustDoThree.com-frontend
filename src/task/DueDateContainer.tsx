@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import DueDateView from './DueDateView'
 import moment from 'moment'
-import 'react-datepicker/dist/react-datepicker.css'
 
 moment.updateLocale('en', {
   relativeTime: {
