@@ -1,10 +1,10 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
-import { TaskTypes, addTask } from '../task/tasksSlice'
 import TaskContainer from '../task/TaskContainer'
+import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import NewTaskFormContainer from './NewTaskFormContainer'
 
 interface Props {
@@ -20,7 +20,7 @@ export const Block: FunctionComponent<Props> = ({
   changeTopBlock,
   addTask
 }) => (
-  <div className='flex flex-col max-w-xs mt-4 overflow-hidden rounded-lg rounded-b bg-gray-90 md:mt-0'>
+  <div className='flex flex-col max-w-xs mt-4 rounded-lg rounded-b bg-gray-90 md:mt-0'>
     <div className='h-32 overflow-hidden' />
 
     <div className='flex flex-col flex-grow p-2'>

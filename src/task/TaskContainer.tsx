@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import TaskView from './TaskView'
 import { toggleTask } from './tasksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import { motion } from 'framer-motion'
 
 export interface TaskPropTypes {
   id: number
@@ -18,6 +19,7 @@ export interface TaskPropTypes {
 
 interface TaskStateTypes {
   editing: boolean
+  isDragging: boolean
 }
 
 export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
@@ -25,7 +27,8 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     super(props)
 
     this.state = {
-      editing: false
+      editing: false,
+      isDragging: false
     }
   }
 
@@ -40,11 +43,32 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
       editing: !s.editing
     }))
 
+  setDragging = (isDragging: boolean) => {
+    this.setState({ isDragging })
+  }
+
   render () {
+    const onTop = { zIndex: 1 }
+    const flat = {
+      zIndex: 0,
+      transition: { delay: 0.3 }
+    }
+
     return (
-      <div>
+      <motion.div
+        whileHover={{
+          scale: 1.02,
+          transition: { duration: 0.25 }
+        }}
+        whileTap={{ scale: 1.04 }}
+        dragElastic={1}
+        onDragStart={() => this.setDragging(true)}
+        onDragEnd={() => this.setDragging(false)}
+        animate={this.state.isDragging ? onTop : flat}
+        drag
+      >
         <TaskView {...this.props} editing={this.state.editing} />
-      </div>
+      </motion.div>
     )
   }
 }
