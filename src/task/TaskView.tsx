@@ -28,7 +28,7 @@ export const TaskView: FunctionComponent<Props> = ({
         'pointer-events-none'} ${dotOnly ||
         'focus:bg-gray-80 mt-1'} ${completed && 'opacity-50'}`}
     >
-      <form className='flex' onClick={() => toggleTask(id)}>
+      <form className='flex'>
         <input
           type='checkbox'
           disabled={disabled}
