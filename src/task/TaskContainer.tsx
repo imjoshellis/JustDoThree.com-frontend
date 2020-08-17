@@ -60,12 +60,14 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
           scale: 1.02,
           transition: { duration: 0.25 }
         }}
-        whileTap={{ scale: 1.04 }}
+        dragConstraints={{ top: 0, bottom: 0, right: 0, left: 0 }}
+        whileTap={{ scale: 1.07 }}
         dragElastic={1}
         onDragStart={() => this.setDragging(true)}
         onDragEnd={() => this.setDragging(false)}
         animate={this.state.isDragging ? onTop : flat}
         drag
+        className='bg-gray-90'
       >
         <TaskView {...this.props} editing={this.state.editing} />
       </motion.div>
