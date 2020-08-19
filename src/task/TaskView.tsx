@@ -40,6 +40,7 @@ export const TaskView: FunctionComponent<Props> = ({
               : 'border-gray-80 bg-gray-100 text-gray-10'
           }`}
           checked={completed}
+          onChange={toggleTask}
         />
         {dotOnly || (
           <>
