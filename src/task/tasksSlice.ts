@@ -4,7 +4,7 @@ import { data } from '../data'
 export interface TaskTypes {
   id: number
   title: string
-  dueDate?: moment.Moment
+  dueDate?: Date
   completed: boolean
 }
 
