@@ -30,9 +30,8 @@ export const TaskView: FunctionComponent<Props> = ({
   snapshot
 }) => (
   <div
-    className={`flex items-center justify-between w-full px-2 transition-all duration-200 mt-1 first:mt-0 focus:outline-none focus:border-blue-50 border-2 border-gray-90 ease-out rounded cursor-pointer select-none hover:bg-gray-85 ${disabled &&
-      'pointer-events-none'} ${dotOnly || 'focus:bg-gray-80'} ${completed &&
-      'opacity-50'} ${isDragging ? 'bg-gray-90 bg-opacity-75' : ''}`}
+    className={`flex items-center justify-between w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
+      'pointer-events-none'} ${completed && 'opacity-50'}`}
   >
     <form className='flex items-center'>
       <input
