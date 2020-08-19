@@ -17,15 +17,11 @@ const tasksSlice = createSlice({
   initialState: data.entities.tasks as TaskObj,
   reducers: {
     addTask (state, action) {
-      const { title } = action.payload
-      const id = (Math.random() * 77) % 2
-      state = {
-        ...state,
-        [id]: {
-          id: id,
-          title,
-          completed: false
-        }
+      const { title, id } = action.payload
+      state[id] = {
+        id: id,
+        title,
+        completed: false
       }
     },
     toggleTask (state, action) {
