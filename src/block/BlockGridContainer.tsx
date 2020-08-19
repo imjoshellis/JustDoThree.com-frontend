@@ -3,11 +3,19 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import BlockGridView from './BlockGridView'
-import { BlockObj, BlockTypes } from './blocksSlice'
+import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 interface Props {
   blocks: BlockObj
   topBlock: BlockTypes
+  moveTask: ActionCreatorWithPayload<{
+    id: number
+    source: DropResult['source']
+    destination: DropResult['destination']
+    start: BlockTypes
+    end: BlockTypes
+  }>
 }
 
 interface State {
@@ -34,8 +42,21 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 
   handleDragEnd = (r: DropResult) => {
-    const { source, destination, draggableId } = r
-    console.log(source, destination, draggableId)
+    const { source, destination } = r
+    const draggableId = parseInt(r.draggableId)
+
+    if (!destination) {
+      return
+    }
+    const start = this.props.blocks[parseInt(source.droppableId)]
+    const end = this.props.blocks[parseInt(destination.droppableId)]
+    this.props.moveTask({
+      id: draggableId,
+      source,
+      destination,
+      start,
+      end
+    })
   }
 
   render () {
@@ -69,6 +90,11 @@ const mapStateToProps = (state: RootState) => ({
   blocks: state.blocks
 })
 
-const ConnectedBlockGridContainer = connect(mapStateToProps)(BlockGridContainer)
+const mapDispatchToProps = { moveTask }
+
+const ConnectedBlockGridContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlockGridContainer)
 
 export default ConnectedBlockGridContainer
