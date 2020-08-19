@@ -17,16 +17,6 @@ interface Props {
   snapshot: DraggableStateSnapshot
 }
 
-function getStyle (style: any, snapshot: DraggableStateSnapshot) {
-  if (!snapshot.isDropAnimating) {
-    return style
-  }
-  return {
-    ...style,
-    transitionDuration: `0.25s`
-  }
-}
-
 export const TaskView: FunctionComponent<Props> = ({
   id,
   title,
@@ -43,10 +33,6 @@ export const TaskView: FunctionComponent<Props> = ({
     className={`flex items-center justify-between w-full px-2 transition-all duration-200 mt-1 first:mt-0 focus:outline-none focus:border-blue-50 border-2 border-gray-90 ease-out rounded cursor-pointer select-none hover:bg-gray-85 ${disabled &&
       'pointer-events-none'} ${dotOnly || 'focus:bg-gray-80'} ${completed &&
       'opacity-50'} ${isDragging ? 'bg-gray-90 bg-opacity-75' : ''}`}
-    ref={provided.innerRef}
-    {...provided.draggableProps}
-    {...provided.dragHandleProps}
-    style={getStyle(provided.draggableProps.style, snapshot)}
   >
     <form className='flex items-center'>
       <input

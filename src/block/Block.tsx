@@ -42,6 +42,8 @@ export const Block: FunctionComponent<Props> = ({
             className={`flex flex-col max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
+            {...p.droppableProps}
+            ref={p.innerRef}
           >
             <h2
               className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
@@ -49,20 +51,19 @@ export const Block: FunctionComponent<Props> = ({
             >
               {block.title}
             </h2>
-            <div
-              {...p.droppableProps}
-              ref={p.innerRef}
-              className='flex flex-col items-start flex-grow'
-            >
+            <div className='flex flex-col items-start flex-grow'>
               {tasks &&
                 tasks.map((t, idx) => (
                   <TaskContainer key={t.id} {...t} idx={idx} />
                 ))}
               {p.placeholder}
             </div>
-            {newTaskAllowed && sourceBlock === 0 && (
+            <div
+              className={`transition duration-500 ease-out
+            ${newTaskAllowed && sourceBlock === 0 ? '' : 'opacity-25'}`}
+            >
               <NewTaskFormContainer block={block} addTask={addTask} />
-            )}
+            </div>
           </div>
         )
       }}
