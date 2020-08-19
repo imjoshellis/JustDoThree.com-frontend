@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { BlockTypes, BlockObj } from './blocksSlice'
-import BlockGridView from './BlockGridView'
-import { RootState } from '../reducers'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import { RootState } from '../reducers'
+import BlockGridView from './BlockGridView'
+import { BlockObj, BlockTypes } from './blocksSlice'
 
 interface Props {
   blocks: BlockObj
@@ -32,6 +33,11 @@ export class BlockGridContainer extends Component<Props, State> {
     this.setState({ topBlock: this.state.resetBlock })
   }
 
+  handleDragEnd = (r: DropResult) => {
+    const { source, destination, draggableId } = r
+    console.log(source, destination, draggableId)
+  }
+
   render () {
     let topBlocks = [] as BlockTypes[]
     const blockArray = Object.values(this.props.blocks)
@@ -44,11 +50,13 @@ export class BlockGridContainer extends Component<Props, State> {
     )
     return (
       <>
-        <BlockGridView
-          changeTopBlock={this.changeTopBlock}
-          topBlocks={topBlocks}
-          bottomBlocks={bottomBlocks}
-        />
+        <DragDropContext onDragEnd={this.handleDragEnd}>
+          <BlockGridView
+            changeTopBlock={this.changeTopBlock}
+            topBlocks={topBlocks}
+            bottomBlocks={bottomBlocks}
+          />
+        </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
         <button onClick={this.reset}>Reset</button>
       </>
