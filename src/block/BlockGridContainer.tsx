@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { BlockTypes } from './blocksSlice'
+import { BlockTypes, BlockObj } from './blocksSlice'
 import BlockGridView from './BlockGridView'
 import { RootState } from '../reducers'
 import { connect } from 'react-redux'
 
 interface Props {
-  blocks: BlockTypes[]
+  blocks: BlockObj
   topBlock: BlockTypes
 }
 
@@ -34,13 +34,12 @@ export class BlockGridContainer extends Component<Props, State> {
 
   render () {
     let topBlocks = [] as BlockTypes[]
-    topBlocks.push(
-      this.props.blocks.filter(b => b.id === this.state.topBlock.id)[0]
-    )
+    const blockArray = Object.values(this.props.blocks)
+    topBlocks.push(blockArray.filter(b => b.id === this.state.topBlock.id)[0])
     topBlocks = topBlocks.concat(
-      this.props.blocks.filter(b => b.level === this.state.topBlock.level + 1)
+      blockArray.filter(b => b.level === this.state.topBlock.level + 1)
     )
-    const bottomBlocks = this.props.blocks.filter(
+    const bottomBlocks = blockArray.filter(
       b => b.level === this.state.topBlock.level + 2
     )
     return (
@@ -58,7 +57,7 @@ export class BlockGridContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  topBlock: state.blocks.filter(b => b.level === 0)[0],
+  topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
   blocks: state.blocks
 })
 

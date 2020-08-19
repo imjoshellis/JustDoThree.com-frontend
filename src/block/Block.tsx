@@ -47,7 +47,7 @@ const mapStateToProps = (
     changeTopBlock
   }: { block: BlockTypes; changeTopBlock: (block: BlockTypes) => void }
 ) => ({
-  tasks: state.tasks.filter(t => t.block === block.id),
+  tasks: block.taskList.map(id => state.tasks[id]),
   block: block,
   changeTopBlock: () => changeTopBlock(block)
 })

@@ -2,17 +2,19 @@ import { createSlice } from '@reduxjs/toolkit'
 import { data } from '../data'
 
 export interface TaskTypes {
-  [id: number]: {
-    id: number
-    title: string
-    dueDate?: moment.Moment
-    completed: boolean
-  }
+  id: number
+  title: string
+  dueDate?: moment.Moment
+  completed: boolean
+}
+
+export interface TaskObj {
+  [id: number]: TaskTypes
 }
 
 const tasksSlice = createSlice({
   name: 'tasks',
-  initialState: data.entities.tasks as TaskTypes,
+  initialState: data.entities.tasks as TaskObj,
   reducers: {
     addTask (state, action) {
       const { title } = action.payload
