@@ -10,7 +10,7 @@ export interface TaskPropTypes {
   id: number
   title: string
   completed: boolean
-  dueDate?: moment.Moment
+  dueDate?: Date
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
