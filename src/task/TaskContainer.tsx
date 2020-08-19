@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import TaskView from './TaskView'
-import { toggleTask } from './tasksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { motion } from 'framer-motion'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { toggleTask } from './tasksSlice'
+import TaskView from './TaskView'
 
 export interface TaskPropTypes {
   id: number
