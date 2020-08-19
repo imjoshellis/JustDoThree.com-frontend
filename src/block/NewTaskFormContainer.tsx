@@ -3,7 +3,14 @@ import { BlockTypes } from './blocksSlice'
 import NewTaskFormView from './NewTaskFormView'
 
 interface Props {
-  addTask: ({ title, block }: { title: string; block: BlockTypes }) => void
+  addTask: ({
+    title,
+    block
+  }: {
+    title: string
+    block: BlockTypes
+    id: number
+  }) => void
   block: BlockTypes
 }
 
@@ -27,7 +34,8 @@ export class NewTaskFormContainer extends Component<Props, State> {
     if (this.state.text.trim()) {
       this.props.addTask({
         title: this.state.text.trim(),
-        block: this.props.block
+        block: this.props.block,
+        id: Math.floor(Math.random() * 77 + 70)
       })
       this.setState({ text: '' })
     }
