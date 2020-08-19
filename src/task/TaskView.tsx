@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import DueDateContainer from './DueDateContainer'
+import moment from 'moment'
 
 interface Props {
   id: number
   title: string
   completed: boolean
-  dueDate?: moment.Moment
+  dueDate?: Date
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
@@ -48,7 +49,9 @@ export const TaskView: FunctionComponent<Props> = ({
           </>
         )}
       </form>
-      {dueDate && <DueDateContainer dueDate={dueDate} completed={completed} />}
+      {dueDate && (
+        <DueDateContainer dueDate={moment(dueDate)} completed={completed} />
+      )}
     </div>
   )
 }
