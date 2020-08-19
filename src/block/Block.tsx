@@ -1,13 +1,12 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import React, { FunctionComponent } from 'react'
+import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
 import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
 import NewTaskFormContainer from './NewTaskFormContainer'
-import { Droppable } from 'react-beautiful-dnd'
-import { AnimatePresence, motion } from 'framer-motion'
 
 interface Props {
   tasks: TaskTypes[]
