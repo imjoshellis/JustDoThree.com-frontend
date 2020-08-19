@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { data } from '../data'
+import { addTask } from '../task/tasksSlice'
 
 export interface BlockTypes {
   id: number
@@ -51,9 +52,20 @@ const blockSlice = createSlice({
         }
       }
     }
-  }
+  },
+  extraReducers: (builder) =>
+    builder.addCase(addTask, (state, action) => {
+      const { id, block } = action.payload
+      const newTaskList = block.taskList.concat()
+      newTaskList.push(id)
+
+      state[block.id] = {
+        ...block,
+        taskList: newTaskList
+      }
+    })
 })
 
-export const { moveTask } = blockSlice.actions
+export const { appendTask, moveTask } = blockSlice.actions
 
 export default blockSlice.reducer
