@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult, DragStart } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import BlockGridView from './BlockGridView'
@@ -21,6 +21,7 @@ interface Props {
 interface State {
   topBlock: BlockTypes
   resetBlock: BlockTypes
+  activeBlock: number
 }
 
 export class BlockGridContainer extends Component<Props, State> {
@@ -29,7 +30,8 @@ export class BlockGridContainer extends Component<Props, State> {
 
     this.state = {
       topBlock: this.props.topBlock,
-      resetBlock: this.props.topBlock
+      resetBlock: this.props.topBlock,
+      activeBlock: 0
     }
   }
 
@@ -44,6 +46,7 @@ export class BlockGridContainer extends Component<Props, State> {
   handleDragEnd = (r: DropResult) => {
     const { source, destination } = r
     const draggableId = parseInt(r.draggableId)
+    this.setState({ activeBlock: 0 })
 
     if (!destination) {
       return
@@ -59,6 +62,14 @@ export class BlockGridContainer extends Component<Props, State> {
     })
   }
 
+  handleDragStart = (s: DragStart) => {
+    Object.values(this.props.blocks).forEach(b =>
+      b.taskList.includes(parseInt(s.draggableId))
+        ? this.setState({ activeBlock: b.id })
+        : null
+    )
+  }
+
   render () {
     let topBlocks = [] as BlockTypes[]
     const blockArray = Object.values(this.props.blocks)
@@ -71,11 +82,15 @@ export class BlockGridContainer extends Component<Props, State> {
     )
     return (
       <>
-        <DragDropContext onDragEnd={this.handleDragEnd}>
+        <DragDropContext
+          onDragEnd={this.handleDragEnd}
+          onDragStart={this.handleDragStart}
+        >
           <BlockGridView
             changeTopBlock={this.changeTopBlock}
             topBlocks={topBlocks}
             bottomBlocks={bottomBlocks}
+            activeBlock={this.state.activeBlock}
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>

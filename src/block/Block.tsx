@@ -13,15 +13,19 @@ interface Props {
   block: BlockTypes
   changeTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
+  activeBlock: number
 }
 
 export const Block: FunctionComponent<Props> = ({
   tasks,
   block,
   changeTopBlock,
-  addTask
+  addTask,
+  activeBlock
 }) => {
-  const isDropDisabled = tasks.length > 2
+  const isDropDisabled = tasks.length > 2 && activeBlock !== block.id
+  const newTaskAllowed = tasks.length < 3
+  console.log(activeBlock)
   return (
     <Droppable
       droppableId={block.id.toString()}
@@ -56,7 +60,7 @@ export const Block: FunctionComponent<Props> = ({
                   <TaskContainer key={t.id} {...t} idx={idx} />
                 ))}
               {p.placeholder}
-              {!isDropDisabled && (
+              {newTaskAllowed && (
                 <NewTaskFormContainer block={block} addTask={addTask} />
               )}
             </div>
