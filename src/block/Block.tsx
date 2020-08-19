@@ -63,7 +63,7 @@ export const Block: FunctionComponent<Props> = ({
               {newTaskAllowed && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: '100%' }}
+                  animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <div
