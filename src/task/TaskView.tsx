@@ -10,7 +10,7 @@ interface Props {
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
-  editing: boolean
+  isDragging: boolean
 }
 
 export const TaskView: FunctionComponent<Props> = ({
@@ -42,7 +42,7 @@ export const TaskView: FunctionComponent<Props> = ({
         />
         {dotOnly || (
           <>
-            <label className='ml-2 text-sm text-left pointer-events-none transition-all duration-200'>
+            <label className='ml-2 text-sm text-left transition-all duration-200 pointer-events-none'>
               {title}
             </label>
           </>
