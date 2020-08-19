@@ -66,6 +66,6 @@ const blockSlice = createSlice({
     })
 })
 
-export const { appendTask, moveTask } = blockSlice.actions
+export const { moveTask } = blockSlice.actions
 
 export default blockSlice.reducer
