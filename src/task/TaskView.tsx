@@ -21,18 +21,21 @@ export const TaskView: FunctionComponent<Props> = ({
   completed,
   toggleTask,
   dotOnly,
+  isDragging,
   disabled
 }) => {
   return (
     <div
       className={`flex items-center justify-between w-full p-1 px-2 transition-all duration-200 ease-out rounded cursor-pointer select-none hover:bg-gray-85 ${disabled &&
         'pointer-events-none'} ${dotOnly ||
-        'focus:bg-gray-80 mt-1'} ${completed && 'opacity-50'}`}
+        'focus:bg-gray-80 mt-1'} ${completed && 'opacity-50'} ${
+        isDragging ? 'bg-gray-90 bg-opacity-75' : ''
+      }`}
     >
       <form className='flex truncate'>
         <input
           type='checkbox'
-          disabled={disabled}
+          disabled={disabled || isDragging}
           name={'task-' + id}
           className={`check-input rounded border-solid border-2 mt-1 appearance-none p-15 w-1 h-1 relative cursor-pointer hover:border-gray-60 ${
             completed
@@ -40,7 +43,7 @@ export const TaskView: FunctionComponent<Props> = ({
               : 'border-gray-80 bg-gray-100 text-gray-10'
           }`}
           checked={completed}
-          onChange={toggleTask}
+          onChange={() => toggleTask(id)}
         />
         {dotOnly || (
           <>
