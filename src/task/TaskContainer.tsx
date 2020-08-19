@@ -38,7 +38,12 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     return (
       <Draggable draggableId={this.props.id.toString()} index={this.props.idx}>
         {(p, s) => (
-          <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
+          <div
+            ref={p.innerRef}
+            {...p.draggableProps}
+            {...p.dragHandleProps}
+            className={``}
+          >
             <TaskView
               provided={p}
               snapshot={s}
