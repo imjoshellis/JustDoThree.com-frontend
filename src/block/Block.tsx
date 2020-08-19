@@ -20,41 +20,52 @@ export const Block: FunctionComponent<Props> = ({
   block,
   changeTopBlock,
   addTask
-}) => (
-  <Droppable droppableId={block.id.toString()}>
-    {(p, s) => (
-      <div
-        className={`flex flex-col max-w-xs mt-4 rounded-lg rounded-b bg-gray-90 md:mt-0 ${s.isDraggingOver &&
-          'bg-gray-95'}`}
-      >
-        <div className='h-32 overflow-hidden' />
+}) => {
+  const isDropDisabled = tasks.length > 2
+  return (
+    <Droppable
+      droppableId={block.id.toString()}
+      isDropDisabled={isDropDisabled}
+    >
+      {(p, s) => (
+        <div
+          className={`flex flex-col max-w-xs mt-4 rounded-lg rounded-b bg-gray-90 md:mt-0 ${
+            s.isDraggingOver
+              ? isDropDisabled
+                ? 'bg-red-10'
+                : 'bg-gray-95'
+              : ''
+          } `}
+        >
+          <div className='h-32 overflow-hidden' />
 
-        <div className='flex flex-col flex-grow p-2'>
-          <h2
-            className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
-            onClick={() => changeTopBlock()}
-          >
-            {block.title}
-          </h2>
-          <div
-            {...p.droppableProps}
-            ref={p.innerRef}
-            className='flex flex-col flex-grow'
-          >
-            {tasks &&
-              tasks.map((t, idx) => (
-                <TaskContainer key={t.id} {...t} idx={idx} />
-              ))}
-            {p.placeholder}
-            {tasks.length < 3 && (
-              <NewTaskFormContainer block={block} addTask={addTask} />
-            )}
+          <div className='flex flex-col flex-grow p-2'>
+            <h2
+              className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
+              onClick={() => changeTopBlock()}
+            >
+              {block.title}
+            </h2>
+            <div
+              {...p.droppableProps}
+              ref={p.innerRef}
+              className='flex flex-col flex-grow'
+            >
+              {tasks &&
+                tasks.map((t, idx) => (
+                  <TaskContainer key={t.id} {...t} idx={idx} />
+                ))}
+              {p.placeholder}
+              {!isDropDisabled && (
+                <NewTaskFormContainer block={block} addTask={addTask} />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    )}
-  </Droppable>
-)
+      )}
+    </Droppable>
+  )
+}
 
 const mapStateToProps = (
   state: RootState,
