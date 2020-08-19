@@ -7,7 +7,7 @@ interface Props {
   id: number
   title: string
   completed: boolean
-  dueDate?: Date
+  dueDate?: moment.Moment
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
