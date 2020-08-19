@@ -1,17 +1,33 @@
 import React, { Component } from 'react'
-import { BlockTypes } from './blocksSlice'
-import BlockGridView from './BlockGridView'
-import { RootState } from '../reducers'
+import {
+  DragDropContext,
+  DropResult,
+  DragStart,
+  DragUpdate
+} from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import { RootState } from '../reducers'
+import BlockGridView from './BlockGridView'
+import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 interface Props {
-  blocks: BlockTypes[]
+  blocks: BlockObj
   topBlock: BlockTypes
+  moveTask: ActionCreatorWithPayload<{
+    id: number
+    source: DropResult['source']
+    destination: DropResult['destination']
+    start: BlockTypes
+    end: BlockTypes
+  }>
 }
 
 interface State {
   topBlock: BlockTypes
   resetBlock: BlockTypes
+  sourceBlock: number
+  destinationBlock: number
 }
 
 export class BlockGridContainer extends Component<Props, State> {
@@ -20,7 +36,9 @@ export class BlockGridContainer extends Component<Props, State> {
 
     this.state = {
       topBlock: this.props.topBlock,
-      resetBlock: this.props.topBlock
+      resetBlock: this.props.topBlock,
+      sourceBlock: 0,
+      destinationBlock: 0
     }
   }
 
@@ -32,24 +50,62 @@ export class BlockGridContainer extends Component<Props, State> {
     this.setState({ topBlock: this.state.resetBlock })
   }
 
+  handleDragEnd = (r: DropResult) => {
+    const { source, destination } = r
+    const draggableId = parseInt(r.draggableId)
+    this.setState({ sourceBlock: 0, destinationBlock: 0 })
+
+    if (!destination) {
+      return
+    }
+    const start = this.props.blocks[parseInt(source.droppableId)]
+    const end = this.props.blocks[parseInt(destination.droppableId)]
+    this.props.moveTask({
+      id: draggableId,
+      source,
+      destination,
+      start,
+      end
+    })
+  }
+
+  handleDragStart = (s: DragStart) => {
+    this.setState({ sourceBlock: parseInt(s.source.droppableId) })
+  }
+
+  handleDragUpdate = (u: DragUpdate) => {
+    if (u.destination) {
+      this.setState({ destinationBlock: parseInt(u.destination.droppableId) })
+    } else {
+      this.setState({ destinationBlock: parseInt(u.source.droppableId) })
+    }
+  }
+
   render () {
     let topBlocks = [] as BlockTypes[]
-    topBlocks.push(
-      this.props.blocks.filter(b => b.id === this.state.topBlock.id)[0]
-    )
+    const blockArray = Object.values(this.props.blocks)
+    topBlocks.push(blockArray.filter(b => b.id === this.state.topBlock.id)[0])
     topBlocks = topBlocks.concat(
-      this.props.blocks.filter(b => b.level === this.state.topBlock.level + 1)
+      blockArray.filter(b => b.level === this.state.topBlock.level + 1)
     )
-    const bottomBlocks = this.props.blocks.filter(
+    const bottomBlocks = blockArray.filter(
       b => b.level === this.state.topBlock.level + 2
     )
     return (
       <>
-        <BlockGridView
-          changeTopBlock={this.changeTopBlock}
-          topBlocks={topBlocks}
-          bottomBlocks={bottomBlocks}
-        />
+        <DragDropContext
+          onDragEnd={this.handleDragEnd}
+          onDragStart={this.handleDragStart}
+          onDragUpdate={this.handleDragUpdate}
+        >
+          <BlockGridView
+            changeTopBlock={this.changeTopBlock}
+            topBlocks={topBlocks}
+            bottomBlocks={bottomBlocks}
+            sourceBlock={this.state.sourceBlock}
+            destinationBlock={this.state.destinationBlock}
+          />
+        </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
         <button onClick={this.reset}>Reset</button>
       </>
@@ -58,10 +114,15 @@ export class BlockGridContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  topBlock: state.blocks.filter(b => b.level === 0)[0],
+  topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
   blocks: state.blocks
 })
 
-const ConnectedBlockGridContainer = connect(mapStateToProps)(BlockGridContainer)
+const mapDispatchToProps = { moveTask }
+
+const ConnectedBlockGridContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlockGridContainer)
 
 export default ConnectedBlockGridContainer

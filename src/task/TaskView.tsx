@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from 'react'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import DueDateContainer from './DueDateContainer'
+import moment from 'moment'
 
 interface Props {
   id: number
   title: string
   completed: boolean
-  dueDate?: moment.Moment
+  dueDate?: Date
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
-  editing: boolean
+  isDragging: boolean
 }
 
 export const TaskView: FunctionComponent<Props> = ({
@@ -28,7 +29,7 @@ export const TaskView: FunctionComponent<Props> = ({
         'pointer-events-none'} ${dotOnly ||
         'focus:bg-gray-80 mt-1'} ${completed && 'opacity-50'}`}
     >
-      <form className='flex' onClick={() => toggleTask(id)}>
+      <form className='flex truncate'>
         <input
           type='checkbox'
           disabled={disabled}
@@ -42,13 +43,15 @@ export const TaskView: FunctionComponent<Props> = ({
         />
         {dotOnly || (
           <>
-            <label className='ml-2 text-sm text-left pointer-events-none transition-all duration-200'>
+            <label className='ml-2 text-sm text-left truncate transition-all duration-200 pointer-events-none'>
               {title}
             </label>
           </>
         )}
       </form>
-      {dueDate && <DueDateContainer dueDate={dueDate} completed={completed} />}
+      {dueDate && (
+        <DueDateContainer dueDate={moment(dueDate)} completed={completed} />
+      )}
     </div>
   )
 }

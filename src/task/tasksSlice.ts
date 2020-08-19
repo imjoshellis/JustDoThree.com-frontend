@@ -4,26 +4,32 @@ import { data } from '../data'
 export interface TaskTypes {
   id: number
   title: string
-  dueDate?: moment.Moment
+  dueDate?: Date
   completed: boolean
-  block: number
+}
+
+export interface TaskObj {
+  [id: number]: TaskTypes
 }
 
 const tasksSlice = createSlice({
   name: 'tasks',
-  initialState: data.entities.tasks as TaskTypes[],
+  initialState: data.entities.tasks as TaskObj,
   reducers: {
     addTask (state, action) {
-      const { title, block } = action.payload
-      state.push({
-        id: (Math.random() * 77) % 2,
-        title,
-        block: block.id,
-        completed: false
-      })
+      const { title } = action.payload
+      const id = (Math.random() * 77) % 2
+      state = {
+        ...state,
+        [id]: {
+          id: id,
+          title,
+          completed: false
+        }
+      }
     },
     toggleTask (state, action) {
-      const t = state.find((t) => t.id === action.payload)
+      const t = state[action.payload]
       if (t) {
         t.completed = !t.completed
       }
