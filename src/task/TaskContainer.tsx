@@ -1,11 +1,10 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import { motion } from 'framer-motion'
+import moment from 'moment'
 import React, { Component } from 'react'
+import { Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { toggleTask } from './tasksSlice'
 import TaskView from './TaskView'
-import { Draggable } from 'react-beautiful-dnd'
-import moment from 'moment'
 
 export interface TaskPropTypes {
   id: number
@@ -39,21 +38,14 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     return (
       <Draggable draggableId={this.props.id.toString()} index={this.props.idx}>
         {(p, s) => (
-          <div {...p.draggableProps} {...p.dragHandleProps} ref={p.innerRef}>
-            <motion.div
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.25 }
-              }}
-              whileTap={{ scale: 1.07 }}
-              className='bg-gray-90'
-            >
-              <TaskView
-                {...this.props}
-                dueDate={dueDate}
-                isDragging={s.isDragging}
-              />
-            </motion.div>
+          <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
+            <TaskView
+              provided={p}
+              snapshot={s}
+              {...this.props}
+              dueDate={dueDate}
+              isDragging={s.isDragging}
+            />
           </div>
         )}
       </Draggable>

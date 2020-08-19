@@ -1,13 +1,13 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import { AnimatePresence, motion } from 'framer-motion'
 import React, { FunctionComponent } from 'react'
+import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
 import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
 import NewTaskFormContainer from './NewTaskFormContainer'
-import { Droppable } from 'react-beautiful-dnd'
-import { AnimatePresence, motion } from 'framer-motion'
 
 interface Props {
   tasks: TaskTypes[]
@@ -39,43 +39,43 @@ export const Block: FunctionComponent<Props> = ({
         const newTaskAllowed = !tasksFull && !tasksTempFull
 
         return (
-          <motion.div
-            className={`flex flex-col max-w-xs mt-4 rounded-lg md:mt-0 transition-all duration-500 ${
+          <div
+            className={`flex flex-col max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
+            {...p.droppableProps}
+            ref={p.innerRef}
           >
-            <div className='flex flex-col flex-grow p-2 py-4'>
-              <h2
-                className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
-                onClick={() => changeTopBlock()}
-              >
-                {block.title}
-              </h2>
-              <div
-                {...p.droppableProps}
-                ref={p.innerRef}
-                className='flex flex-col flex-grow'
-              >
-                {tasks &&
-                  tasks.map((t, idx) => (
-                    <TaskContainer key={t.id} {...t} idx={idx} />
-                  ))}
-                {p.placeholder}
-              </div>
-              <AnimatePresence>
-                {newTaskAllowed && sourceBlock === 0 && (
-                  <motion.div
-                    initial={{ y: -10, opacity: 0, height: 0 }}
-                    animate={{ y: 0, opacity: 1, height: '100%' }}
-                    exit={{ y: -10, opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
+            <h2
+              className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
+              onClick={() => changeTopBlock()}
+            >
+              {block.title}
+            </h2>
+            <div className='flex flex-col items-start flex-grow'>
+              {tasks &&
+                tasks.map((t, idx) => (
+                  <TaskContainer key={t.id} {...t} idx={idx} />
+                ))}
+              {p.placeholder}
+            </div>
+            <AnimatePresence>
+              {newTaskAllowed && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: '100%' }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <div
+                    className={`transition duration-500 ${sourceBlock !== 0 &&
+                      'opacity-25'}`}
                   >
                     <NewTaskFormContainer block={block} addTask={addTask} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         )
       }}
     </Droppable>
