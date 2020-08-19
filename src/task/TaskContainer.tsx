@@ -48,12 +48,6 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   }
 
   render () {
-    const onTop = { zIndex: 1 }
-    const flat = {
-      zIndex: 0,
-      transition: { delay: 0.3 }
-    }
-
     return (
       <motion.div
         whileHover={{
