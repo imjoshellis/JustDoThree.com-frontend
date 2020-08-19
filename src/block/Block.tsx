@@ -39,43 +39,32 @@ export const Block: FunctionComponent<Props> = ({
         const newTaskAllowed = !tasksFull && !tasksTempFull
 
         return (
-          <motion.div
-            className={`flex flex-col max-w-xs mt-4 rounded-lg md:mt-0 transition-all duration-500 ${
+          <div
+            className={`flex flex-col max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
           >
-            <div className='flex flex-col flex-grow p-2 py-4'>
-              <h2
-                className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
-                onClick={() => changeTopBlock()}
-              >
-                {block.title}
-              </h2>
-              <div
-                {...p.droppableProps}
-                ref={p.innerRef}
-                className='flex flex-col flex-grow'
-              >
-                {tasks &&
-                  tasks.map((t, idx) => (
-                    <TaskContainer key={t.id} {...t} idx={idx} />
-                  ))}
-                {p.placeholder}
-              </div>
-              <AnimatePresence>
-                {newTaskAllowed && sourceBlock === 0 && (
-                  <motion.div
-                    initial={{ y: -10, opacity: 0, height: 0 }}
-                    animate={{ y: 0, opacity: 1, height: '100%' }}
-                    exit={{ y: -10, opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <NewTaskFormContainer block={block} addTask={addTask} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <h2
+              className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
+              onClick={() => changeTopBlock()}
+            >
+              {block.title}
+            </h2>
+            <div
+              {...p.droppableProps}
+              ref={p.innerRef}
+              className='flex flex-col items-start flex-grow'
+            >
+              {tasks &&
+                tasks.map((t, idx) => (
+                  <TaskContainer key={t.id} {...t} idx={idx} />
+                ))}
+              {p.placeholder}
             </div>
-          </motion.div>
+            {newTaskAllowed && sourceBlock === 0 && (
+              <NewTaskFormContainer block={block} addTask={addTask} />
+            )}
+          </div>
         )
       }}
     </Droppable>
