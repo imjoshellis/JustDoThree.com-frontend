@@ -6,24 +6,28 @@ interface Props {
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
   changeTopBlock: (block: BlockTypes) => void
-  activeBlock: number
+  sourceBlock: number
+  destinationBlock: number
 }
 
 export const BlockGridView: FunctionComponent<Props> = ({
   topBlocks,
   bottomBlocks,
   changeTopBlock,
-  activeBlock
+  sourceBlock,
+  destinationBlock
 }) => (
   <div className='flex flex-col'>
     <BlockRow
       blocks={topBlocks}
-      activeBlock={activeBlock}
+      sourceBlock={sourceBlock}
+      destinationBlock={destinationBlock}
       changeTopBlock={changeTopBlock}
     />
     <BlockRow
       blocks={bottomBlocks}
-      activeBlock={activeBlock}
+      sourceBlock={sourceBlock}
+      destinationBlock={destinationBlock}
       changeTopBlock={changeTopBlock}
     />
   </div>

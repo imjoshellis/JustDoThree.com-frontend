@@ -29,7 +29,7 @@ export const TaskView: FunctionComponent<Props> = ({
         'pointer-events-none'} ${dotOnly ||
         'focus:bg-gray-80 mt-1'} ${completed && 'opacity-50'}`}
     >
-      <form className='flex'>
+      <form className='flex truncate'>
         <input
           type='checkbox'
           disabled={disabled}
@@ -43,7 +43,7 @@ export const TaskView: FunctionComponent<Props> = ({
         />
         {dotOnly || (
           <>
-            <label className='ml-2 text-sm text-left transition-all duration-200 pointer-events-none'>
+            <label className='ml-2 text-sm text-left truncate transition-all duration-200 pointer-events-none'>
               {title}
             </label>
           </>

@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
-import { DragDropContext, DropResult, DragStart } from 'react-beautiful-dnd'
+import {
+  DragDropContext,
+  DropResult,
+  DragStart,
+  DragUpdate
+} from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import BlockGridView from './BlockGridView'
@@ -21,7 +26,8 @@ interface Props {
 interface State {
   topBlock: BlockTypes
   resetBlock: BlockTypes
-  activeBlock: number
+  sourceBlock: number
+  destinationBlock: number
 }
 
 export class BlockGridContainer extends Component<Props, State> {
@@ -31,7 +37,8 @@ export class BlockGridContainer extends Component<Props, State> {
     this.state = {
       topBlock: this.props.topBlock,
       resetBlock: this.props.topBlock,
-      activeBlock: 0
+      sourceBlock: 0,
+      destinationBlock: 0
     }
   }
 
@@ -46,7 +53,7 @@ export class BlockGridContainer extends Component<Props, State> {
   handleDragEnd = (r: DropResult) => {
     const { source, destination } = r
     const draggableId = parseInt(r.draggableId)
-    this.setState({ activeBlock: 0 })
+    this.setState({ sourceBlock: 0, destinationBlock: 0 })
 
     if (!destination) {
       return
@@ -63,11 +70,15 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 
   handleDragStart = (s: DragStart) => {
-    Object.values(this.props.blocks).forEach(b =>
-      b.taskList.includes(parseInt(s.draggableId))
-        ? this.setState({ activeBlock: b.id })
-        : null
-    )
+    this.setState({ sourceBlock: parseInt(s.source.droppableId) })
+  }
+
+  handleDragUpdate = (u: DragUpdate) => {
+    if (u.destination) {
+      this.setState({ destinationBlock: parseInt(u.destination.droppableId) })
+    } else {
+      this.setState({ destinationBlock: parseInt(u.source.droppableId) })
+    }
   }
 
   render () {
@@ -85,12 +96,14 @@ export class BlockGridContainer extends Component<Props, State> {
         <DragDropContext
           onDragEnd={this.handleDragEnd}
           onDragStart={this.handleDragStart}
+          onDragUpdate={this.handleDragUpdate}
         >
           <BlockGridView
             changeTopBlock={this.changeTopBlock}
             topBlocks={topBlocks}
             bottomBlocks={bottomBlocks}
-            activeBlock={this.state.activeBlock}
+            sourceBlock={this.state.sourceBlock}
+            destinationBlock={this.state.destinationBlock}
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
