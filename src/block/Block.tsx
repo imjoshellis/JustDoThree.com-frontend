@@ -1,4 +1,5 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import { AnimatePresence, motion } from 'framer-motion'
 import React, { FunctionComponent } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
@@ -58,12 +59,22 @@ export const Block: FunctionComponent<Props> = ({
                 ))}
               {p.placeholder}
             </div>
-            <div
-              className={`transition duration-500 ease-out
-            ${newTaskAllowed && sourceBlock === 0 ? '' : 'opacity-25'}`}
-            >
-              <NewTaskFormContainer block={block} addTask={addTask} />
-            </div>
+            <AnimatePresence>
+              {newTaskAllowed && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: '100%' }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <div
+                    className={`transition duration-500 ${sourceBlock !== 0 &&
+                      'opacity-25'}`}
+                  >
+                    <NewTaskFormContainer block={block} addTask={addTask} />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         )
       }}
