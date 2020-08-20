@@ -4,6 +4,8 @@ import SubmitButton from '../components/SubmitButton'
 import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import moment from 'moment'
+import DatePicker from 'react-date-picker'
 
 interface EditTaskModalProps {
   setEditing: (n: number) => void
@@ -59,7 +61,21 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                     autoFocus={true}
                     valid={valid}
                   />
-                  <div className='flex justify-between mt-2'>
+                  <label className='p-1 pl-2 mt-2 text-xs font-bold tracking-wider uppercase'>
+                    DUE DATE
+                  </label>
+                  <DatePicker
+                    onChange={(d: any) => {
+                      d
+                        ? setTask({ ...task, dueDate: moment(d).toISOString() })
+                        : setTask({ ...task, dueDate: undefined })
+                    }}
+                    calendarIcon={<CalendarIcon className='h-3 text-blue-50' />}
+                    clearIcon={<XIcon className='h-3 text-red-50' />}
+                    value={task.dueDate ? moment(task.dueDate).toDate() : null}
+                    calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
+                  />
+                  <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'>
                     <button
                       type='reset'
                       onClick={e => {
@@ -83,3 +99,29 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
 }
 
 export default EditTaskModal
+
+function CalendarIcon (props: any) {
+  return (
+    <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth={2}
+        d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+      />
+    </svg>
+  )
+}
+
+function XIcon (props: any) {
+  return (
+    <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth={2}
+        d='M6 18L18 6M6 6l12 12'
+      />
+    </svg>
+  )
+}
