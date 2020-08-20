@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import React, { useState } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
@@ -26,6 +26,7 @@ export const Block: React.FC<Props> = ({
   sourceBlock,
   destinationBlock
 }) => {
+  const [editing, setEditing] = useState(0)
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
   return (
     <Droppable
@@ -57,7 +58,12 @@ export const Block: React.FC<Props> = ({
             >
               {tasks &&
                 tasks.map((t, idx) => (
-                  <TaskContainer {...t} idx={idx} key={t.id} />
+                  <TaskContainer
+                    {...t}
+                    idx={idx}
+                    key={t.id}
+                    setEditing={setEditing}
+                  />
                 ))}
               {p.placeholder}
             </div>
@@ -83,6 +89,12 @@ export const Block: React.FC<Props> = ({
                 </motion.div>
               )}
             </AnimatePresence>
+            {editing !== 0 && (
+              <div>
+                EDIT MODAL. ID: {editing}{' '}
+                <button onClick={() => setEditing(0)}>CLOSE</button>
+              </div>
+            )}
           </div>
         )
       }}
