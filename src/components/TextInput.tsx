@@ -16,6 +16,11 @@ export const TextInput: React.FC<TextInputProps> = ({
   valid
 }) => (
   <>
+    {label && (
+      <label className='p-1 pl-2 text-xs font-bold tracking-wider uppercase'>
+        {label}
+      </label>
+    )}
     <input
       type='text'
       className={`flex-grow min-w-0 px-2 text-sm bg-gray-100 border-2 rounded shadow-lg outline-none border-gray-85 ${
