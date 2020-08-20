@@ -43,8 +43,6 @@ export const Block: FunctionComponent<Props> = ({
             className={`flex flex-col max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
-            {...p.droppableProps}
-            ref={p.innerRef}
           >
             <h2
               className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
@@ -52,19 +50,29 @@ export const Block: FunctionComponent<Props> = ({
             >
               {block.title}
             </h2>
-            <div className='flex flex-col items-start flex-grow'>
+            <div
+              className='flex flex-col items-start flex-grow'
+              {...p.droppableProps}
+              ref={p.innerRef}
+            >
               {tasks &&
                 tasks.map((t, idx) => (
-                  <TaskContainer key={t.id} {...t} idx={idx} />
+                  <TaskContainer {...t} idx={idx} key={t.id} />
                 ))}
               {p.placeholder}
             </div>
-            <AnimatePresence>
+            <AnimatePresence initial={false}>
               {newTaskAllowed && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
+                  initial={{ opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: 'auto', y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -10 }}
+                  transition={{
+                    delay: 0.1,
+                    type: 'spring',
+                    stiffness: 500,
+                    damping: 20
+                  }}
                 >
                   <div
                     className={`transition duration-500 ${sourceBlock !== 0 &&
