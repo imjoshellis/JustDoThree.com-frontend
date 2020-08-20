@@ -24,6 +24,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       onChange={e => handleChange(e)}
       value={text}
       autoFocus={autoFocus}
+      onFocus={e => e.target.select()}
     />
   </>
 )
