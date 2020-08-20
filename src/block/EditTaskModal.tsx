@@ -1,9 +1,9 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SubmitButton from '../components/SubmitButton'
 import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import moment from 'moment'
 import DatePicker from 'react-date-picker'
 
