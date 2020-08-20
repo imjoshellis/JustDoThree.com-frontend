@@ -34,7 +34,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
       className={`flex items-center flex-1 justify-between truncate w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
         'pointer-events-none'} ${completed && 'opacity-50'}`}
     >
-      <form className='flex items-center truncate'>
+      <form className='flex items-center flex-grow truncate'>
         <input
           type='checkbox'
           disabled={disabled}
@@ -50,7 +50,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
         {dotOnly || (
           <>
             <label
-              className='ml-2 text-sm text-left truncate cursor-pointer'
+              className='flex-grow ml-2 text-sm text-left truncate cursor-pointer'
               onDoubleClick={() => setEditing(id)}
             >
               {title}
