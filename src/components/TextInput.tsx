@@ -1,7 +1,6 @@
 import React from 'react'
 
 interface TextInputProps {
-  valid: boolean
   autoFocus?: boolean
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   label?: string
@@ -10,10 +9,11 @@ interface TextInputProps {
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
-  valid,
   autoFocus = false,
   handleChange,
-  text
+  label,
+  text,
+  valid
 }) => (
   <>
     <input
