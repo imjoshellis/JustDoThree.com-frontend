@@ -188,6 +188,9 @@ var gray = {
 }
 
 module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
   purge: {
     enabled: process.env.REACT_APP_PRODUCTION,
     content: [
