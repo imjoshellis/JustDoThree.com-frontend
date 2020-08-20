@@ -49,7 +49,10 @@ export const TaskView: React.FC<TaskViewProps> = ({
         />
         {dotOnly || (
           <>
-            <label className='ml-2 text-sm text-left truncate pointer-events-none'>
+            <label
+              className='ml-2 text-sm text-left truncate cursor-pointer'
+              onDoubleClick={() => setEditing(id)}
+            >
               {title}
             </label>
           </>
