@@ -2,12 +2,16 @@ import React from 'react'
 
 interface TextInputProps {
   valid: boolean
+  autoFocus?: boolean
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  label?: string
   text: string
+  valid: boolean
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
   valid,
+  autoFocus = false,
   handleChange,
   text
 }) => (
@@ -19,6 +23,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       }`}
       onChange={e => handleChange(e)}
       value={text}
+      autoFocus={autoFocus}
     />
   </>
 )
