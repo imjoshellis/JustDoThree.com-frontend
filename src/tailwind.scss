@@ -10,3 +10,16 @@ button:focus {
   outline: none;
 }
 
+::-moz-selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+::-webkit-selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+::selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+
