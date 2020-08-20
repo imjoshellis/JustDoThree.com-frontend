@@ -42,8 +42,8 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
             ref={p.innerRef}
             {...p.draggableProps}
             {...p.dragHandleProps}
-            className={`focus:outline-none focus:border-blue-50 border-2 border-gray-90 rounded w-full focus:bg-gray-80 py-2 ${s.isDragging &&
-              'bg-gray-90 bg-opacity-75'}`}
+            className={`focus:outline-none focus:border-blue-50 border-2 border-gray-90 bg-gray-90 rounded-lg w-full focus:bg-gray-80 py-1 hover:bg-gray-80 transition ease-out hover:ease-in
+            ${s.isDragging ? 'bg-gray-80 border-gray-80 bg-opacity-75' : ''}`}
           >
             <TaskView
               provided={p}
