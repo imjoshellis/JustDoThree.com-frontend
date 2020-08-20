@@ -64,17 +64,36 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   <label className='p-1 pl-2 mt-2 text-xs font-bold tracking-wider uppercase'>
                     DUE DATE
                   </label>
-                  <DatePicker
-                    onChange={(d: any) => {
-                      d
-                        ? setTask({ ...task, dueDate: moment(d).toISOString() })
-                        : setTask({ ...task, dueDate: undefined })
-                    }}
-                    calendarIcon={<CalendarIcon className='h-3 text-blue-50' />}
-                    clearIcon={<XIcon className='h-3 text-red-50' />}
-                    value={task.dueDate ? moment(task.dueDate).toDate() : null}
-                    calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
-                  />
+                  <div className='flex'>
+                    <DatePicker
+                      onChange={(d: any) => {
+                        d
+                          ? setTask({
+                              ...task,
+                              dueDate: moment(d).toISOString()
+                            })
+                          : setTask({ ...task, dueDate: undefined })
+                      }}
+                      calendarIcon={
+                        <CalendarIcon className='h-3 text-blue-50' />
+                      }
+                      clearIcon={<XIcon className='h-3 text-red-50' />}
+                      value={
+                        task.dueDate ? moment(task.dueDate).toDate() : null
+                      }
+                      className='flex-grow'
+                      calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
+                    />
+                    <button
+                      onClick={e => {
+                        e.preventDefault()
+                        setTask({ ...task, dueDate: moment().toISOString() })
+                      }}
+                      className='p-1 px-2 ml-1 text-xs font-bold tracking-wider uppercase transition duration-200 ease-out rounded bg-gray-80 hover:ease-in hover:bg-gray-70'
+                    >
+                      TODAY
+                    </button>
+                  </div>
                   <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'>
                     <button
                       type='reset'
