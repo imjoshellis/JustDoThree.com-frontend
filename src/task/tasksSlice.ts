@@ -25,11 +25,8 @@ const tasksSlice = createSlice({
       }
     },
     editTask (state, action) {
-      const { title, id } = action.payload
-      state[id] = {
-        ...state[id],
-        title
-      }
+      const task = action.payload
+      state[task.id] = task
     },
     toggleTask (state, action) {
       const t = state[action.payload]

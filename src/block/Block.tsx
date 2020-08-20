@@ -5,7 +5,7 @@ import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
-import { addTask, TaskTypes } from '../task/tasksSlice'
+import { addTask, editTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
 import EditTaskModal from './EditTaskModal'
 import NewTaskFormContainer from './NewTaskFormContainer'
@@ -15,6 +15,7 @@ interface Props {
   block: BlockTypes
   changeTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
+  editTask: ActionCreatorWithPayload<TaskTypes>
   sourceBlock: number
   destinationBlock: number
 }
@@ -24,10 +25,10 @@ export const Block: React.FC<Props> = ({
   block,
   changeTopBlock,
   addTask,
+  editTask,
   sourceBlock
 }) => {
   const [editing, setEditing] = useState(0)
-  const [valid, setValid] = useState(true)
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
   const editingTask = tasks.filter(task => task.id === editing)[0]
 
@@ -93,9 +94,8 @@ export const Block: React.FC<Props> = ({
               )}
             </AnimatePresence>
             <EditTaskModal
-              editing={editing}
               editingTask={editingTask}
-              valid={valid}
+              editTask={editTask}
               setEditing={setEditing}
             />
           </div>
@@ -117,7 +117,7 @@ const mapStateToProps = (
   changeTopBlock: () => changeTopBlock(block)
 })
 
-const mapDispatchToProps = { addTask }
+const mapDispatchToProps = { addTask, editTask }
 
 const ConnectedBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
 
