@@ -1,11 +1,10 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import SubmitButton from '../components/SubmitButton'
+import DatePicker from 'react-date-picker'
 import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
-import moment from 'moment'
-import DatePicker from 'react-date-picker'
 
 interface EditTaskModalProps {
   setEditing: (n: number) => void
