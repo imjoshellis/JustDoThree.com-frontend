@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import ConnectedBlockGridContainer from '../block/BlockGridContainer'
 
-export const Main: FunctionComponent = () => (
+export const Main: React.FC = () => (
   <section className='p-8 m-8'>
     <ConnectedBlockGridContainer />
   </section>

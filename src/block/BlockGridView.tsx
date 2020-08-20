@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import BlockRow from './BlockRow'
 import { BlockTypes } from './blocksSlice'
 
@@ -10,7 +10,7 @@ interface Props {
   destinationBlock: number
 }
 
-export const BlockGridView: FunctionComponent<Props> = ({
+export const BlockGridView: React.FC<Props> = ({
   topBlocks,
   bottomBlocks,
   changeTopBlock,

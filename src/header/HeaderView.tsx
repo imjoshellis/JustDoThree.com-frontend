@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { TaskPropTypes } from '../task/TaskContainer'
 import { HeaderPropTypes } from './HeaderTypes'
 
-export const HeaderView: FunctionComponent<HeaderPropTypes> = ({ tasks }) => (
+export const HeaderView: React.FC<HeaderPropTypes> = ({ tasks }) => (
   <header className='fixed top-0 left-0 right-0 z-50 flex flex-row items-center justify-between p-4 px-16 bg-gray-900'>
     <div>Just Do Three</div>
     {/*

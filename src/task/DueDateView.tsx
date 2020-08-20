@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 
 interface DueDateViewProps {
   date: string
@@ -8,7 +8,7 @@ interface DueDateViewProps {
   completed: boolean
 }
 
-export const DueDateView: FunctionComponent<DueDateViewProps> = ({
+export const DueDateView: React.FC<DueDateViewProps> = ({
   date,
   overdue,
   onClick,

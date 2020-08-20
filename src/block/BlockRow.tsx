@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import ConnectedBlock from './Block'
 import { BlockTypes } from './blocksSlice'
 
@@ -9,7 +9,7 @@ interface Props {
   destinationBlock: number
 }
 
-export const BlockRow: FunctionComponent<Props> = ({
+export const BlockRow: React.FC<Props> = ({
   blocks,
   changeTopBlock,
   sourceBlock,

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 
 interface Props {
   handleSubmit: (e: React.FormEvent) => void
@@ -6,7 +6,7 @@ interface Props {
   text: string
   valid: boolean
 }
-export const NewTaskFormView: FunctionComponent<Props> = ({
+export const NewTaskFormView: React.FC<Props> = ({
   handleChange,
   handleSubmit,
   text,

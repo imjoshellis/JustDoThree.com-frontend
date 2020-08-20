@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import moment from 'moment'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import DueDateContainer from './DueDateContainer'
 
@@ -17,7 +17,7 @@ interface Props {
   snapshot: DraggableStateSnapshot
 }
 
-export const TaskView: FunctionComponent<Props> = ({
+export const TaskView: React.FC<Props> = ({
   id,
   title,
   dueDate,
