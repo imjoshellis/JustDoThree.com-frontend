@@ -29,12 +29,12 @@ export const TaskView: React.FC<TaskViewProps> = ({
   setEditing,
   hover
 }) => (
-  <div className='flex items-center'>
+  <div className='flex items-stretch transition duration-200'>
     <div
-      className={`flex items-center flex-1 justify-between w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
+      className={`flex items-center flex-1 justify-between truncate w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
         'pointer-events-none'} ${completed && 'opacity-50'}`}
     >
-      <form className='flex items-center'>
+      <form className='flex items-center truncate'>
         <input
           type='checkbox'
           disabled={disabled}
@@ -49,7 +49,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
         />
         {dotOnly || (
           <>
-            <label className='ml-2 text-sm text-left transition-all duration-200 pointer-events-none'>
+            <label className='ml-2 text-sm text-left truncate pointer-events-none'>
               {title}
             </label>
           </>
@@ -65,7 +65,9 @@ export const TaskView: React.FC<TaskViewProps> = ({
     </div>
     <button
       onClick={() => setEditing(id)}
-      className='h-6 p-1 transition duration-200 bg-opacity-50 rounded bg-gray-70 hover:bg-opacity-100'
+      className={`${
+        !hover ? 'h-6 self-center' : ''
+      } p-1 transition duration-200 bg-opacity-50 rounded bg-gray-70 hover:bg-green-50 hover:bg-opacity-75 text-gray-30`}
     >
       <PencilAltIcon className='h-3' />
     </button>

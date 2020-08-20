@@ -49,16 +49,11 @@ export class DueDateContainer extends Component<
   render () {
     const overdue = this.props.dueDate.isBefore(moment())
     const soon = this.props.dueDate.isAfter(moment().add(1, 'y'))
-    const date = overdue
-      ? this.props.dueDate.fromNow()
-      : soon
-      ? this.props.dueDate.format('MMM D')
-      : this.props.dueDate.format('M/Y')
 
     return (
       <>
         <DueDateView
-          date={date}
+          dueDate={this.props.dueDate}
           overdue={overdue}
           soon={soon}
           onClick={() => this.open()}

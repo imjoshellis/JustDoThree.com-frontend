@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
 interface DueDateViewProps {
-  date: string
+  dueDate: moment.Moment
   overdue: boolean
   onClick: () => void
   soon: boolean
@@ -11,13 +11,14 @@ interface DueDateViewProps {
 }
 
 export const DueDateView: React.FC<DueDateViewProps> = ({
-  date,
+  dueDate,
   overdue,
   onClick,
   soon,
   completed,
   hover
 }) => {
+  const shortDate = dueDate.format('MMM DD')
   return (
     <>
       <button
@@ -32,16 +33,37 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
         }`}
         onClick={onClick}
       >
-        <FlagIcon className='h-3' />
         <AnimatePresence>
-          {hover && (
+          {hover ? (
             <motion.span
+              key='date'
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 'auto', opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 700,
+                damping: 30,
+                mass: 0.8
+              }}
               className='ml-1'
             >
-              {date}
+              {shortDate}
+            </motion.span>
+          ) : (
+            <motion.span
+              key='icon'
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 'auto', opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 700,
+                damping: 30,
+                mass: 0.8
+              }}
+            >
+              <FlagIcon className='h-3' />
             </motion.span>
           )}
         </AnimatePresence>
