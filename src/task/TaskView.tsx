@@ -25,9 +25,7 @@ export const TaskView: FunctionComponent<Props> = ({
   toggleTask,
   dotOnly,
   isDragging,
-  disabled,
-  provided,
-  snapshot
+  disabled
 }) => (
   <div
     className={`flex items-center justify-between w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
