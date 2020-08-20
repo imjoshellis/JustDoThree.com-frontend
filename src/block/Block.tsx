@@ -7,6 +7,7 @@ import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
 import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
+import EditTaskModal from './EditTaskModal'
 import NewTaskFormContainer from './NewTaskFormContainer'
 
 interface Props {
@@ -23,11 +24,13 @@ export const Block: React.FC<Props> = ({
   block,
   changeTopBlock,
   addTask,
-  sourceBlock,
-  destinationBlock
+  sourceBlock
 }) => {
   const [editing, setEditing] = useState(0)
+  const [valid, setValid] = useState(true)
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
+  const editingTask = tasks.filter(task => task.id === editing)[0]
+
   return (
     <Droppable
       droppableId={block.id.toString()}
@@ -89,12 +92,12 @@ export const Block: React.FC<Props> = ({
                 </motion.div>
               )}
             </AnimatePresence>
-            {editing !== 0 && (
-              <div>
-                EDIT MODAL. ID: {editing}{' '}
-                <button onClick={() => setEditing(0)}>CLOSE</button>
-              </div>
-            )}
+            <EditTaskModal
+              editing={editing}
+              editingTask={editingTask}
+              valid={valid}
+              setEditing={setEditing}
+            />
           </div>
         )
       }}
