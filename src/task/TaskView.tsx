@@ -12,7 +12,6 @@ interface Props {
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
-  isDragging: boolean
   provided: DraggableProvided
   snapshot: DraggableStateSnapshot
 }
@@ -24,7 +23,6 @@ export const TaskView: React.FC<Props> = ({
   completed,
   toggleTask,
   dotOnly,
-  isDragging,
   disabled
 }) => (
   <div
@@ -34,7 +32,7 @@ export const TaskView: React.FC<Props> = ({
     <form className='flex items-center'>
       <input
         type='checkbox'
-        disabled={disabled || isDragging}
+        disabled={disabled}
         name={'task-' + id}
         className={`check-input rounded border-solid border-2 appearance-none p-15 w-1 h-1 relative focus:outline-none focus:border-4 focus:border-blue-50 transition duration-200 cursor-pointer hover:border-gray-60 ${
           completed
