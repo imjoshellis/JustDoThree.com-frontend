@@ -41,7 +41,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                 className='absolute top-0 bottom-0 left-0 right-0 z-0'
                 onClick={() => setEditing(0)}
               />
-              <div className='z-10 flex flex-col p-4 rounded bg-gray-90'>
+              <div className='z-10 flex flex-col w-full max-w-sm p-4 rounded bg-gray-90'>
                 <form
                   onSubmit={e => {
                     e.preventDefault()
