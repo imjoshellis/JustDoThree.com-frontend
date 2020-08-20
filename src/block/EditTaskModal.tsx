@@ -55,6 +55,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                     handleChange={e => {
                       setTask({ ...task, title: e.target.value })
                     }}
+                    autoFocus={true}
                     valid={valid}
                   />
                   <div className='flex justify-between mt-2'>
