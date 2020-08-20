@@ -20,9 +20,17 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
 }) => {
   const [task, setTask] = useState<TaskTypes | undefined>(undefined)
 
-  useEffect(() => setTask(editingTask), [editingTask])
-
   let valid = task && task.title ? task.title.length > 0 : false
+
+  useEffect(() => {
+    setTask(editingTask)
+  }, [editingTask])
+
+  useEffect(() => {
+    if (task && valid) {
+      editTask(task)
+    }
+  }, [task, editTask, valid])
 
   return (
     <>
@@ -47,8 +55,8 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                 <form
                   onSubmit={e => {
                     e.preventDefault()
-                    editTask(task)
                     setEditing(0)
+                    editTask(task)
                   }}
                   className='flex flex-col'
                 >
@@ -57,6 +65,12 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                     label='title'
                     handleChange={e => {
                       setTask({ ...task, title: e.target.value })
+                    }}
+                    handleKeyPress={e => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        setEditing(0)
+                      }
                     }}
                     autoFocus={true}
                     valid={valid}
@@ -85,6 +99,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
                     />
                     <button
+                      type='button'
                       onClick={e => {
                         e.preventDefault()
                         setTask({ ...task, dueDate: moment().toISOString() })
@@ -94,19 +109,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       TODAY
                     </button>
                   </div>
-                  <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'>
-                    <button
-                      type='reset'
-                      onClick={e => {
-                        e.preventDefault()
-                        setEditing(0)
-                      }}
-                      className='p-1 px-2 text-xs font-bold tracking-wider uppercase rounded bg-red-50'
-                    >
-                      cancel
-                    </button>
-                    <SubmitButton valid={valid} text='update' />
-                  </div>
+                  <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'></div>
                 </form>
               </div>
             </motion.div>
