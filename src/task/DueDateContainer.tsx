@@ -24,6 +24,7 @@ moment.updateLocale('en', {
 interface DueDateContainerProps {
   dueDate: moment.Moment
   completed: boolean
+  hover: boolean
 }
 
 interface DueDateContainerState {
@@ -62,6 +63,7 @@ export class DueDateContainer extends Component<
           soon={soon}
           onClick={() => this.open()}
           completed={this.props.completed}
+          hover={this.props.hover}
         />
       </>
     )

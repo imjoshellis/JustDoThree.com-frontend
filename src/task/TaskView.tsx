@@ -15,6 +15,7 @@ interface TaskViewProps {
   provided: DraggableProvided
   snapshot: DraggableStateSnapshot
   setEditing: (id: number) => void
+  hover: boolean
 }
 
 export const TaskView: React.FC<TaskViewProps> = ({
@@ -25,11 +26,12 @@ export const TaskView: React.FC<TaskViewProps> = ({
   toggleTask,
   dotOnly,
   disabled,
-  setEditing
+  setEditing,
+  hover
 }) => (
   <div className='flex items-center'>
     <div
-      className={`flex items-center justify-between w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
+      className={`flex items-center flex-1 justify-between w-full px-2 transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
         'pointer-events-none'} ${completed && 'opacity-50'}`}
     >
       <form className='flex items-center'>
@@ -54,7 +56,11 @@ export const TaskView: React.FC<TaskViewProps> = ({
         )}
       </form>
       {dueDate && (
-        <DueDateContainer dueDate={moment(dueDate)} completed={completed} />
+        <DueDateContainer
+          dueDate={moment(dueDate)}
+          completed={completed}
+          hover={hover}
+        />
       )}
     </div>
     <button

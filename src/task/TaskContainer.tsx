@@ -19,13 +19,15 @@ export interface TaskPropTypes {
   idx: number
 }
 
-interface TaskStateTypes {}
+interface TaskStateTypes {
+  hover: boolean
+}
 
 export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   constructor (props: TaskPropTypes) {
     super(props)
 
-    this.state = {}
+    this.state = { hover: false }
   }
 
   public static defaultProps = {
@@ -48,6 +50,8 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
               {...p.dragHandleProps}
               className={`focus:outline-none focus:border-blue-50 border-2 border-gray-90 w-full rounded-lg overflow-hidden
             ${s.isDragging ? 'bg-gray-80 border-gray-80 bg-opacity-75' : ''}`}
+              onMouseEnter={() => this.setState({ hover: true })}
+              onMouseLeave={() => this.setState({ hover: false })}
             >
               <div
                 className={`bg-gray-90 focus:bg-gray-80 py-1 hover:bg-gray-80 transition-colors duration-200 ease-out hover:ease-in`}
@@ -57,6 +61,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
                   snapshot={s}
                   {...this.props}
                   dueDate={dueDate}
+                  hover={this.state.hover}
                 />
               </div>
             </div>
