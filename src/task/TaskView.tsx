@@ -63,6 +63,8 @@ export const TaskView: React.FC<TaskViewProps> = ({
           dueDate={moment(dueDate)}
           completed={completed}
           hover={hover}
+          id={id}
+          setEditing={setEditing}
         />
       )}
     </div>

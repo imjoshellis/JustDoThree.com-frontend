@@ -4,19 +4,21 @@ import React from 'react'
 interface DueDateViewProps {
   dueDate: moment.Moment
   overdue: boolean
-  onClick: () => void
   soon: boolean
   completed: boolean
   hover: boolean
+  setEditing: (n: number) => void
+  id: number
 }
 
 export const DueDateView: React.FC<DueDateViewProps> = ({
   dueDate,
   overdue,
-  onClick,
   soon,
   completed,
-  hover
+  hover,
+  setEditing,
+  id
 }) => {
   const shortDate = dueDate.format('MMM DD')
   return (
@@ -31,7 +33,7 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
             ? 'text-red-50'
             : ''
         }`}
-        onClick={onClick}
+        onDoubleClick={() => setEditing(id)}
       >
         <AnimatePresence>
           {hover ? (

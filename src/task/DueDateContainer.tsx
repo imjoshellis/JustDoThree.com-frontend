@@ -23,13 +23,13 @@ moment.updateLocale('en', {
 
 interface DueDateContainerProps {
   dueDate: moment.Moment
+  setEditing: (n: number) => void
   completed: boolean
   hover: boolean
+  id: number
 }
 
-interface DueDateContainerState {
-  open: boolean
-}
+interface DueDateContainerState {}
 
 export class DueDateContainer extends Component<
   DueDateContainerProps,
@@ -38,13 +38,8 @@ export class DueDateContainer extends Component<
   constructor (props: DueDateContainerProps) {
     super(props)
 
-    this.state = {
-      open: false
-    }
+    this.state = {}
   }
-
-  open = () => this.setState({ open: true })
-  close = () => this.setState({ open: false })
 
   render () {
     const overdue = this.props.dueDate.isBefore(moment())
@@ -52,14 +47,7 @@ export class DueDateContainer extends Component<
 
     return (
       <>
-        <DueDateView
-          dueDate={this.props.dueDate}
-          overdue={overdue}
-          soon={soon}
-          onClick={() => this.open()}
-          completed={this.props.completed}
-          hover={this.props.hover}
-        />
+        <DueDateView overdue={overdue} soon={soon} {...this.props} />
       </>
     )
   }
