@@ -4,7 +4,7 @@ import React from 'react'
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import DueDateContainer from './DueDateContainer'
 
-interface Props {
+interface TaskViewProps {
   id: number
   title: string
   completed: boolean
@@ -17,7 +17,7 @@ interface Props {
   setEditing: (id: number) => void
 }
 
-export const TaskView: React.FC<Props> = ({
+export const TaskView: React.FC<TaskViewProps> = ({
   id,
   title,
   dueDate,
