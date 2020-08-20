@@ -52,6 +52,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
                 >
                   <TextInput
                     text={task.title}
+                    label='title'
                     handleChange={e => {
                       setTask({ ...task, title: e.target.value })
                     }}
