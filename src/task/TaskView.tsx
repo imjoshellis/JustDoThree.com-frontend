@@ -8,7 +8,7 @@ interface TaskViewProps {
   id: string
   title: string
   completed: boolean
-  dueDate?: moment.Moment
+  dueDate?: string
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
@@ -58,7 +58,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
           </>
         )}
       </form>
-      {dueDate && (
+      {dueDate && dueDate.length > 0 && (
         <DueDateContainer
           dueDate={moment(dueDate)}
           completed={completed}
@@ -72,7 +72,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
       onClick={() => setEditing(id)}
       className={`${
         !hover ? 'h-6 self-center' : ''
-      } p-1 transition duration-200 ml-1 bg-opacity-50 rounded bg-gray-70 hover:bg-green-50 hover:bg-opacity-75 text-gray-30`}
+      } p-1 transition duration-200 ml-1 bg-opacity-50 rounded border-2 border-gray-70 border-opacity-50 bg-gray-70 hover:bg-green-50 hover:bg-opacity-75 text-gray-30 focus:border-green-60 focus:outline-none`}
     >
       <PencilAltIcon className='h-3' />
     </button>
