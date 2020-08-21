@@ -72,7 +72,7 @@ export class BlockGridContainer extends Component<Props, State> {
   }*/
 
   reset = () => {
-    this.changeTopBlock(this.state.resetBlock)
+    this.setState({ topBlock: this.state.resetBlock })
   }
 
   handleDragEnd = (r: DropResult) => {
