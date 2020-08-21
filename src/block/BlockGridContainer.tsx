@@ -134,7 +134,6 @@ export class BlockGridContainer extends Component<Props, State> {
             {...this.generateBlockRows(this.state.topBlockId)}
           />
         </DragDropContext>
-        <div>Current Level: {this.state.topBlock.level}</div>
         <button
           className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
           onClick={() => this.setTopBlock(this.state.resetBlock)}
