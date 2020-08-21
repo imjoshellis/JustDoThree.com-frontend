@@ -20,6 +20,36 @@ export const data = {
         title: 'Y2021',
         level: 1,
         taskList: []
+      },
+      4: {
+        id: 4,
+        title: 'Y2022',
+        level: 1,
+        taskList: []
+      },
+      5: {
+        id: 5,
+        title: 'Q1 2020',
+        level: 2,
+        taskList: []
+      },
+      6: {
+        id: 6,
+        title: 'Q2 2020',
+        level: 2,
+        taskList: []
+      },
+      7: {
+        id: 7,
+        title: 'Q3 2020',
+        level: 2,
+        taskList: []
+      },
+      8: {
+        id: 8,
+        title: 'Q4 2020',
+        level: 2,
+        taskList: []
       }
     },
     tasks: {
