@@ -37,29 +37,39 @@ export class BlockGridContainer extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
 
-    const initialTopBlocks = this.props.topBlock.blockList.map(
-      id => this.props.blocks[id]
-    )
-
-    const initialBottomBlocks = [] as BlockTypes[]
-    initialTopBlocks.forEach(b =>
-      b.blockList.forEach(id => initialBottomBlocks.push(this.props.blocks[id]))
-    )
-
     this.state = {
       topBlock: this.props.topBlock,
       previousTopBlock: this.props.topBlock,
-      topBlocks: [this.props.topBlock, ...initialTopBlocks],
-      bottomBlocks: initialBottomBlocks,
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
-      destinationBlock: 0
+      destinationBlock: 0,
+      ...this.generateBlockRows(this.props.topBlock)
     }
   }
 
-  changeTopBlock = (block: BlockTypes) => {
-    this.setState({ topBlock: block })
+  generateBlockRows = (topBlock: BlockTypes) => {
+    const topBlocks = [
+      topBlock,
+      ...topBlock.blockList.map(id => this.props.blocks[id])
+    ]
+    const bottomBlocks = [] as BlockTypes[]
+    topBlocks
+      .slice(1)
+      .forEach(b =>
+        b.blockList.forEach(id => bottomBlocks.push(this.props.blocks[id]))
+      )
+    return { topBlocks, bottomBlocks }
   }
+
+  changeTopBlock = (topBlock: BlockTypes) => {}
+  /*changeTopBlock = (topBlock: BlockTypes) => {
+    this.setState(s => ({
+      ...s,
+      topBlock,
+      previousTopBlock: s.topBlock,
+      ...this.generateBlockRows(topBlock)
+    }))
+  }*/
 
   reset = () => {
     this.setState({ topBlock: this.state.resetBlock })
