@@ -18,6 +18,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   editTask
 }) => {
   const [task, setTask] = useState<TaskTypes | null | undefined>(undefined)
+  const { height, width } = useWindowDimensions()
 
   let valid = task && task.title ? task.title.length > 0 : false
 
@@ -36,21 +37,36 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
       <AnimatePresence>
         {task && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                duration: 0.2,
-                ease: 'circOut'
-              }}
-              className='absolute top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-75'
-            >
-              <div
-                className='absolute top-0 bottom-0 left-0 right-0 z-0'
+            <div className='fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center duration-100 bg-gray-100 bg-opacity-25 transition-color'>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  top: height / 2,
+                  bottom: height / 2,
+                  left: width / 2,
+                  right: width / 2,
+                  borderRadius: height / 4
+                }}
+                animate={{
+                  opacity: 1,
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  borderRadius: 0
+                }}
+                transition={{
+                  duration: 0.1
+                }}
+                className='absolute z-0 bg-gray-100 bg-opacity-75 shadow-2xl'
                 onClick={() => setEditing(0)}
               />
-              <div className='z-10 flex flex-col w-full max-w-sm p-4 rounded bg-gray-90'>
+              <motion.div
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 700, damping: 20 }}
+                className='z-10 flex flex-col w-full max-w-sm p-4 rounded bg-gray-90'
+              >
                 <form
                   onSubmit={e => {
                     e.preventDefault()
@@ -110,8 +126,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   </div>
                   <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'></div>
                 </form>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
@@ -145,4 +161,29 @@ function XIcon (props: any) {
       />
     </svg>
   )
+}
+
+function getWindowDimensions () {
+  const { innerWidth: width, innerHeight: height } = window
+  return {
+    width,
+    height
+  }
+}
+
+const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  )
+
+  useEffect(() => {
+    function handleResize () {
+      setWindowDimensions(getWindowDimensions())
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return windowDimensions
 }
