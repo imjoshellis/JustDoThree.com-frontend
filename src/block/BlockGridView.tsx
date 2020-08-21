@@ -19,7 +19,7 @@ export const BlockGridView: React.FC<Props> = ({
 }) => (
   <div className='flex flex-col'>
     <BlockRow
-      blocks={topBlocks}
+      blocks={topBlocks.slice(0, 4)}
       sourceBlock={sourceBlock}
       destinationBlock={destinationBlock}
       setTopBlock={setTopBlock}
