@@ -1,5 +1,5 @@
-import { AnimateSharedLayout, motion } from 'framer-motion'
-import React, { useState } from 'react'
+import { AnimateSharedLayout, motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
 import ConnectedBlock from './Block'
 import { BlockTypes } from './blocksSlice'
 
@@ -19,7 +19,7 @@ export const BlockRow: React.FC<Props> = ({
   setEditing
 }) => {
   const [idx, setIdx] = useState(0)
-  const [direction, setDirection] = useState(1)
+  const [direction, setDirection] = useState(0)
 
   const Btn = ({
     text,
@@ -42,6 +42,10 @@ export const BlockRow: React.FC<Props> = ({
       {text}
     </button>
   )
+
+  useEffect(() => {
+    setInterval(() => setDirection(0), 1000)
+  }, [direction])
 
   const IncIdxBtn = ({ disabled }: { disabled: boolean }) => (
     <Btn
@@ -67,27 +71,29 @@ export const BlockRow: React.FC<Props> = ({
 
   return (
     <div className='md:max-w-2xl lg:max-w-full'>
-      <div className='flex flex-col mt-4 md:grid md:grid-cols-2 md:content-between md:gap-4 lg:grid-cols-4'>
-        <AnimateSharedLayout>
-          {blocks.slice(idx, idx + 4).map((b: BlockTypes) => (
-            <motion.div
-              key={b.id}
-              layoutId={b.id.toString()}
-              initial={{ opacity: 0, x: direction * 300 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ ease: 'easeOut' }}
-              className='flex'
-            >
-              <ConnectedBlock
-                block={b}
-                sourceBlock={sourceBlock}
-                destinationBlock={destinationBlock}
-                setTopBlock={setTopBlock}
-                setEditing={setEditing}
-              />
-            </motion.div>
-          ))}
-        </AnimateSharedLayout>
+      <div className='flex flex-col mt-4 select-none md:grid md:grid-cols-2 md:content-between md:gap-4 lg:grid-cols-4'>
+        <AnimatePresence initial={false}>
+          <AnimateSharedLayout>
+            {blocks.slice(idx, idx + 4).map((b: BlockTypes) => (
+              <motion.div
+                key={b.id}
+                layoutId={b.id.toString()}
+                initial={{ opacity: 0, x: direction * 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ ease: 'easeOut' }}
+                className='flex'
+              >
+                <ConnectedBlock
+                  block={b}
+                  sourceBlock={sourceBlock}
+                  destinationBlock={destinationBlock}
+                  setTopBlock={setTopBlock}
+                  setEditing={setEditing}
+                />
+              </motion.div>
+            ))}
+          </AnimateSharedLayout>
+        </AnimatePresence>
       </div>
       {blocks.length > 4 && (
         <div className='flex justify-between mt-1'>
