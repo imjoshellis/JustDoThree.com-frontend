@@ -10,12 +10,14 @@ interface EditTaskModalProps {
   setEditing: (id: string) => void
   editingTask: TaskTypes | null
   editTask: ActionCreatorWithPayload<TaskTypes>
+  deleteTask: ActionCreatorWithPayload<TaskTypes>
 }
 
 const EditTaskModal: React.FC<EditTaskModalProps> = ({
   setEditing,
   editingTask,
-  editTask
+  editTask,
+  deleteTask
 }) => {
   const [task, setTask] = useState<TaskTypes | null | undefined>(undefined)
   const { height, width } = useWindowDimensions()
@@ -31,6 +33,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
       editTask(task)
     }
   }, [task, editTask, valid])
+
+  const deleteThisTask = () => {
+    setEditing('')
+    if (task) {
+      deleteTask(task)
+    }
+  }
 
   return (
     <>
@@ -126,6 +135,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   </div>
                   <div className='flex justify-between mt-2 overflow-hidden text-sm rounded'></div>
                 </form>
+                <button onClick={() => deleteThisTask()}>DELETE</button>
               </motion.div>
             </div>
           </>

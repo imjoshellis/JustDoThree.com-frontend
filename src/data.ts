@@ -74,7 +74,8 @@ const tasks = [
       .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
       .toISOString(),
     id: shortid.generate(),
-    title: 'I became a Senior Developer at a high growth organization'
+    title: 'I became a Senior Developer at a high growth organization',
+    blockId: ''
   },
   {
     completed: true,
@@ -82,7 +83,8 @@ const tasks = [
       .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
       .toISOString(),
     id: shortid.generate(),
-    title: 'I published a board game'
+    title: 'I published a board game',
+    blockId: ''
   },
   {
     completed: false,
@@ -90,7 +92,8 @@ const tasks = [
       .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
       .toISOString(),
     id: shortid.generate(),
-    title: 'I ran a marathon'
+    title: 'I ran a marathon',
+    blockId: ''
   },
   {
     completed: false,
@@ -98,7 +101,8 @@ const tasks = [
       .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
       .toISOString(),
     id: shortid.generate(),
-    title: 'I did one thing this year'
+    title: 'I did one thing this year',
+    blockId: ''
   },
   {
     completed: true,
@@ -106,11 +110,15 @@ const tasks = [
       .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
       .toISOString(),
     id: shortid.generate(),
-    title: 'I did another thing this year'
+    title: 'I did another thing this year',
+    blockId: ''
   }
 ]
 
 blocks[0].taskList = [tasks[0].id, tasks[1].id, tasks[2].id]
+tasks[0].blockId = blocks[0].id
+tasks[1].blockId = blocks[0].id
+tasks[2].blockId = blocks[0].id
 blocks[0].blockList = [blocks[1].id, blocks[2].id, blocks[3].id]
 blocks[1].blockList = [
   blocks[4].id,
@@ -120,6 +128,8 @@ blocks[1].blockList = [
   blocks[8].id
 ]
 blocks[1].taskList = [tasks[3].id, tasks[4].id]
+tasks[3].blockId = blocks[1].id
+tasks[4].blockId = blocks[1].id
 
 const convertArrayToObject = (array: any, key: string) => {
   const initialValue = {}
