@@ -1,5 +1,4 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import moment from 'moment'
 import React, { Component } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
