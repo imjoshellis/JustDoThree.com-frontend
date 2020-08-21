@@ -7,7 +7,7 @@ export const data = {
         id: 1,
         title: 'Life',
         level: 0,
-        blockList: [],
+        blockList: [2, 3, 4],
         taskList: [1, 2, 3]
       },
       2: {
