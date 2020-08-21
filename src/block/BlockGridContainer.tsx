@@ -25,6 +25,8 @@ interface Props {
 
 interface State {
   topBlock: BlockTypes
+  topBlocks: BlockTypes[]
+  bottomBlocks: BlockTypes[]
   resetBlock: BlockTypes
   sourceBlock: number
   destinationBlock: number
@@ -34,8 +36,19 @@ export class BlockGridContainer extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
 
+    const initialTopBlocks = this.props.topBlock.blockList.map(
+      id => this.props.blocks[id]
+    )
+
+    const initialBottomBlocks = [] as BlockTypes[]
+    initialTopBlocks.forEach(b =>
+      b.blockList.forEach(id => initialBottomBlocks.push(this.props.blocks[id]))
+    )
+
     this.state = {
       topBlock: this.props.topBlock,
+      topBlocks: [this.props.topBlock, ...initialTopBlocks],
+      bottomBlocks: initialBottomBlocks,
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
       destinationBlock: 0
@@ -82,15 +95,6 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 
   render () {
-    let topBlocks = [] as BlockTypes[]
-    const blockArray = Object.values(this.props.blocks)
-    topBlocks.push(blockArray.filter(b => b.id === this.state.topBlock.id)[0])
-    topBlocks = topBlocks.concat(
-      blockArray.filter(b => b.level === this.state.topBlock.level + 1)
-    )
-    const bottomBlocks = blockArray.filter(
-      b => b.level === this.state.topBlock.level + 2
-    )
     return (
       <>
         <DragDropContext
@@ -100,8 +104,8 @@ export class BlockGridContainer extends Component<Props, State> {
         >
           <BlockGridView
             changeTopBlock={this.changeTopBlock}
-            topBlocks={topBlocks}
-            bottomBlocks={bottomBlocks}
+            topBlocks={this.state.topBlocks}
+            bottomBlocks={this.state.bottomBlocks}
             sourceBlock={this.state.sourceBlock}
             destinationBlock={this.state.destinationBlock}
           />
