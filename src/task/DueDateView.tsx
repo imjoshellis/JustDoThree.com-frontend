@@ -23,7 +23,7 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
   const shortDate = dueDate.format('MMM DD')
   return (
     <>
-      <button
+      <div
         className={`flex items-center h-6 justify-between px-1 ml-1 text-xs whitespace-no-wrap border border-transparent rounded text-gray-30 hover:border-solid transition duration-200 ease-out hover:ease-in ${
           completed
             ? 'text-gray-30'
@@ -69,7 +69,7 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
             </motion.span>
           )}
         </AnimatePresence>
-      </button>
+      </div>
     </>
   )
 }
