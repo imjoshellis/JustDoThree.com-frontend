@@ -57,6 +57,13 @@ const blocks = [
     level: 2,
     blockList: [],
     taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q5 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
   }
 ]
 
@@ -104,7 +111,14 @@ const tasks = [
 ]
 
 blocks[0].taskList = [tasks[0].id, tasks[1].id, tasks[2].id]
-blocks[0].blockList = [blocks[1].id, blocks[2].id, blocks[3].id, blocks[4].id]
+blocks[0].blockList = [blocks[1].id, blocks[2].id, blocks[3].id]
+blocks[1].blockList = [
+  blocks[4].id,
+  blocks[5].id,
+  blocks[6].id,
+  blocks[7].id,
+  blocks[8].id
+]
 blocks[1].taskList = [tasks[3].id, tasks[4].id]
 
 const convertArrayToObject = (array: any, key: string) => {
