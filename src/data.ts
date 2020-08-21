@@ -7,48 +7,84 @@ export const data = {
         id: 1,
         title: 'Life',
         level: 0,
+        blockList: [],
         taskList: [1, 2, 3]
       },
       2: {
         id: 2,
         title: 'Y2020',
         level: 1,
+        blockList: [5, 6, 7, 8],
         taskList: [4, 5]
       },
       3: {
         id: 3,
         title: 'Y2021',
         level: 1,
+        blockList: [9, 10, 11, 12],
         taskList: []
       },
       4: {
         id: 4,
         title: 'Y2022',
         level: 1,
+        blockList: [],
         taskList: []
       },
       5: {
         id: 5,
         title: 'Q1 2020',
         level: 2,
+        blockList: [],
         taskList: []
       },
       6: {
         id: 6,
         title: 'Q2 2020',
         level: 2,
+        blockList: [],
         taskList: []
       },
       7: {
         id: 7,
         title: 'Q3 2020',
         level: 2,
+        blockList: [],
         taskList: []
       },
       8: {
         id: 8,
         title: 'Q4 2020',
         level: 2,
+        blockList: [],
+        taskList: []
+      },
+      9: {
+        id: 9,
+        title: 'Q1 2021',
+        level: 2,
+        blockList: [],
+        taskList: []
+      },
+      10: {
+        id: 10,
+        title: 'Q2 2021',
+        level: 2,
+        blockList: [],
+        taskList: []
+      },
+      11: {
+        id: 11,
+        title: 'Q3 2021',
+        level: 2,
+        blockList: [],
+        taskList: []
+      },
+      12: {
+        id: 12,
+        title: 'Q4 2021',
+        level: 2,
+        blockList: [],
         taskList: []
       }
     },
