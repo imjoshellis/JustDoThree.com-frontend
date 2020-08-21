@@ -48,7 +48,7 @@ export const Block: React.FC<Props> = ({
           >
             <h2
               className='px-2 mb-2 text-sm font-bold tracking-wider uppercase cursor-pointer hover:underline hover:text-blue-50'
-              onClick={() => setTopBlock()}
+              onClick={() => (block.level < 4 ? setTopBlock() : null)}
             >
               {block.title}
             </h2>
