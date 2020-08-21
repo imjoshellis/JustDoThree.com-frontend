@@ -8,13 +8,15 @@ interface Props {
   setTopBlock: (topBlock: BlockTypes) => void
   sourceBlock: number
   destinationBlock: number
+  setEditing: (n: number) => void
 }
 
 export const BlockRow: React.FC<Props> = ({
   blocks,
   setTopBlock,
   sourceBlock,
-  destinationBlock
+  destinationBlock,
+  setEditing
 }) => {
   const [idx, setIdx] = useState(0)
   const [direction, setDirection] = useState(1)
@@ -81,6 +83,7 @@ export const BlockRow: React.FC<Props> = ({
                 sourceBlock={sourceBlock}
                 destinationBlock={destinationBlock}
                 setTopBlock={setTopBlock}
+                setEditing={setEditing}
               />
             </motion.div>
           ))}

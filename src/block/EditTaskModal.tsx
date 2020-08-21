@@ -5,19 +5,20 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-date-picker'
 import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
+import { connect } from 'react-redux'
 
 interface EditTaskModalProps {
   setEditing: (n: number) => void
-  editingTask: TaskTypes
+  editingTask: TaskTypes | null
   editTask: ActionCreatorWithPayload<TaskTypes>
 }
 
-export const EditTaskModal: React.FC<EditTaskModalProps> = ({
+const EditTaskModal: React.FC<EditTaskModalProps> = ({
   setEditing,
   editingTask,
   editTask
 }) => {
-  const [task, setTask] = useState<TaskTypes | undefined>(undefined)
+  const [task, setTask] = useState<TaskTypes | null | undefined>(undefined)
 
   let valid = task && task.title ? task.title.length > 0 : false
 

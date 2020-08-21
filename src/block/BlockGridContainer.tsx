@@ -10,10 +10,14 @@ import { RootState } from '../reducers'
 import BlockGridView from './BlockGridView'
 import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import EditTaskModal from './EditTaskModal'
+import { TaskTypes, TaskObj, editTask } from '../task/tasksSlice'
 
 interface Props {
   blocks: BlockObj
+  tasks: TaskObj
   topBlock: BlockTypes
+  editTask: ActionCreatorWithPayload<TaskTypes>
   moveTask: ActionCreatorWithPayload<{
     id: number
     source: DropResult['source']
@@ -29,6 +33,8 @@ interface State {
   resetBlock: BlockTypes
   sourceBlock: number
   destinationBlock: number
+  editing: number
+  editingTask: TaskTypes | null
 }
 
 export class BlockGridContainer extends Component<Props, State> {
@@ -40,9 +46,14 @@ export class BlockGridContainer extends Component<Props, State> {
       prevBlockList: [this.props.topBlock],
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
-      destinationBlock: 0
+      destinationBlock: 0,
+      editing: 0,
+      editingTask: null
     }
   }
+
+  setEditing = (id: number) =>
+    this.setState({ editing: id, editingTask: this.props.tasks[id] })
 
   generateBlockRows = (topBlock: BlockTypes) => {
     const topBlocks = [
@@ -120,6 +131,7 @@ export class BlockGridContainer extends Component<Props, State> {
             setTopBlock={this.setTopBlock}
             sourceBlock={this.state.sourceBlock}
             destinationBlock={this.state.destinationBlock}
+            setEditing={this.setEditing}
             {...this.generateBlockRows(this.state.topBlock)}
           />
         </DragDropContext>
@@ -136,6 +148,13 @@ export class BlockGridContainer extends Component<Props, State> {
         >
           Back
         </button>
+        {this.state.editing > 0 && (
+          <EditTaskModal
+            setEditing={this.setEditing}
+            editingTask={this.state.editingTask}
+            editTask={this.props.editTask}
+          />
+        )}
       </>
     )
   }
@@ -143,10 +162,11 @@ export class BlockGridContainer extends Component<Props, State> {
 
 const mapStateToProps = (state: RootState) => ({
   topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
-  blocks: state.blocks
+  blocks: state.blocks,
+  tasks: state.tasks
 })
 
-const mapDispatchToProps = { moveTask }
+const mapDispatchToProps = { moveTask, editTask }
 
 const ConnectedBlockGridContainer = connect(
   mapStateToProps,
