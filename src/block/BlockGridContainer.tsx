@@ -26,8 +26,6 @@ interface Props {
 interface State {
   topBlock: BlockTypes
   prevBlockList: BlockTypes[]
-  topBlocks: BlockTypes[]
-  bottomBlocks: BlockTypes[]
   resetBlock: BlockTypes
   sourceBlock: number
   destinationBlock: number
@@ -42,8 +40,7 @@ export class BlockGridContainer extends Component<Props, State> {
       prevBlockList: [this.props.topBlock],
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
-      destinationBlock: 0,
-      ...this.generateBlockRows(this.props.topBlock)
+      destinationBlock: 0
     }
   }
 
@@ -65,8 +62,7 @@ export class BlockGridContainer extends Component<Props, State> {
     this.setState(s => ({
       ...s,
       topBlock,
-      prevBlockList: [...s.prevBlockList, s.topBlock],
-      ...this.generateBlockRows(topBlock)
+      prevBlockList: [...s.prevBlockList, s.topBlock]
     }))
   }
 
@@ -122,10 +118,9 @@ export class BlockGridContainer extends Component<Props, State> {
         >
           <BlockGridView
             setTopBlock={this.setTopBlock}
-            topBlocks={this.state.topBlocks}
-            bottomBlocks={this.state.bottomBlocks}
             sourceBlock={this.state.sourceBlock}
             destinationBlock={this.state.destinationBlock}
+            {...this.generateBlockRows(this.state.topBlock)}
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
