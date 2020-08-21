@@ -35,7 +35,7 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
         }`}
         onDoubleClick={() => setEditing(id)}
       >
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hover ? (
             <motion.span
               key='date'

@@ -6,6 +6,7 @@ export interface BlockTypes {
   id: number
   title: string
   level: number
+  blockList: number[]
   taskList: number[]
 }
 

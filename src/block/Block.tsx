@@ -1,36 +1,33 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
-import { addTask, editTask, TaskTypes } from '../task/tasksSlice'
+import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
-import EditTaskModal from './EditTaskModal'
 import NewTaskFormContainer from './NewTaskFormContainer'
 
 interface Props {
   tasks: TaskTypes[]
   block: BlockTypes
-  changeTopBlock: () => void
+  setTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
-  editTask: ActionCreatorWithPayload<TaskTypes>
   sourceBlock: number
   destinationBlock: number
+  setEditing: (n: number) => void
 }
 
 export const Block: React.FC<Props> = ({
   tasks,
   block,
-  changeTopBlock,
+  setTopBlock,
   addTask,
-  editTask,
-  sourceBlock
+  sourceBlock,
+  setEditing
 }) => {
-  const [editing, setEditing] = useState(0)
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
-  const editingTask = tasks.filter(task => task.id === editing)[0]
 
   return (
     <Droppable
@@ -45,13 +42,13 @@ export const Block: React.FC<Props> = ({
 
         return (
           <div
-            className={`flex flex-col max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
+            className={`flex flex-col truncate lg:max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
           >
             <h2
-              className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
-              onClick={() => changeTopBlock()}
+              className='px-2 mb-2 text-sm font-bold tracking-wider uppercase cursor-pointer hover:underline hover:text-blue-50'
+              onClick={() => (block.level < 4 ? setTopBlock() : null)}
             >
               {block.title}
             </h2>
@@ -93,11 +90,6 @@ export const Block: React.FC<Props> = ({
                 </motion.div>
               )}
             </AnimatePresence>
-            <EditTaskModal
-              editingTask={editingTask}
-              editTask={editTask}
-              setEditing={setEditing}
-            />
           </div>
         )
       }}
@@ -109,15 +101,15 @@ const mapStateToProps = (
   state: RootState,
   {
     block,
-    changeTopBlock
-  }: { block: BlockTypes; changeTopBlock: (block: BlockTypes) => void }
+    setTopBlock
+  }: { block: BlockTypes; setTopBlock: (block: BlockTypes) => void }
 ) => ({
   tasks: block.taskList.map(id => state.tasks[id]),
   block: block,
-  changeTopBlock: () => changeTopBlock(block)
+  setTopBlock: () => setTopBlock(block)
 })
 
-const mapDispatchToProps = { addTask, editTask }
+const mapDispatchToProps = { addTask }
 
 const ConnectedBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
 

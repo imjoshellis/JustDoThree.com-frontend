@@ -10,10 +10,14 @@ import { RootState } from '../reducers'
 import BlockGridView from './BlockGridView'
 import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import EditTaskModal from './EditTaskModal'
+import { TaskTypes, TaskObj, editTask } from '../task/tasksSlice'
 
 interface Props {
   blocks: BlockObj
+  tasks: TaskObj
   topBlock: BlockTypes
+  editTask: ActionCreatorWithPayload<TaskTypes>
   moveTask: ActionCreatorWithPayload<{
     id: number
     source: DropResult['source']
@@ -25,9 +29,12 @@ interface Props {
 
 interface State {
   topBlock: BlockTypes
+  prevBlockList: BlockTypes[]
   resetBlock: BlockTypes
   sourceBlock: number
   destinationBlock: number
+  editing: number
+  editingTask: TaskTypes | null
 }
 
 export class BlockGridContainer extends Component<Props, State> {
@@ -36,18 +43,49 @@ export class BlockGridContainer extends Component<Props, State> {
 
     this.state = {
       topBlock: this.props.topBlock,
+      prevBlockList: [this.props.topBlock],
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
-      destinationBlock: 0
+      destinationBlock: 0,
+      editing: 0,
+      editingTask: null
     }
   }
 
-  changeTopBlock = (block: BlockTypes) => {
-    this.setState({ topBlock: block })
+  setEditing = (id: number) =>
+    this.setState({ editing: id, editingTask: this.props.tasks[id] })
+
+  generateBlockRows = (topBlock: BlockTypes) => {
+    const topBlocks = [
+      topBlock,
+      ...topBlock.blockList.map(id => this.props.blocks[id])
+    ]
+    const bottomBlocks = [] as BlockTypes[]
+    topBlocks
+      .slice(1)
+      .forEach(b =>
+        b.blockList.forEach(id => bottomBlocks.push(this.props.blocks[id]))
+      )
+    return { topBlocks, bottomBlocks }
   }
 
-  reset = () => {
-    this.setState({ topBlock: this.state.resetBlock })
+  setTopBlock = (topBlock: BlockTypes) => {
+    this.setState(s => ({
+      ...s,
+      topBlock,
+      prevBlockList: [...s.prevBlockList, s.topBlock]
+    }))
+  }
+
+  back = () => {
+    const prevBlockList = [...this.state.prevBlockList]
+    const prevBlock = prevBlockList[prevBlockList.length - 1]
+    this.setTopBlock(prevBlock)
+
+    if (prevBlockList.length > 1) {
+      prevBlockList.pop()
+    }
+    this.setState({ prevBlockList: prevBlockList })
   }
 
   handleDragEnd = (r: DropResult) => {
@@ -82,15 +120,6 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 
   render () {
-    let topBlocks = [] as BlockTypes[]
-    const blockArray = Object.values(this.props.blocks)
-    topBlocks.push(blockArray.filter(b => b.id === this.state.topBlock.id)[0])
-    topBlocks = topBlocks.concat(
-      blockArray.filter(b => b.level === this.state.topBlock.level + 1)
-    )
-    const bottomBlocks = blockArray.filter(
-      b => b.level === this.state.topBlock.level + 2
-    )
     return (
       <>
         <DragDropContext
@@ -99,15 +128,33 @@ export class BlockGridContainer extends Component<Props, State> {
           onDragUpdate={this.handleDragUpdate}
         >
           <BlockGridView
-            changeTopBlock={this.changeTopBlock}
-            topBlocks={topBlocks}
-            bottomBlocks={bottomBlocks}
+            setTopBlock={this.setTopBlock}
             sourceBlock={this.state.sourceBlock}
             destinationBlock={this.state.destinationBlock}
+            setEditing={this.setEditing}
+            {...this.generateBlockRows(this.state.topBlock)}
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
-        <button onClick={this.reset}>Reset</button>
+        <button
+          className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
+          onClick={() => this.setTopBlock(this.state.resetBlock)}
+        >
+          Reset
+        </button>
+        <button
+          className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
+          onClick={this.back}
+        >
+          Back
+        </button>
+        {this.state.editing > 0 && (
+          <EditTaskModal
+            setEditing={this.setEditing}
+            editingTask={this.state.editingTask}
+            editTask={this.props.editTask}
+          />
+        )}
       </>
     )
   }
@@ -115,10 +162,11 @@ export class BlockGridContainer extends Component<Props, State> {
 
 const mapStateToProps = (state: RootState) => ({
   topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
-  blocks: state.blocks
+  blocks: state.blocks,
+  tasks: state.tasks
 })
 
-const mapDispatchToProps = { moveTask }
+const mapDispatchToProps = { moveTask, editTask }
 
 const ConnectedBlockGridContainer = connect(
   mapStateToProps,

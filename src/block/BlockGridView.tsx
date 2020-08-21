@@ -1,35 +1,44 @@
 import React from 'react'
 import BlockRow from './BlockRow'
 import { BlockTypes } from './blocksSlice'
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion'
 
 interface Props {
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
-  changeTopBlock: (block: BlockTypes) => void
+  setTopBlock: (topBlock: BlockTypes) => void
   sourceBlock: number
+  setEditing: (n: number) => void
   destinationBlock: number
 }
 
 export const BlockGridView: React.FC<Props> = ({
   topBlocks,
   bottomBlocks,
-  changeTopBlock,
+  setTopBlock,
   sourceBlock,
+  setEditing,
   destinationBlock
 }) => (
   <div className='flex flex-col'>
-    <BlockRow
-      blocks={topBlocks}
-      sourceBlock={sourceBlock}
-      destinationBlock={destinationBlock}
-      changeTopBlock={changeTopBlock}
-    />
-    <BlockRow
-      blocks={bottomBlocks}
-      sourceBlock={sourceBlock}
-      destinationBlock={destinationBlock}
-      changeTopBlock={changeTopBlock}
-    />
+    <AnimatePresence initial={false}>
+      <AnimateSharedLayout>
+        <BlockRow
+          blocks={topBlocks.slice(0, 4)}
+          sourceBlock={sourceBlock}
+          destinationBlock={destinationBlock}
+          setEditing={setEditing}
+          setTopBlock={setTopBlock}
+        />
+        <BlockRow
+          blocks={bottomBlocks}
+          sourceBlock={sourceBlock}
+          destinationBlock={destinationBlock}
+          setEditing={setEditing}
+          setTopBlock={setTopBlock}
+        />
+      </AnimateSharedLayout>
+    </AnimatePresence>
   </div>
 )
 

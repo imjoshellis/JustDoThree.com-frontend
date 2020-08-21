@@ -37,7 +37,7 @@ export class NewTaskFormContainer extends Component<Props, State> {
         block: this.props.block,
         id: Math.floor(Math.random() * 77 + 70)
       })
-      this.setState({ text: '' })
+      this.setState({ text: '', valid: false })
     }
   }
 
