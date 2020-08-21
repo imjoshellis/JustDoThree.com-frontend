@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { data } from '../data'
-import { addTask } from '../task/tasksSlice'
+import { addTask, deleteTask } from '../task/tasksSlice'
 
 export interface BlockTypes {
   id: string
@@ -55,16 +55,26 @@ const blockSlice = createSlice({
     }
   },
   extraReducers: (builder) =>
-    builder.addCase(addTask, (state, action) => {
-      const { id, block } = action.payload
-      const newTaskList = block.taskList.concat()
-      newTaskList.push(id)
+    builder
+      .addCase(addTask, (state, action) => {
+        const { id, block } = action.payload
+        const newTaskList = block.taskList.concat()
+        newTaskList.push(id)
 
-      state[block.id] = {
-        ...block,
-        taskList: newTaskList
-      }
-    })
+        state[block.id] = {
+          ...block,
+          taskList: newTaskList
+        }
+      })
+      .addCase(deleteTask, (state, action) => {
+        const { id, blockId } = action.payload
+        const block = state[blockId]
+        const newTaskList = block.taskList.filter((taskId: string) => taskId !== id)
+        state[block.id] = {
+          ...block,
+          taskList: newTaskList
+        }
+      })
 })
 
 export const { moveTask } = blockSlice.actions

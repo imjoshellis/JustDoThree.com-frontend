@@ -6,6 +6,7 @@ export interface TaskTypes {
   title: string
   dueDate?: string
   completed: boolean
+  blockId: string
 }
 
 export interface TaskObj {
@@ -17,12 +18,17 @@ const tasksSlice = createSlice({
   initialState: data.entities.tasks as TaskObj,
   reducers: {
     addTask (state, action) {
-      const { title, id } = action.payload
+      const { title, id, block } = action.payload
       state[id] = {
         id: id,
         title,
+        blockId: block.id,
         completed: false
       }
+    },
+    deleteTask (state, action) {
+      const { id } = action.payload
+      delete state[id]
     },
     editTask (state, action) {
       const task = action.payload
@@ -37,6 +43,6 @@ const tasksSlice = createSlice({
   }
 })
 
-export const { addTask, editTask, toggleTask } = tasksSlice.actions
+export const { addTask, deleteTask, editTask, toggleTask } = tasksSlice.actions
 
 export default tasksSlice.reducer

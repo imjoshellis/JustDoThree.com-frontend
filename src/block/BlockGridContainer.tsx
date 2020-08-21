@@ -11,13 +11,14 @@ import BlockGridView from './BlockGridView'
 import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import EditTaskModal from './EditTaskModal'
-import { TaskTypes, TaskObj, editTask } from '../task/tasksSlice'
+import { TaskTypes, TaskObj, editTask, deleteTask } from '../task/tasksSlice'
 
 interface Props {
   blocks: BlockObj
   tasks: TaskObj
   topBlock: BlockTypes
   editTask: ActionCreatorWithPayload<TaskTypes>
+  deleteTask: ActionCreatorWithPayload<TaskTypes>
   moveTask: ActionCreatorWithPayload<{
     id: string
     source: DropResult['source']
@@ -151,6 +152,7 @@ export class BlockGridContainer extends Component<Props, State> {
             setEditing={this.setEditing}
             editingTask={this.state.editingTask}
             editTask={this.props.editTask}
+            deleteTask={this.props.deleteTask}
           />
         )}
       </>
@@ -164,7 +166,7 @@ const mapStateToProps = (state: RootState) => ({
   tasks: state.tasks
 })
 
-const mapDispatchToProps = { moveTask, editTask }
+const mapDispatchToProps = { moveTask, editTask, deleteTask }
 
 const ConnectedBlockGridContainer = connect(
   mapStateToProps,
