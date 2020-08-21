@@ -61,18 +61,13 @@ export class BlockGridContainer extends Component<Props, State> {
     return { topBlocks, bottomBlocks }
   }
 
-  changeTopBlock = (topBlock: BlockTypes) => {}
-  /*changeTopBlock = (topBlock: BlockTypes) => {
+  setTopBlock = (topBlock: BlockTypes) => {
     this.setState(s => ({
       ...s,
       topBlock,
       previousTopBlock: s.topBlock,
       ...this.generateBlockRows(topBlock)
     }))
-  }*/
-
-  reset = () => {
-    this.setState({ topBlock: this.state.resetBlock })
   }
 
   handleDragEnd = (r: DropResult) => {
@@ -115,7 +110,7 @@ export class BlockGridContainer extends Component<Props, State> {
           onDragUpdate={this.handleDragUpdate}
         >
           <BlockGridView
-            changeTopBlock={this.changeTopBlock}
+            setTopBlock={this.setTopBlock}
             topBlocks={this.state.topBlocks}
             bottomBlocks={this.state.bottomBlocks}
             sourceBlock={this.state.sourceBlock}
@@ -123,7 +118,9 @@ export class BlockGridContainer extends Component<Props, State> {
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
-        <button onClick={this.reset}>Reset</button>
+        <button onClick={() => this.setTopBlock(this.state.resetBlock)}>
+          Reset
+        </button>
       </>
     )
   }

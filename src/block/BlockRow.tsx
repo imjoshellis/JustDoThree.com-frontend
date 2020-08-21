@@ -4,14 +4,14 @@ import { BlockTypes } from './blocksSlice'
 
 interface Props {
   blocks: BlockTypes[]
-  changeTopBlock: (block: BlockTypes) => void
+  setTopBlock: (topBlock: BlockTypes) => void
   sourceBlock: number
   destinationBlock: number
 }
 
 export const BlockRow: React.FC<Props> = ({
   blocks,
-  changeTopBlock,
+  setTopBlock,
   sourceBlock,
   destinationBlock
 }) => (
@@ -22,7 +22,7 @@ export const BlockRow: React.FC<Props> = ({
         key={b.id}
         sourceBlock={sourceBlock}
         destinationBlock={destinationBlock}
-        changeTopBlock={changeTopBlock}
+        setTopBlock={setTopBlock}
       />
     ))}
   </div>

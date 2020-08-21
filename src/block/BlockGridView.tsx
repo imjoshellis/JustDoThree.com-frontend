@@ -5,7 +5,7 @@ import { BlockTypes } from './blocksSlice'
 interface Props {
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
-  changeTopBlock: (block: BlockTypes) => void
+  setTopBlock: (topBlock: BlockTypes) => void
   sourceBlock: number
   destinationBlock: number
 }
@@ -13,7 +13,7 @@ interface Props {
 export const BlockGridView: React.FC<Props> = ({
   topBlocks,
   bottomBlocks,
-  changeTopBlock,
+  setTopBlock,
   sourceBlock,
   destinationBlock
 }) => (
@@ -22,13 +22,13 @@ export const BlockGridView: React.FC<Props> = ({
       blocks={topBlocks}
       sourceBlock={sourceBlock}
       destinationBlock={destinationBlock}
-      changeTopBlock={changeTopBlock}
+      setTopBlock={setTopBlock}
     />
     <BlockRow
       blocks={bottomBlocks}
       sourceBlock={sourceBlock}
       destinationBlock={destinationBlock}
-      changeTopBlock={changeTopBlock}
+      setTopBlock={setTopBlock}
     />
   </div>
 )

@@ -13,7 +13,7 @@ import NewTaskFormContainer from './NewTaskFormContainer'
 interface Props {
   tasks: TaskTypes[]
   block: BlockTypes
-  changeTopBlock: () => void
+  setTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
   editTask: ActionCreatorWithPayload<TaskTypes>
   sourceBlock: number
@@ -23,7 +23,7 @@ interface Props {
 export const Block: React.FC<Props> = ({
   tasks,
   block,
-  changeTopBlock,
+  setTopBlock,
   addTask,
   editTask,
   sourceBlock
@@ -51,7 +51,7 @@ export const Block: React.FC<Props> = ({
           >
             <h2
               className='px-2 mb-2 text-sm font-bold tracking-wider uppercase'
-              onClick={() => changeTopBlock()}
+              onClick={() => setTopBlock()}
             >
               {block.title}
             </h2>
@@ -109,12 +109,12 @@ const mapStateToProps = (
   state: RootState,
   {
     block,
-    changeTopBlock
-  }: { block: BlockTypes; changeTopBlock: (block: BlockTypes) => void }
+    setTopBlock
+  }: { block: BlockTypes; setTopBlock: (block: BlockTypes) => void }
 ) => ({
   tasks: block.taskList.map(id => state.tasks[id]),
   block: block,
-  changeTopBlock: () => changeTopBlock(block)
+  setTopBlock: () => setTopBlock(block)
 })
 
 const mapDispatchToProps = { addTask, editTask }
