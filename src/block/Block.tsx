@@ -99,11 +99,11 @@ const mapStateToProps = (
   {
     block,
     setTopBlock
-  }: { block: BlockTypes; setTopBlock: (block: BlockTypes) => void }
+  }: { block: BlockTypes; setTopBlock: (blockId: string) => void }
 ) => ({
   tasks: block.taskList.map(id => state.tasks[id]),
   block: block,
-  setTopBlock: () => setTopBlock(block)
+  setTopBlock: () => setTopBlock(block.id)
 })
 
 const mapDispatchToProps = { addTask }

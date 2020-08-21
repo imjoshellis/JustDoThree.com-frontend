@@ -5,7 +5,7 @@ import { BlockTypes } from './blocksSlice'
 
 interface Props {
   blocks: BlockTypes[]
-  setTopBlock: (topBlock: BlockTypes) => void
+  setTopBlock: (topBlockId: string) => void
   sourceBlock: string
   destinationBlock: string
   setEditing: (id: string) => void

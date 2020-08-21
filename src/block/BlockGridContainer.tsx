@@ -28,9 +28,9 @@ interface Props {
 }
 
 interface State {
-  topBlock: BlockTypes
-  prevBlockList: BlockTypes[]
-  resetBlock: BlockTypes
+  topBlockId: string
+  prevBlockList: string[]
+  resetBlock: string
   sourceBlock: string
   destinationBlock: string
   editing: string
@@ -42,9 +42,9 @@ export class BlockGridContainer extends Component<Props, State> {
     super(props)
 
     this.state = {
-      topBlock: this.props.topBlock,
-      prevBlockList: [this.props.topBlock],
-      resetBlock: this.props.topBlock,
+      topBlockId: this.props.topBlock.id,
+      prevBlockList: [this.props.topBlock.id],
+      resetBlock: this.props.topBlock.id,
       sourceBlock: '',
       destinationBlock: '',
       editing: '',
@@ -55,7 +55,8 @@ export class BlockGridContainer extends Component<Props, State> {
   setEditing = (id: string) =>
     this.setState({ editing: id, editingTask: this.props.tasks[id] })
 
-  generateBlockRows = (topBlock: BlockTypes) => {
+  generateBlockRows = (topBlockId: string) => {
+    const topBlock = this.props.blocks[topBlockId]
     const topBlocks = [
       topBlock,
       ...topBlock.blockList.map(id => this.props.blocks[id])
@@ -69,23 +70,21 @@ export class BlockGridContainer extends Component<Props, State> {
     return { topBlocks, bottomBlocks }
   }
 
-  setTopBlock = (topBlock: BlockTypes) => {
+  setTopBlock = (topBlockId: string) => {
     this.setState(s => ({
       ...s,
-      topBlock,
-      prevBlockList: [...s.prevBlockList, s.topBlock]
+      topBlockId,
+      prevBlockList: [...s.prevBlockList, topBlockId]
     }))
   }
 
   back = () => {
     const prevBlockList = [...this.state.prevBlockList]
-    const prevBlock = prevBlockList[prevBlockList.length - 1]
-    this.setTopBlock(prevBlock)
-
     if (prevBlockList.length > 1) {
       prevBlockList.pop()
     }
-    this.setState({ prevBlockList: prevBlockList })
+    const prevBlockId = prevBlockList[prevBlockList.length - 1]
+    this.setState({ topBlockId: prevBlockId, prevBlockList: prevBlockList })
   }
 
   handleDragEnd = (r: DropResult) => {
@@ -132,7 +131,7 @@ export class BlockGridContainer extends Component<Props, State> {
             sourceBlock={this.state.sourceBlock}
             destinationBlock={this.state.destinationBlock}
             setEditing={this.setEditing}
-            {...this.generateBlockRows(this.state.topBlock)}
+            {...this.generateBlockRows(this.state.topBlockId)}
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>

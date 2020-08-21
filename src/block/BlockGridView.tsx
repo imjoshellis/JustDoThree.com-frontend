@@ -6,7 +6,7 @@ import { AnimatePresence, AnimateSharedLayout } from 'framer-motion'
 interface Props {
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
-  setTopBlock: (topBlock: BlockTypes) => void
+  setTopBlock: (topBlockId: string) => void
   sourceBlock: string
   setEditing: (id: string) => void
   destinationBlock: string
