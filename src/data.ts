@@ -35,7 +35,7 @@ export const data = {
         id: 5,
         title: 'Q1 2020',
         level: 2,
-        blockList: [],
+        blockList: [13],
         taskList: []
       },
       6: {
@@ -84,6 +84,27 @@ export const data = {
         id: 12,
         title: 'Q4 2021',
         level: 2,
+        blockList: [],
+        taskList: []
+      },
+      13: {
+        id: 13,
+        title: 'Jan 2020',
+        level: 3,
+        blockList: [14],
+        taskList: []
+      },
+      14: {
+        id: 14,
+        title: 'WK1 Jan 2020',
+        level: 4,
+        blockList: [15],
+        taskList: []
+      },
+      15: {
+        id: 15,
+        title: '1/1/2020',
+        level: 5,
         blockList: [],
         taskList: []
       }
