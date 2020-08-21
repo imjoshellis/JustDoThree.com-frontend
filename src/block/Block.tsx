@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'

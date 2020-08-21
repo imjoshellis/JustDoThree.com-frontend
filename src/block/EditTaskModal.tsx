@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-date-picker'
 import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
-import { connect } from 'react-redux'
 
 interface EditTaskModalProps {
   setEditing: (n: number) => void

@@ -1,7 +1,7 @@
+import { AnimateSharedLayout, motion } from 'framer-motion'
 import React, { useState } from 'react'
 import ConnectedBlock from './Block'
 import { BlockTypes } from './blocksSlice'
-import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion'
 
 interface Props {
   blocks: BlockTypes[]
