@@ -25,7 +25,7 @@ interface Props {
 
 interface State {
   topBlock: BlockTypes
-  previousTopBlock: BlockTypes
+  prevBlockList: BlockTypes[]
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
   resetBlock: BlockTypes
@@ -39,7 +39,7 @@ export class BlockGridContainer extends Component<Props, State> {
 
     this.state = {
       topBlock: this.props.topBlock,
-      previousTopBlock: this.props.topBlock,
+      prevBlockList: [this.props.topBlock],
       resetBlock: this.props.topBlock,
       sourceBlock: 0,
       destinationBlock: 0,
@@ -65,9 +65,20 @@ export class BlockGridContainer extends Component<Props, State> {
     this.setState(s => ({
       ...s,
       topBlock,
-      previousTopBlock: s.topBlock,
+      prevBlockList: [...s.prevBlockList, s.topBlock],
       ...this.generateBlockRows(topBlock)
     }))
+  }
+
+  back = () => {
+    const prevBlockList = [...this.state.prevBlockList]
+    const prevBlock = prevBlockList[prevBlockList.length - 1]
+    this.setTopBlock(prevBlock)
+
+    if (prevBlockList.length > 1) {
+      prevBlockList.pop()
+    }
+    this.setState({ prevBlockList: prevBlockList })
   }
 
   handleDragEnd = (r: DropResult) => {
@@ -118,8 +129,17 @@ export class BlockGridContainer extends Component<Props, State> {
           />
         </DragDropContext>
         <div>Current Level: {this.state.topBlock.level}</div>
-        <button onClick={() => this.setTopBlock(this.state.resetBlock)}>
+        <button
+          className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
+          onClick={() => this.setTopBlock(this.state.resetBlock)}
+        >
           Reset
+        </button>
+        <button
+          className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
+          onClick={this.back}
+        >
+          Back
         </button>
       </>
     )
