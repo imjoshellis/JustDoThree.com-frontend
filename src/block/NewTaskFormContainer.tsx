@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BlockTypes } from './blocksSlice'
 import NewTaskFormView from './NewTaskFormView'
+import shortid from 'shortid'
 
 interface Props {
   addTask: ({
@@ -9,7 +10,7 @@ interface Props {
   }: {
     title: string
     block: BlockTypes
-    id: number
+    id: string
   }) => void
   block: BlockTypes
 }
@@ -35,7 +36,7 @@ export class NewTaskFormContainer extends Component<Props, State> {
       this.props.addTask({
         title: this.state.text.trim(),
         block: this.props.block,
-        id: Math.floor(Math.random() * 77 + 70)
+        id: shortid.generate()
       })
       this.setState({ text: '', valid: false })
     }

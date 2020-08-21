@@ -5,7 +5,7 @@ import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import DueDateContainer from './DueDateContainer'
 
 interface TaskViewProps {
-  id: number
+  id: string
   title: string
   completed: boolean
   dueDate?: moment.Moment
@@ -14,7 +14,7 @@ interface TaskViewProps {
   toggleTask: ActionCreatorWithPayload<any>
   provided: DraggableProvided
   snapshot: DraggableStateSnapshot
-  setEditing: (id: number) => void
+  setEditing: (id: string) => void
   hover: boolean
 }
 

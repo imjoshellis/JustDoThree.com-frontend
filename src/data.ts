@@ -1,155 +1,141 @@
 import moment from 'moment'
+import shortid from 'shortid'
+
+const blocks = [
+  {
+    id: shortid.generate(),
+    title: 'Life',
+    level: 0,
+    blockList: [] as string[],
+    taskList: [] as string[]
+  },
+  {
+    id: shortid.generate(),
+    title: 'Y2020',
+    level: 1,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Y2021',
+    level: 1,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Y2022',
+    level: 1,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q1 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q2 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q3 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q4 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
+  },
+  {
+    id: shortid.generate(),
+    title: 'Q5 2020',
+    level: 2,
+    blockList: [],
+    taskList: []
+  }
+]
+
+const tasks = [
+  {
+    completed: false,
+    dueDate: moment()
+      .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
+      .toISOString(),
+    id: shortid.generate(),
+    title: 'I became a Senior Developer at a high growth organization'
+  },
+  {
+    completed: true,
+    dueDate: moment()
+      .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
+      .toISOString(),
+    id: shortid.generate(),
+    title: 'I published a board game'
+  },
+  {
+    completed: false,
+    dueDate: moment()
+      .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
+      .toISOString(),
+    id: shortid.generate(),
+    title: 'I ran a marathon'
+  },
+  {
+    completed: false,
+    dueDate: moment()
+      .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
+      .toISOString(),
+    id: shortid.generate(),
+    title: 'I did one thing this year'
+  },
+  {
+    completed: true,
+    dueDate: moment()
+      .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
+      .toISOString(),
+    id: shortid.generate(),
+    title: 'I did another thing this year'
+  }
+]
+
+blocks[0].taskList = [tasks[0].id, tasks[1].id, tasks[2].id]
+blocks[0].blockList = [blocks[1].id, blocks[2].id, blocks[3].id]
+blocks[1].blockList = [
+  blocks[4].id,
+  blocks[5].id,
+  blocks[6].id,
+  blocks[7].id,
+  blocks[8].id
+]
+blocks[1].taskList = [tasks[3].id, tasks[4].id]
+
+const convertArrayToObject = (array: any, key: string) => {
+  const initialValue = {}
+  return array.reduce((obj: any, item: any) => {
+    return {
+      ...obj,
+      [item[key]]: item
+    }
+  }, initialValue)
+}
 
 export const data = {
   entities: {
-    blocks: {
-      1: {
-        id: 1,
-        title: 'Life',
-        level: 0,
-        blockList: [2, 3, 4],
-        taskList: [1, 2, 3]
-      },
-      2: {
-        id: 2,
-        title: 'Y2020',
-        level: 1,
-        blockList: [5, 6, 7, 8],
-        taskList: [4, 5]
-      },
-      3: {
-        id: 3,
-        title: 'Y2021',
-        level: 1,
-        blockList: [9, 10, 11, 12],
-        taskList: []
-      },
-      4: {
-        id: 4,
-        title: 'Y2022',
-        level: 1,
-        blockList: [],
-        taskList: []
-      },
-      5: {
-        id: 5,
-        title: 'Q1 2020',
-        level: 2,
-        blockList: [13],
-        taskList: []
-      },
-      6: {
-        id: 6,
-        title: 'Q2 2020',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      7: {
-        id: 7,
-        title: 'Q3 2020',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      8: {
-        id: 8,
-        title: 'Q4 2020',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      9: {
-        id: 9,
-        title: 'Q1 2021',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      10: {
-        id: 10,
-        title: 'Q2 2021',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      11: {
-        id: 11,
-        title: 'Q3 2021',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      12: {
-        id: 12,
-        title: 'Q4 2021',
-        level: 2,
-        blockList: [],
-        taskList: []
-      },
-      13: {
-        id: 13,
-        title: 'Jan 2020',
-        level: 3,
-        blockList: [14],
-        taskList: []
-      },
-      14: {
-        id: 14,
-        title: 'WK1 Jan 2020',
-        level: 4,
-        blockList: [15],
-        taskList: []
-      },
-      15: {
-        id: 15,
-        title: '1/1/2020',
-        level: 5,
-        blockList: [],
-        taskList: []
-      }
-    },
-    tasks: {
-      1: {
-        completed: false,
-        dueDate: moment()
-          .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
-          .toISOString(),
-        id: 1,
-        title: 'I became a Senior Developer at a high growth organization'
-      },
-      2: {
-        completed: true,
-        dueDate: moment()
-          .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
-          .toISOString(),
-        id: 2,
-        title: 'I published a board game'
-      },
-      3: {
-        completed: false,
-        dueDate: moment()
-          .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
-          .toISOString(),
-        id: 3,
-        title: 'I ran a marathon'
-      },
-      4: {
-        completed: false,
-        dueDate: moment()
-          .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
-          .toISOString(),
-        id: 4,
-        title: 'I did one thing this year'
-      },
-      5: {
-        completed: true,
-        dueDate: moment()
-          .add(Math.random() * 1000 * (Math.random() < 0.5 ? -1 : 1), 'd')
-          .toISOString(),
-        id: 5,
-        title: 'I did another thing this year'
-      }
-    }
+    blocks: convertArrayToObject(blocks, 'id'),
+    tasks: convertArrayToObject(tasks, 'id')
   }
 }
+
+export default data

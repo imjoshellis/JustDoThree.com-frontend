@@ -1,14 +1,13 @@
-import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import ConnectedBlock from './Block'
 import { BlockTypes } from './blocksSlice'
 
 interface Props {
   blocks: BlockTypes[]
-  setTopBlock: (topBlock: BlockTypes) => void
-  sourceBlock: number
-  destinationBlock: number
-  setEditing: (n: number) => void
+  setTopBlock: (topBlockId: string) => void
+  sourceBlock: string
+  destinationBlock: string
+  setEditing: (id: string) => void
 }
 
 export const BlockRow: React.FC<Props> = ({
@@ -73,22 +72,14 @@ export const BlockRow: React.FC<Props> = ({
     <div className='md:max-w-2xl lg:max-w-full'>
       <div className='flex flex-col mt-4 select-none md:grid md:grid-cols-2 md:content-between md:gap-4 lg:grid-cols-4'>
         {blocks.slice(idx, idx + 4).map((b: BlockTypes) => (
-          <motion.div
+          <ConnectedBlock
             key={b.id}
-            layoutId={b.id.toString()}
-            initial={{ opacity: 0, x: direction * 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ ease: 'easeOut' }}
-            className='flex'
-          >
-            <ConnectedBlock
-              block={b}
-              sourceBlock={sourceBlock}
-              destinationBlock={destinationBlock}
-              setTopBlock={setTopBlock}
-              setEditing={setEditing}
-            />
-          </motion.div>
+            block={b}
+            sourceBlock={sourceBlock}
+            destinationBlock={destinationBlock}
+            setTopBlock={setTopBlock}
+            setEditing={setEditing}
+          />
         ))}
       </div>
       {blocks.length > 4 && (

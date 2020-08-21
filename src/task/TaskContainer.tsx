@@ -7,14 +7,14 @@ import { toggleTask } from './tasksSlice'
 import TaskView from './TaskView'
 
 export interface TaskPropTypes {
-  id: number
+  id: string
   title: string
   completed: boolean
   dueDate?: string
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
-  setEditing: (id: number) => void
+  setEditing: (id: string) => void
   editing?: boolean
   idx: number
 }
@@ -39,10 +39,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
 
     return (
       <>
-        <Draggable
-          draggableId={this.props.id.toString()}
-          index={this.props.idx}
-        >
+        <Draggable draggableId={this.props.id} index={this.props.idx}>
           {(p, s) => (
             <div
               ref={p.innerRef}

@@ -3,15 +3,15 @@ import { data } from '../data'
 import { addTask } from '../task/tasksSlice'
 
 export interface BlockTypes {
-  id: number
+  id: string
   title: string
   level: number
-  blockList: number[]
-  taskList: number[]
+  blockList: string[]
+  taskList: string[]
 }
 
 export interface BlockObj {
-  [id: number]: BlockTypes
+  [id: string]: BlockTypes
 }
 
 const blockSlice = createSlice({
@@ -30,7 +30,7 @@ const blockSlice = createSlice({
 
       if (start === end && start) {
         const newTaskList = start.taskList.filter(
-          (x: number, idx: number) => idx !== source.index
+          (_: any, idx: number) => idx !== source.index
         )
         newTaskList.splice(destination.index, 0, id)
 

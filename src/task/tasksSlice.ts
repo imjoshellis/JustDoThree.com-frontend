@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { data } from '../data'
 
 export interface TaskTypes {
-  id: number
+  id: string
   title: string
   dueDate?: string
   completed: boolean
 }
 
 export interface TaskObj {
-  [id: number]: TaskTypes
+  [id: string]: TaskTypes
 }
 
 const tasksSlice = createSlice({
