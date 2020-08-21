@@ -7,8 +7,8 @@ interface DueDateViewProps {
   soon: boolean
   completed: boolean
   hover: boolean
-  setEditing: (n: number) => void
-  id: number
+  setEditing: (id: string) => void
+  id: string
 }
 
 export const DueDateView: React.FC<DueDateViewProps> = ({

@@ -23,10 +23,10 @@ moment.updateLocale('en', {
 
 interface DueDateContainerProps {
   dueDate: moment.Moment
-  setEditing: (n: number) => void
+  setEditing: (id: string) => void
   completed: boolean
   hover: boolean
-  id: number
+  id: string
 }
 
 interface DueDateContainerState {}

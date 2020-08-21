@@ -6,9 +6,9 @@ import { BlockTypes } from './blocksSlice'
 interface Props {
   blocks: BlockTypes[]
   setTopBlock: (topBlock: BlockTypes) => void
-  sourceBlock: number
-  destinationBlock: number
-  setEditing: (n: number) => void
+  sourceBlock: string
+  destinationBlock: string
+  setEditing: (id: string) => void
 }
 
 export const BlockRow: React.FC<Props> = ({
@@ -75,7 +75,7 @@ export const BlockRow: React.FC<Props> = ({
         {blocks.slice(idx, idx + 4).map((b: BlockTypes) => (
           <motion.div
             key={b.id}
-            layoutId={b.id.toString()}
+            layoutId={b.id}
             initial={{ opacity: 0, x: direction * 300 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ ease: 'easeOut' }}

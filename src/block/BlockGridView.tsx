@@ -7,9 +7,9 @@ interface Props {
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
   setTopBlock: (topBlock: BlockTypes) => void
-  sourceBlock: number
-  setEditing: (n: number) => void
-  destinationBlock: number
+  sourceBlock: string
+  setEditing: (id: string) => void
+  destinationBlock: string
 }
 
 export const BlockGridView: React.FC<Props> = ({

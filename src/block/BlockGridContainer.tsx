@@ -19,7 +19,7 @@ interface Props {
   topBlock: BlockTypes
   editTask: ActionCreatorWithPayload<TaskTypes>
   moveTask: ActionCreatorWithPayload<{
-    id: number
+    id: string
     source: DropResult['source']
     destination: DropResult['destination']
     start: BlockTypes
@@ -31,9 +31,9 @@ interface State {
   topBlock: BlockTypes
   prevBlockList: BlockTypes[]
   resetBlock: BlockTypes
-  sourceBlock: number
-  destinationBlock: number
-  editing: number
+  sourceBlock: string
+  destinationBlock: string
+  editing: string
   editingTask: TaskTypes | null
 }
 
@@ -45,14 +45,14 @@ export class BlockGridContainer extends Component<Props, State> {
       topBlock: this.props.topBlock,
       prevBlockList: [this.props.topBlock],
       resetBlock: this.props.topBlock,
-      sourceBlock: 0,
-      destinationBlock: 0,
-      editing: 0,
+      sourceBlock: '',
+      destinationBlock: '',
+      editing: '',
       editingTask: null
     }
   }
 
-  setEditing = (id: number) =>
+  setEditing = (id: string) =>
     this.setState({ editing: id, editingTask: this.props.tasks[id] })
 
   generateBlockRows = (topBlock: BlockTypes) => {
@@ -90,14 +90,14 @@ export class BlockGridContainer extends Component<Props, State> {
 
   handleDragEnd = (r: DropResult) => {
     const { source, destination } = r
-    const draggableId = parseInt(r.draggableId)
-    this.setState({ sourceBlock: 0, destinationBlock: 0 })
+    const draggableId = r.draggableId
+    this.setState({ sourceBlock: '', destinationBlock: '' })
 
     if (!destination) {
       return
     }
-    const start = this.props.blocks[parseInt(source.droppableId)]
-    const end = this.props.blocks[parseInt(destination.droppableId)]
+    const start = this.props.blocks[source.droppableId]
+    const end = this.props.blocks[destination.droppableId]
     this.props.moveTask({
       id: draggableId,
       source,
@@ -108,14 +108,14 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 
   handleDragStart = (s: DragStart) => {
-    this.setState({ sourceBlock: parseInt(s.source.droppableId) })
+    this.setState({ sourceBlock: s.source.droppableId })
   }
 
   handleDragUpdate = (u: DragUpdate) => {
     if (u.destination) {
-      this.setState({ destinationBlock: parseInt(u.destination.droppableId) })
+      this.setState({ destinationBlock: u.destination.droppableId })
     } else {
-      this.setState({ destinationBlock: parseInt(u.source.droppableId) })
+      this.setState({ destinationBlock: u.source.droppableId })
     }
   }
 
@@ -148,7 +148,7 @@ export class BlockGridContainer extends Component<Props, State> {
         >
           Back
         </button>
-        {this.state.editing > 0 && (
+        {this.state.editing !== '' && (
           <EditTaskModal
             setEditing={this.setEditing}
             editingTask={this.state.editingTask}

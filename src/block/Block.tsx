@@ -14,9 +14,9 @@ interface Props {
   block: BlockTypes
   setTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
-  sourceBlock: number
-  destinationBlock: number
-  setEditing: (n: number) => void
+  sourceBlock: string
+  destinationBlock: string
+  setEditing: (id: string) => void
 }
 
 export const Block: React.FC<Props> = ({
@@ -30,10 +30,7 @@ export const Block: React.FC<Props> = ({
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
 
   return (
-    <Droppable
-      droppableId={block.id.toString()}
-      isDropDisabled={isDropDisabled}
-    >
+    <Droppable droppableId={block.id} isDropDisabled={isDropDisabled}>
       {(p, s) => {
         const tasksFull = tasks.length === 3
         const tasksTempFull =
@@ -82,7 +79,7 @@ export const Block: React.FC<Props> = ({
                   }}
                 >
                   <div
-                    className={`transition duration-500 ${sourceBlock !== 0 &&
+                    className={`transition duration-500 ${sourceBlock !== '' &&
                       'opacity-25'}`}
                   >
                     <NewTaskFormContainer block={block} addTask={addTask} />

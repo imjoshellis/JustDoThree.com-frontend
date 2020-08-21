@@ -7,7 +7,7 @@ import TextInput from '../components/TextInput'
 import { TaskTypes } from '../task/tasksSlice'
 
 interface EditTaskModalProps {
-  setEditing: (n: number) => void
+  setEditing: (id: string) => void
   editingTask: TaskTypes | null
   editTask: ActionCreatorWithPayload<TaskTypes>
 }
@@ -59,7 +59,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   duration: 0.1
                 }}
                 className='absolute z-0 bg-gray-100 bg-opacity-75 shadow-2xl'
-                onClick={() => setEditing(0)}
+                onClick={() => setEditing('')}
               />
               <motion.div
                 initial={{ y: -10, opacity: 0 }}
@@ -70,7 +70,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                 <form
                   onSubmit={e => {
                     e.preventDefault()
-                    setEditing(0)
+                    setEditing('')
                     editTask(task)
                   }}
                   className='flex flex-col'
@@ -84,7 +84,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                     handleKeyPress={e => {
                       if (e.key === 'Enter') {
                         e.preventDefault()
-                        setEditing(0)
+                        setEditing('')
                       }
                     }}
                     autoFocus={true}
