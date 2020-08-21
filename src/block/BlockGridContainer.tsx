@@ -25,6 +25,7 @@ interface Props {
 
 interface State {
   topBlock: BlockTypes
+  previousTopBlock: BlockTypes
   topBlocks: BlockTypes[]
   bottomBlocks: BlockTypes[]
   resetBlock: BlockTypes
@@ -47,6 +48,7 @@ export class BlockGridContainer extends Component<Props, State> {
 
     this.state = {
       topBlock: this.props.topBlock,
+      previousTopBlock: this.props.topBlock,
       topBlocks: [this.props.topBlock, ...initialTopBlocks],
       bottomBlocks: initialBottomBlocks,
       resetBlock: this.props.topBlock,
