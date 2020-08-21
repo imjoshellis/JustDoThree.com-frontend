@@ -61,14 +61,15 @@ export class BlockGridContainer extends Component<Props, State> {
     return { topBlocks, bottomBlocks }
   }
 
-  changeTopBlock = (topBlock: BlockTypes) => {
+  changeTopBlock = (topBlock: BlockTypes) => {}
+  /*changeTopBlock = (topBlock: BlockTypes) => {
     this.setState(s => ({
       ...s,
       topBlock,
       previousTopBlock: s.topBlock,
       ...this.generateBlockRows(topBlock)
     }))
-  }
+  }*/
 
   reset = () => {
     this.changeTopBlock(this.state.resetBlock)
