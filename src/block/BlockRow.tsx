@@ -22,24 +22,24 @@ export const BlockRow: React.FC<Props> = ({
   const [direction, setDirection] = useState(0)
 
   const Btn = ({
-    text,
+    content,
     onClick,
     disabled
   }: {
-    text: string
+    content: JSX.Element
     onClick: () => void
     disabled: boolean
   }) => (
     <button
-      className={`p-2 py-1 m-1 text-sm font-bold tracking-wider rounded select-none ${
+      className={`p-2 py-1 m-1 text-sm font-bold tracking-wider rounded select-none transition duration-200 ${
         disabled
-          ? 'bg-gray-70 pointer-events-none cursor-not-allowed'
-          : 'bg-blue-50 cursor-pointer'
+          ? 'bg-gray-70 cursor-not-allowed'
+          : 'bg-blue-50 cursor-pointer hover:bg-blue-40'
       }`}
       onClick={() => onClick()}
       disabled={disabled}
     >
-      {text}
+      {content}
     </button>
   )
 
@@ -53,7 +53,7 @@ export const BlockRow: React.FC<Props> = ({
         setDirection(1)
         setIdx(idx + 1)
       }}
-      text='increment'
+      content={<ArrowCircleRightIcon />}
       disabled={disabled}
     />
   )
@@ -64,7 +64,7 @@ export const BlockRow: React.FC<Props> = ({
         setDirection(-1)
         setIdx(idx - 1)
       }}
-      text='decrement'
+      content={<ArrowCircleLeftIcon />}
       disabled={disabled}
     />
   )
@@ -102,3 +102,41 @@ export const BlockRow: React.FC<Props> = ({
 }
 
 export default BlockRow
+
+const ArrowCircleRightIcon: React.FC = props => {
+  return (
+    <svg
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke='currentColor'
+      className='h-4'
+      {...props}
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth={2}
+        d='M17 8l4 4m0 0l-4 4m4-4H3'
+      />
+    </svg>
+  )
+}
+
+const ArrowCircleLeftIcon: React.FC = props => {
+  return (
+    <svg
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke='currentColor'
+      className='h-4'
+      {...props}
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth={2}
+        d='M7 16l-4-4m0 0l4-4m-4 4h18'
+      />
+    </svg>
+  )
+}
