@@ -18,21 +18,34 @@ export const BlockRow: React.FC<Props> = ({
 }) => {
   const [idx, setIdx] = useState(0)
 
-  const Btn = ({ text, onClick }: { text: string; onClick: () => void }) => (
+  const Btn = ({
+    text,
+    onClick,
+    disabled
+  }: {
+    text: string
+    onClick: () => void
+    disabled: boolean
+  }) => (
     <button
-      className='p-2 py-1 m-1 text-sm font-bold tracking-wider rounded bg-blue-50'
+      className={`p-2 py-1 m-1 text-sm font-bold tracking-wider rounded select-none ${
+        disabled
+          ? 'bg-gray-70 pointer-events-none cursor-not-allowed'
+          : 'bg-blue-50 cursor-pointer'
+      }`}
       onClick={() => onClick()}
+      disabled={disabled}
     >
       {text}
     </button>
   )
 
-  const IncIdxBtn = () => (
-    <Btn onClick={() => setIdx(idx + 1)} text='increment' />
+  const IncIdxBtn = ({ disabled }: { disabled: boolean }) => (
+    <Btn onClick={() => setIdx(idx + 1)} text='increment' disabled={disabled} />
   )
 
-  const DecIdxBtn = () => (
-    <Btn onClick={() => setIdx(idx - 1)} text='decrement' />
+  const DecIdxBtn = ({ disabled }: { disabled: boolean }) => (
+    <Btn onClick={() => setIdx(idx - 1)} text='decrement' disabled={disabled} />
   )
 
   return (
@@ -50,8 +63,8 @@ export const BlockRow: React.FC<Props> = ({
       </div>
       {blocks.length > 4 && (
         <div className='flex justify-between mt-1'>
-          <DecIdxBtn />
-          <IncIdxBtn />
+          <DecIdxBtn disabled={idx === 0} />
+          <IncIdxBtn disabled={idx > blocks.length - 5} />
         </div>
       )}
     </div>
