@@ -24,6 +24,10 @@ const tasksSlice = createSlice({
         completed: false
       }
     },
+    editTask (state, action) {
+      const task = action.payload
+      state[task.id] = task
+    },
     toggleTask (state, action) {
       const t = state[action.payload]
       if (t) {
@@ -33,6 +37,6 @@ const tasksSlice = createSlice({
   }
 })
 
-export const { addTask, toggleTask } = tasksSlice.actions
+export const { addTask, editTask, toggleTask } = tasksSlice.actions
 
 export default tasksSlice.reducer

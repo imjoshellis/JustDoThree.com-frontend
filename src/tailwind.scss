@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100 text-gray-10;
+}
+
+button:focus {
+  outline: none;
+}
+
+::-moz-selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+::-webkit-selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+::selection {
+  background: #c6c6c6;
+  color: #161616;
+}
+
+/* DatePicker Styles */
+
+.react-date-picker__wrapper {
+  border-radius: 0.25rem;
+  border-width: 2px;
+  border-color: #333;
+  background-color: #161616;
+  font-size: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  color: #c6c6c6;
+  background-color: #6f6f6f;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  color: #c6c6c6;
+  background-color: #6f6f6f;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile--hasActive {
+  color: #002d9c;
+  background-color: #78a9ff;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  color: #a6c8ff !important;
+  background-color: #0f62fe;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile--active {
+  color: #a6c8ff !important;
+  background-color: #0f62fe;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  color: #a6c8ff;
+  background-color: #0f62fe;
+  border-radius: .25rem;
+}
+
+.react-calendar__tile--now {
+  background-color: #ff832b !important;
+  text-decoration: underline !important;
+  font-weight: bold;
+  border-radius: .25rem !important;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  color: #c6c6c6;
+  background-color: #6f6f6f !important;
+  text-decoration: underline !important;
+  font-weight: bold;
+  border-radius: .25rem !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #fa4d56;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend:hover {
+  font-weight: bold;
+}

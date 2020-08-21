@@ -1,12 +1,13 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import React, { useState } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../reducers'
 import TaskContainer from '../task/TaskContainer'
-import { addTask, TaskTypes } from '../task/tasksSlice'
+import { addTask, editTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
+import EditTaskModal from './EditTaskModal'
 import NewTaskFormContainer from './NewTaskFormContainer'
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
   block: BlockTypes
   changeTopBlock: () => void
   addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
+  editTask: ActionCreatorWithPayload<TaskTypes>
   sourceBlock: number
   destinationBlock: number
 }
@@ -23,10 +25,13 @@ export const Block: React.FC<Props> = ({
   block,
   changeTopBlock,
   addTask,
-  sourceBlock,
-  destinationBlock
+  editTask,
+  sourceBlock
 }) => {
+  const [editing, setEditing] = useState(0)
   const isDropDisabled = tasks.length > 2 && sourceBlock !== block.id
+  const editingTask = tasks.filter(task => task.id === editing)[0]
+
   return (
     <Droppable
       droppableId={block.id.toString()}
@@ -57,7 +62,12 @@ export const Block: React.FC<Props> = ({
             >
               {tasks &&
                 tasks.map((t, idx) => (
-                  <TaskContainer {...t} idx={idx} key={t.id} />
+                  <TaskContainer
+                    {...t}
+                    idx={idx}
+                    key={t.id}
+                    setEditing={setEditing}
+                  />
                 ))}
               {p.placeholder}
             </div>
@@ -83,6 +93,11 @@ export const Block: React.FC<Props> = ({
                 </motion.div>
               )}
             </AnimatePresence>
+            <EditTaskModal
+              editingTask={editingTask}
+              editTask={editTask}
+              setEditing={setEditing}
+            />
           </div>
         )
       }}
@@ -102,7 +117,7 @@ const mapStateToProps = (
   changeTopBlock: () => changeTopBlock(block)
 })
 
-const mapDispatchToProps = { addTask }
+const mapDispatchToProps = { addTask, editTask }
 
 const ConnectedBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
 
