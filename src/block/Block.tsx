@@ -45,7 +45,7 @@ export const Block: React.FC<Props> = ({
 
         return (
           <div
-            className={`flex flex-col lg:max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
+            className={`flex flex-col truncate lg:max-w-xs flex-grow p-2 py-4 mt-4 rounded-lg md:mt-0 transition-all duration-200 ${
               s.isDraggingOver ? 'bg-gray-95' : 'bg-gray-90'
             }`}
           >
