@@ -35,8 +35,6 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   }
 
   render () {
-    const dueDate = moment(this.props.dueDate)
-
     return (
       <>
         <Draggable draggableId={this.props.id} index={this.props.idx}>
@@ -57,7 +55,6 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
                   provided={p}
                   snapshot={s}
                   {...this.props}
-                  dueDate={dueDate}
                   hover={this.state.hover}
                 />
               </div>

@@ -110,7 +110,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                               ...task,
                               dueDate: moment(d).toISOString()
                             })
-                          : setTask({ ...task, dueDate: undefined })
+                          : setTask({ ...task, dueDate: '' })
                       }}
                       calendarIcon={
                         <CalendarIcon className='h-3 text-blue-50' />

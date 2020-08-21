@@ -8,7 +8,7 @@ interface TaskViewProps {
   id: string
   title: string
   completed: boolean
-  dueDate?: moment.Moment
+  dueDate?: string
   dotOnly?: boolean
   disabled?: boolean
   toggleTask: ActionCreatorWithPayload<any>
@@ -58,7 +58,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
           </>
         )}
       </form>
-      {dueDate && (
+      {dueDate && dueDate.length > 0 && (
         <DueDateContainer
           dueDate={moment(dueDate)}
           completed={completed}
