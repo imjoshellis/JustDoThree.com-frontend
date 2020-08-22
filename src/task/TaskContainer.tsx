@@ -33,7 +33,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
     dotOnly: false
   }
 
-  render () {
+  render (): JSX.Element {
     return (
       <>
         <Draggable draggableId={this.props.id} index={this.props.idx}>
@@ -48,7 +48,7 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
               onMouseLeave={() => this.setState({ hover: false })}
             >
               <div
-                className={`bg-gray-90 focus:bg-gray-80 py-1 hover:bg-gray-80 transition-colors duration-200 ease-out hover:ease-in`}
+                className={'bg-gray-90 focus:bg-gray-80 py-1 hover:bg-gray-80 transition-colors duration-200 ease-out hover:ease-in'}
               >
                 <TaskView
                   provided={p}

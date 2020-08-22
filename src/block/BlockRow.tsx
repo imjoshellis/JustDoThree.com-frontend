@@ -28,7 +28,7 @@ export const BlockRow: React.FC<Props> = ({
     content: JSX.Element
     onClick: () => void
     disabled: boolean
-  }) => (
+  }): JSX.Element => (
     <button
       className={`p-2 py-1 m-1 text-sm font-bold tracking-wider rounded select-none transition duration-200 ${
         disabled
@@ -46,7 +46,7 @@ export const BlockRow: React.FC<Props> = ({
     setInterval(() => setDirection(0), 1000)
   }, [direction])
 
-  const IncIdxBtn = ({ disabled }: { disabled: boolean }) => (
+  const IncIdxBtn = ({ disabled }: { disabled: boolean }): JSX.Element => (
     <Btn
       onClick={() => {
         setDirection(1)
@@ -57,7 +57,7 @@ export const BlockRow: React.FC<Props> = ({
     />
   )
 
-  const DecIdxBtn = ({ disabled }: { disabled: boolean }) => (
+  const DecIdxBtn = ({ disabled }: { disabled: boolean }): JSX.Element => (
     <Btn
       onClick={() => {
         setDirection(-1)

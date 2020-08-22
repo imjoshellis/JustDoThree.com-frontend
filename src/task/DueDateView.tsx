@@ -76,7 +76,7 @@ export const DueDateView: React.FC<DueDateViewProps> = ({
 
 export default DueDateView
 
-function FlagIcon (props: any) {
+function FlagIcon (props: any): JSX.Element {
   return (
     <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
       <path

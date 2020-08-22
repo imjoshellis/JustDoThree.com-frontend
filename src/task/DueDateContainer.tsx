@@ -29,19 +29,14 @@ interface DueDateContainerProps {
   id: string
 }
 
-interface DueDateContainerState {}
-
-export class DueDateContainer extends Component<
-  DueDateContainerProps,
-  DueDateContainerState
-> {
+export class DueDateContainer extends Component< DueDateContainerProps > {
   constructor (props: DueDateContainerProps) {
     super(props)
 
     this.state = {}
   }
 
-  render () {
+  render (): JSX.Element {
     const overdue = this.props.dueDate.isBefore(moment())
     const soon = this.props.dueDate.isAfter(moment().add(1, 'y'))
 

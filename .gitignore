@@ -24,3 +24,4 @@ yarn-error.log*
 .vscode
 
 src/tailwind.output.css
+src/ignore_serviceWorker

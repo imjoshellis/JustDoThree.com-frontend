@@ -131,7 +131,7 @@ blocks[1].taskList = [tasks[3].id, tasks[4].id]
 tasks[3].blockId = blocks[1].id
 tasks[4].blockId = blocks[1].id
 
-const convertArrayToObject = (array: any, key: string) => {
+const convertArrayToObject = (array: any, key: string): object => {
   const initialValue = {}
   return array.reduce((obj: any, item: any) => {
     return {

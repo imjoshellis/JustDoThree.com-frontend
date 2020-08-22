@@ -3,7 +3,7 @@ import { MiniCardPropTypes } from './MiniCardTypes'
 import MiniCardView from './MiniCardView'
 
 export class MiniCardContainer extends Component<MiniCardPropTypes> {
-  render () {
+  render (): JSX.Element {
     return <MiniCardView {...this.props} />
   }
 }

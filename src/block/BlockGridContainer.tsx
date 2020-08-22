@@ -53,10 +53,12 @@ export class BlockGridContainer extends Component<Props, State> {
     }
   }
 
-  setEditing = (id: string) =>
+  setEditing = (id: string): void =>
     this.setState({ editing: id, editingTask: this.props.tasks[id] })
 
-  generateBlockRows = (topBlockId: string) => {
+  generateBlockRows = (
+    topBlockId: string
+  ): { topBlocks: BlockTypes[]; bottomBlocks: BlockTypes[] } => {
     const topBlock = this.props.blocks[topBlockId]
     const topBlocks = [
       topBlock,
@@ -71,7 +73,7 @@ export class BlockGridContainer extends Component<Props, State> {
     return { topBlocks, bottomBlocks }
   }
 
-  setTopBlock = (topBlockId: string) => {
+  setTopBlock = (topBlockId: string): void => {
     this.setState(s => ({
       ...s,
       topBlockId,
@@ -79,7 +81,7 @@ export class BlockGridContainer extends Component<Props, State> {
     }))
   }
 
-  back = () => {
+  back = (): void => {
     const prevBlockList = [...this.state.prevBlockList]
     if (prevBlockList.length > 1) {
       prevBlockList.pop()
@@ -88,12 +90,12 @@ export class BlockGridContainer extends Component<Props, State> {
     this.setState({ topBlockId: prevBlockId, prevBlockList: prevBlockList })
   }
 
-  handleDragEnd = (r: DropResult) => {
+  handleDragEnd = (r: DropResult): void => {
     const { source, destination } = r
     const draggableId = r.draggableId
     this.setState({ sourceBlock: '', destinationBlock: '' })
 
-    if (!destination) {
+    if (destination === undefined) {
       return
     }
     const start = this.props.blocks[source.droppableId]
@@ -107,19 +109,19 @@ export class BlockGridContainer extends Component<Props, State> {
     })
   }
 
-  handleDragStart = (s: DragStart) => {
+  handleDragStart = (s: DragStart): void => {
     this.setState({ sourceBlock: s.source.droppableId })
   }
 
-  handleDragUpdate = (u: DragUpdate) => {
-    if (u.destination) {
+  handleDragUpdate = (u: DragUpdate): void => {
+    if (u.destination !== undefined && u.destination !== null) {
       this.setState({ destinationBlock: u.destination.droppableId })
     } else {
       this.setState({ destinationBlock: u.source.droppableId })
     }
   }
 
-  render () {
+  render (): JSX.Element {
     return (
       <>
         <DragDropContext
@@ -160,7 +162,9 @@ export class BlockGridContainer extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (
+  state: RootState
+): { topBlock: BlockTypes; blocks: BlockObj; tasks: TaskObj } => ({
   topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
   blocks: state.blocks,
   tasks: state.tasks

@@ -31,8 +31,8 @@ export const TaskView: React.FC<TaskViewProps> = ({
 }) => (
   <div className='flex items-stretch px-2 transition duration-200'>
     <div
-      className={`flex items-center flex-1 justify-between truncate w-full transition-all duration-200 rounded cursor-pointer select-none ${disabled &&
-        'pointer-events-none'} ${completed && 'opacity-50'}`}
+      className={`flex items-center flex-1 justify-between truncate w-full transition-all duration-200 rounded cursor-pointer select-none ${disabled === true
+        ? 'pointer-events-none' : ''} ${completed ? 'opacity-50' : ''}`}
     >
       <form className='flex items-center flex-grow truncate'>
         <input
@@ -47,18 +47,14 @@ export const TaskView: React.FC<TaskViewProps> = ({
           checked={completed}
           onChange={() => toggleTask(id)}
         />
-        {dotOnly || (
-          <>
-            <label
-              className='flex-grow ml-2 text-sm text-left truncate cursor-pointer'
-              onDoubleClick={() => setEditing(id)}
-            >
-              {title}
-            </label>
-          </>
-        )}
+        <label
+          className='flex-grow ml-2 text-sm text-left truncate cursor-pointer'
+          onDoubleClick={() => setEditing(id)}
+        >
+          {title}
+        </label>
       </form>
-      {dueDate && dueDate.length > 0 && (
+      {dueDate !== undefined && dueDate.length > 0 && (
         <DueDateContainer
           dueDate={moment(dueDate)}
           completed={completed}
@@ -81,7 +77,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
 
 export default TaskView
 
-function PencilAltIcon (props: any) {
+function PencilAltIcon (props: any): JSX.Element {
   return (
     <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
       <path

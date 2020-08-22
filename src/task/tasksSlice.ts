@@ -36,9 +36,7 @@ const tasksSlice = createSlice({
     },
     toggleTask (state, action) {
       const t = state[action.payload]
-      if (t) {
-        t.completed = !t.completed
-      }
+      t.completed = !t.completed
     }
   }
 })

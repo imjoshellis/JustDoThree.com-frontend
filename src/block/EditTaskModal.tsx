@@ -19,24 +19,24 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   editTask,
   deleteTask
 }) => {
-  const [task, setTask] = useState<TaskTypes | null | undefined>(undefined)
+  const [task, setTask] = useState<TaskTypes | null>(null)
   const { height, width } = useWindowDimensions()
 
-  let valid = task && task.title ? task.title.length > 0 : false
+  const valid = task?.title !== undefined ? task?.title?.length > 0 : false
 
   useEffect(() => {
     setTask(editingTask)
   }, [editingTask])
 
   useEffect(() => {
-    if (task && valid) {
+    if (valid && task !== null) {
       editTask(task)
     }
   }, [task, editTask, valid])
 
-  const deleteThisTask = () => {
+  const deleteThisTask = (): void => {
     setEditing('')
-    if (task) {
+    if (task !== null && task !== undefined) {
       deleteTask(task)
     }
   }
@@ -44,7 +44,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   return (
     <>
       <AnimatePresence>
-        {task && (
+        {task !== null && (
           <>
             <div className='fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center duration-100 bg-gray-100 bg-opacity-25 transition-color'>
               <motion.div
@@ -105,7 +105,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   <div className='flex'>
                     <DatePicker
                       onChange={(d: any) => {
-                        d
+                        d !== undefined
                           ? setTask({
                               ...task,
                               dueDate: moment(d).toISOString()
@@ -117,7 +117,9 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       }
                       clearIcon={<XIcon className='h-3 text-red-50' />}
                       value={
-                        task.dueDate ? moment(task.dueDate).toDate() : null
+                        task.dueDate !== undefined
+                          ? moment(task.dueDate).toDate()
+                          : null
                       }
                       className='flex-grow'
                       calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
@@ -147,7 +149,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
 
 export default EditTaskModal
 
-function CalendarIcon (props: any) {
+function CalendarIcon (props: any): JSX.Element {
   return (
     <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
       <path
@@ -160,7 +162,7 @@ function CalendarIcon (props: any) {
   )
 }
 
-function XIcon (props: any) {
+function XIcon (props: any): JSX.Element {
   return (
     <svg fill='none' viewBox='0 0 24 24' stroke='currentColor' {...props}>
       <path
@@ -173,7 +175,7 @@ function XIcon (props: any) {
   )
 }
 
-function getWindowDimensions () {
+function getWindowDimensions (): { width: number; height: number } {
   const { innerWidth: width, innerHeight: height } = window
   return {
     width,
@@ -181,13 +183,13 @@ function getWindowDimensions () {
   }
 }
 
-const useWindowDimensions = () => {
+const useWindowDimensions = (): { width: number; height: number } => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   )
 
   useEffect(() => {
-    function handleResize () {
+    function handleResize (): void {
       setWindowDimensions(getWindowDimensions())
     }
 

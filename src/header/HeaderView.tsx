@@ -19,11 +19,11 @@ export const HeaderView: React.FC<HeaderPropTypes> = ({ tasks }) => (
         <div className='w-8 h-1 mb-1 bg-gray-700' />
         <div className='w-8 h-1 mb-1 bg-gray-700' />
         <div className='w-8 h-1 bg-gray-700' />
-      </div>*/}
+      </div> */}
   </header>
 )
 
-const mapStateToProps = (state: { tasks: TaskPropTypes[] }) => {
+const mapStateToProps = (state: { tasks: TaskPropTypes[] }): any => {
   return {
     tasks: state.tasks
   }

@@ -21,14 +21,14 @@ const blockSlice = createSlice({
     moveTask (state, action) {
       const { id, start, end, source, destination } = action.payload
       if (
-        !destination ||
+        destination === undefined ||
         (destination.droppableId === source.droppableId &&
           destination.index === source.index)
       ) {
         return
       }
 
-      if (start === end && start) {
+      if (start !== undefined && start === end) {
         const newTaskList = start.taskList.filter(
           (_: any, idx: number) => idx !== source.index
         )

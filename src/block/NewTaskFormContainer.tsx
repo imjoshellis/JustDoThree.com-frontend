@@ -30,9 +30,9 @@ export class NewTaskFormContainer extends Component<Props, State> {
     }
   }
 
-  handleSubmit = (e: React.FormEvent) => {
+  handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
-    if (this.state.text.trim()) {
+    if (this.state.text.trim().length > 0) {
       this.props.addTask({
         title: this.state.text.trim(),
         block: this.props.block,
@@ -42,14 +42,16 @@ export class NewTaskFormContainer extends Component<Props, State> {
     }
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ text: e.target.value })
-    this.setState({ valid: this.validate(e.target.value) })
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({
+      text: e.target.value,
+      valid: this.validate(e.target.value)
+    })
   }
 
-  validate = (t: string) => !!t.trim()
+  validate = (t: string): boolean => t.trim().length > 0
 
-  render () {
+  render (): JSX.Element {
     return (
       <NewTaskFormView
         text={this.state.text}

@@ -54,15 +54,14 @@ export const Block: React.FC<Props> = ({
               {...p.droppableProps}
               ref={p.innerRef}
             >
-              {tasks &&
-                tasks.map((t, idx) => (
-                  <TaskContainer
-                    {...t}
-                    idx={idx}
-                    key={t.id}
-                    setEditing={setEditing}
-                  />
-                ))}
+              {tasks?.map((t, idx) => (
+                <TaskContainer
+                  {...t}
+                  idx={idx}
+                  key={t.id}
+                  setEditing={setEditing}
+                />
+              ))}
               {p.placeholder}
             </div>
             <AnimatePresence initial={false}>
@@ -79,8 +78,9 @@ export const Block: React.FC<Props> = ({
                   }}
                 >
                   <div
-                    className={`transition duration-500 ${sourceBlock !== '' &&
-                      'opacity-25'}`}
+                    className={`transition duration-500 ${
+                      sourceBlock !== '' ? 'opacity-25' : ''
+                    }`}
                   >
                     <NewTaskFormContainer block={block} addTask={addTask} />
                   </div>
@@ -100,7 +100,7 @@ const mapStateToProps = (
     block,
     setTopBlock
   }: { block: BlockTypes; setTopBlock: (blockId: string) => void }
-) => ({
+): { tasks: TaskTypes[]; block: BlockTypes; setTopBlock: () => void } => ({
   tasks: block.taskList.map(id => state.tasks[id]),
   block: block,
   setTopBlock: () => setTopBlock(block.id)

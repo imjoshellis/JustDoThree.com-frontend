@@ -18,7 +18,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   valid
 }) => (
   <>
-    {label && (
+    {label !== undefined && (
       <label className='p-1 pl-2 text-xs font-bold tracking-wider uppercase'>
         {label}
       </label>
@@ -28,7 +28,9 @@ export const TextInput: React.FC<TextInputProps> = ({
       className={`flex-grow min-w-0 px-2 text-sm bg-gray-100 border-2 rounded shadow-lg outline-none border-gray-85 ${
         valid ? 'focus:border-green-60' : 'focus:border-gray-70'
       }`}
-      onKeyPress={e => (handleKeyPress ? handleKeyPress(e) : null)}
+      onKeyPress={e =>
+        handleKeyPress !== undefined ? handleKeyPress(e) : null
+      }
       onChange={e => handleChange(e)}
       value={text}
       autoFocus={autoFocus}

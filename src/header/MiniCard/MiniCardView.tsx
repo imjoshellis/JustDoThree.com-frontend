@@ -10,10 +10,9 @@ const classes = {
 export const MiniCardView: React.FC<MiniCardPropTypes> = ({ kind, tasks }) => (
   <div className={classes.base}>
     <div>{kind}</div>
-    {tasks &&
-      tasks.map(t => (
-        <TaskContainer key={t.id} {...t} dotOnly={true} disabled={true} />
-      ))}
+    {tasks?.map(t => (
+      <TaskContainer key={t.id} {...t} dotOnly={true} disabled={true} />
+    ))}
   </div>
 )
 
