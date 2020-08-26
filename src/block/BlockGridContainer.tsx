@@ -6,7 +6,7 @@ import {
   DragUpdate
 } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { RootState } from '../reducers'
+import { RootState } from '../app/reducer'
 import BlockGridView from './BlockGridView'
 import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
