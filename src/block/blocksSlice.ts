@@ -6,7 +6,7 @@ import { addTask, deleteTask } from '../task/tasksSlice'
 export interface BlockTypes {
   id: string
   title: string
-  level: number
+  kind: string
   blockList: string[]
   taskList: string[]
 }
@@ -57,7 +57,21 @@ const blockSlice = createSlice({
       }
     },
     getBlocksSuccess (state, action: PayloadAction<BlockAPI[]>) {
-      console.log(action.payload)
+      action.payload.forEach(b => {
+        state[b.id] = {
+          id: b.id,
+          title: b.attributes.title,
+          kind: b.attributes.kind,
+          taskList:
+            b.attributes.task_list.length > 0
+              ? b.attributes.task_list.split(',')
+              : [],
+          blockList:
+            b.attributes.block_list.length > 0
+              ? b.attributes.block_list.split(',')
+              : []
+        }
+      })
     },
     getBlocksFailed (state, action: PayloadAction<string>) {
       console.log(action.payload)
