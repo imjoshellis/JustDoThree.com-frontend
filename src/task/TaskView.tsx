@@ -31,8 +31,9 @@ export const TaskView: React.FC<TaskViewProps> = ({
 }) => (
   <div className='flex items-stretch px-2 transition duration-200'>
     <div
-      className={`flex items-center flex-1 justify-between truncate w-full transition-all duration-200 rounded cursor-pointer select-none ${disabled === true
-        ? 'pointer-events-none' : ''} ${completed ? 'opacity-50' : ''}`}
+      className={`flex items-center flex-1 justify-between truncate w-full transition-all duration-200 rounded cursor-pointer select-none ${
+        disabled === true ? 'pointer-events-none' : ''
+      } ${completed ? 'opacity-50' : ''}`}
     >
       <form className='flex items-center flex-grow truncate'>
         <input
@@ -54,7 +55,7 @@ export const TaskView: React.FC<TaskViewProps> = ({
           {title}
         </label>
       </form>
-      {dueDate !== undefined && dueDate.length > 0 && (
+      {dueDate !== undefined && dueDate !== null && dueDate.length > 0 && (
         <DueDateContainer
           dueDate={moment(dueDate)}
           completed={completed}
