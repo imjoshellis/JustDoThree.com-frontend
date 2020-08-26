@@ -1,15 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './app'
 import './index.css'
-import rootReducer from './reducers'
 import './tailwind.output.css'
-
-const store = configureStore({
-  reducer: rootReducer
-})
+import store from './app/store'
 
 ReactDOM.render(
   <Provider store={store}>
