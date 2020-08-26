@@ -6,7 +6,7 @@ import {
   DragUpdate
 } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { RootState } from '../reducers'
+import { RootState } from '../app/reducer'
 import BlockGridView from './BlockGridView'
 import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
@@ -62,13 +62,19 @@ export class BlockGridContainer extends Component<Props, State> {
     const topBlock = this.props.blocks[topBlockId]
     const topBlocks = [
       topBlock,
-      ...topBlock.blockList.map(id => this.props.blocks[id])
+      ...topBlock.blockList
+        .filter(id => Object.keys(this.props.blocks).includes(id))
+        .map(id => this.props.blocks[id])
     ]
     const bottomBlocks = [] as BlockTypes[]
     topBlocks
       .slice(1)
       .forEach(b =>
-        b.blockList.forEach(id => bottomBlocks.push(this.props.blocks[id]))
+        b.blockList.forEach((id: string) =>
+          Object.keys(this.props.blocks).includes(id)
+            ? bottomBlocks.push(this.props.blocks[id])
+            : null
+        )
       )
     return { topBlocks, bottomBlocks }
   }
@@ -165,7 +171,7 @@ export class BlockGridContainer extends Component<Props, State> {
 const mapStateToProps = (
   state: RootState
 ): { topBlock: BlockTypes; blocks: BlockObj; tasks: TaskObj } => ({
-  topBlock: Object.values(state.blocks).filter(b => b.level === 0)[0],
+  topBlock: Object.values(state.blocks).filter(b => b.kind === 'life')[0],
   blocks: state.blocks,
   tasks: state.tasks
 })

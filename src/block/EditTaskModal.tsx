@@ -117,7 +117,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       }
                       clearIcon={<XIcon className='h-3 text-red-50' />}
                       value={
-                        task.dueDate !== undefined
+                        task.dueDate !== null
                           ? moment(task.dueDate).toDate()
                           : null
                       }

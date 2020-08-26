@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { RootState } from '../reducers'
+import { RootState } from '../app/reducer'
 import TaskContainer from '../task/TaskContainer'
 import { addTask, TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
@@ -45,7 +45,7 @@ export const Block: React.FC<Props> = ({
           >
             <h2
               className='px-2 mb-2 text-sm font-bold tracking-wider uppercase cursor-pointer hover:underline hover:text-blue-50'
-              onClick={() => (block.level < 4 ? setTopBlock() : null)}
+              onClick={() => (block.kind !== 'day' ? setTopBlock() : null)}
             >
               {block.title}
             </h2>

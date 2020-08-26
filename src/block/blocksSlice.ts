@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { data } from '../data'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { BlockAPI, getBlocks } from '../api/jd3API'
+import { AppThunk } from '../app/store'
 import { addTask, deleteTask } from '../task/tasksSlice'
 
 export interface BlockTypes {
   id: string
   title: string
-  level: number
+  kind: string
   blockList: string[]
   taskList: string[]
 }
@@ -14,9 +15,11 @@ export interface BlockObj {
   [id: string]: BlockTypes
 }
 
+const initialState: BlockObj = {}
+
 const blockSlice = createSlice({
   name: 'blocks',
-  initialState: data.entities.blocks as BlockObj,
+  initialState: initialState,
   reducers: {
     moveTask (state, action) {
       const { id, start, end, source, destination } = action.payload
@@ -52,9 +55,29 @@ const blockSlice = createSlice({
           taskList: endTaskList
         }
       }
+    },
+    getBlocksSuccess (state, action: PayloadAction<BlockAPI[]>) {
+      action.payload.forEach(b => {
+        state[b.id] = {
+          id: b.id,
+          title: b.attributes.title,
+          kind: b.attributes.kind,
+          taskList:
+            b.attributes.task_list.length > 0
+              ? b.attributes.task_list.split(',')
+              : [],
+          blockList:
+            b.attributes.block_list.length > 0
+              ? b.attributes.block_list.split(',')
+              : []
+        }
+      })
+    },
+    getBlocksFailed (state, action: PayloadAction<string>) {
+      console.log(action.payload)
     }
   },
-  extraReducers: (builder) =>
+  extraReducers: builder =>
     builder
       .addCase(addTask, (state, action) => {
         const { id, block } = action.payload
@@ -69,7 +92,9 @@ const blockSlice = createSlice({
       .addCase(deleteTask, (state, action) => {
         const { id, blockId } = action.payload
         const block = state[blockId]
-        const newTaskList = block.taskList.filter((taskId: string) => taskId !== id)
+        const newTaskList = block.taskList.filter(
+          (taskId: string) => taskId !== id
+        )
         state[block.id] = {
           ...block,
           taskList: newTaskList
@@ -77,6 +102,19 @@ const blockSlice = createSlice({
       })
 })
 
-export const { moveTask } = blockSlice.actions
+export const {
+  moveTask,
+  getBlocksSuccess,
+  getBlocksFailed
+} = blockSlice.actions
 
 export default blockSlice.reducer
+
+export const fetchBlocks = (): AppThunk => async dispatch => {
+  try {
+    const blocks = await getBlocks()
+    dispatch(getBlocksSuccess(blocks))
+  } catch (err) {
+    dispatch(getBlocksFailed(err.toString()))
+  }
+}

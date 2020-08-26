@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import taskReducer from './task/tasksSlice'
-import blockReducer from './block/blocksSlice'
+import taskReducer from '../task/tasksSlice'
+import blockReducer from '../block/blocksSlice'
 
 export const rootReducer = combineReducers({
   tasks: taskReducer,
@@ -10,3 +10,8 @@ export const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>
 
 export default rootReducer
+
+
+
+
+
