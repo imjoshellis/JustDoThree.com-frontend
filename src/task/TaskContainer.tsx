@@ -20,13 +20,20 @@ export interface TaskPropTypes {
 
 interface TaskStateTypes {
   hover: boolean
+  completed: boolean
 }
 
 export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
   constructor (props: TaskPropTypes) {
     super(props)
 
-    this.state = { hover: false }
+    this.state = { hover: false, completed: this.props.completed }
+  }
+
+  componentDidUpdate = (): void => {
+    if (this.props.completed !== this.state.completed) {
+      this.setState({ completed: this.props.completed })
+    }
   }
 
   public static defaultProps = {
@@ -48,7 +55,9 @@ export class TaskContainer extends Component<TaskPropTypes, TaskStateTypes> {
               onMouseLeave={() => this.setState({ hover: false })}
             >
               <div
-                className={'bg-gray-90 focus:bg-gray-80 py-1 hover:bg-gray-80 transition-colors duration-200 ease-out hover:ease-in'}
+                className={
+                  'bg-gray-90 focus:bg-gray-80 hover:bg-gray-80 transition-colors duration-200 ease-out hover:ease-in'
+                }
               >
                 <TaskView
                   provided={p}

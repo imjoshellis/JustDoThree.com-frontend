@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getTasks, TaskAPI } from '../api/jd3API'
+import {
+  getTasks,
+  TaskAPI,
+  postTask,
+  deleteTask,
+  patchTask
+} from '../api/jd3API'
 import { AppThunk } from '../app/store'
+import { BlockTypes } from '../block/blocksSlice'
 
 export interface TaskTypes {
   id: string
@@ -22,23 +29,31 @@ const tasksSlice = createSlice({
   initialState: initialState,
   reducers: {
     addTask (state, action) {
-      const { title, id, block } = action.payload
+      const { id } = action.payload
+      const { title, completed } = action.payload.attributes
       state[id] = {
-        id: id,
+        id,
         title,
-        blockId: block.id,
-        blockTitle: block.title,
-        completed: false
+        blockId: action.payload.attributes.block_id,
+        blockTitle: action.payload.attributes.block_title,
+        completed
       }
     },
-    deleteTask (state, action) {
+    removeTask (state, action) {
       const { id } = action.payload
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete state[id]
     },
     editTask (state, action) {
-      const task = action.payload
-      state[task.id] = task
+      const { id, attributes } = action.payload
+      state[id] = {
+        id: id,
+        completed: attributes.completed,
+        blockId: attributes.block_id,
+        title: attributes.title,
+        blockTitle: attributes.block_title,
+        dueDate: attributes.due_date
+      }
     },
     toggleTask (state, action) {
       const t = state[action.payload]
@@ -56,7 +71,7 @@ const tasksSlice = createSlice({
         }
       })
     },
-    getTasksFailed (state, action: PayloadAction<string>) {
+    asyncTaskActionFailed (state, action: PayloadAction<string>) {
       console.log(action.payload)
     }
   }
@@ -64,11 +79,11 @@ const tasksSlice = createSlice({
 
 export const {
   addTask,
-  deleteTask,
+  removeTask,
   editTask,
   toggleTask,
   getTasksSuccess,
-  getTasksFailed
+  asyncTaskActionFailed
 } = tasksSlice.actions
 
 export default tasksSlice.reducer
@@ -78,6 +93,39 @@ export const fetchTasks = (): AppThunk => async dispatch => {
     const tasks = await getTasks()
     dispatch(getTasksSuccess(tasks))
   } catch (err) {
-    dispatch(getTasksFailed(err.toString()))
+    dispatch(asyncTaskActionFailed(err.toString()))
+  }
+}
+
+export const pushTask = ({
+  title,
+  block
+}: {
+  title: string
+  block: BlockTypes
+}): AppThunk => async dispatch => {
+  try {
+    const newTask = await postTask({ title, block })
+    dispatch(addTask(newTask))
+  } catch (err) {
+    dispatch(asyncTaskActionFailed(err.toString()))
+  }
+}
+
+export const popTask = ({ id }: { id: string }): AppThunk => async dispatch => {
+  try {
+    const newTask = await deleteTask({ id })
+    dispatch(removeTask(newTask))
+  } catch (err) {
+    dispatch(asyncTaskActionFailed(err.toString()))
+  }
+}
+
+export const changeTask = (task: TaskTypes): AppThunk => async dispatch => {
+  try {
+    const newTask = await patchTask(task)
+    dispatch(editTask(newTask))
+  } catch (err) {
+    dispatch(asyncTaskActionFailed(err.toString()))
   }
 }
