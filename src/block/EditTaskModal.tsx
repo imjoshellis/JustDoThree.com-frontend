@@ -1,43 +1,37 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-date-picker'
 import TextInput from '../components/TextInput'
-import { TaskTypes } from '../task/tasksSlice'
+import { TaskTypes, popTask, changeTask } from '../task/tasksSlice'
+import { useDispatch } from 'react-redux'
 
 interface EditTaskModalProps {
   setEditing: (id: string) => void
   editingTask: TaskTypes | null
-  editTask: ActionCreatorWithPayload<TaskTypes>
-  deleteTask: ActionCreatorWithPayload<TaskTypes>
 }
 
 const EditTaskModal: React.FC<EditTaskModalProps> = ({
   setEditing,
-  editingTask,
-  editTask,
-  deleteTask
+  editingTask
 }) => {
   const [task, setTask] = useState<TaskTypes | null>(null)
   const { height, width } = useWindowDimensions()
 
   const valid = task?.title !== undefined ? task?.title?.length > 0 : false
 
+  const dispatch = useDispatch()
+
+  console.log(task?.dueDate)
+
   useEffect(() => {
     setTask(editingTask)
   }, [editingTask])
 
-  useEffect(() => {
-    if (valid && task !== null) {
-      editTask(task)
-    }
-  }, [task, editTask, valid])
-
   const deleteThisTask = (): void => {
     setEditing('')
     if (task !== null && task !== undefined) {
-      deleteTask(task)
+      dispatch(popTask({ id: task.id }))
     }
   }
 
@@ -68,7 +62,10 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   duration: 0.1
                 }}
                 className='absolute z-0 bg-gray-100 bg-opacity-75 shadow-2xl'
-                onClick={() => setEditing('')}
+                onClick={() => {
+                  setEditing('')
+                  dispatch(changeTask(task))
+                }}
               />
               <motion.div
                 initial={{ y: -10, opacity: 0 }}
@@ -80,7 +77,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                   onSubmit={e => {
                     e.preventDefault()
                     setEditing('')
-                    editTask(task)
+                    dispatch(changeTask(task))
                   }}
                   className='flex flex-col'
                 >
@@ -94,6 +91,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       if (e.key === 'Enter') {
                         e.preventDefault()
                         setEditing('')
+                        dispatch(changeTask(task))
                       }
                     }}
                     autoFocus={true}
@@ -117,9 +115,11 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                       }
                       clearIcon={<XIcon className='h-3 text-red-50' />}
                       value={
-                        task.dueDate !== null
-                          ? moment(task.dueDate).toDate()
-                          : null
+                        task?.dueDate === null ||
+                        task?.dueDate === undefined ||
+                        task?.dueDate === ''
+                          ? null
+                          : moment(task.dueDate).toDate()
                       }
                       className='flex-grow'
                       calendarClassName='bg-gray-95 border-gray-70 rounded border-2'
