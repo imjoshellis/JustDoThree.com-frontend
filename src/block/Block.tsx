@@ -1,11 +1,10 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { RootState } from '../app/reducer'
 import TaskContainer from '../task/TaskContainer'
-import { addTask, TaskTypes } from '../task/tasksSlice'
+import { TaskTypes } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
 import NewTaskFormContainer from './NewTaskFormContainer'
 
@@ -13,7 +12,6 @@ interface Props {
   tasks: TaskTypes[]
   block: BlockTypes
   setTopBlock: () => void
-  addTask: ActionCreatorWithPayload<{ title: string; block: BlockTypes }>
   sourceBlock: string
   destinationBlock: string
   setEditing: (id: string) => void
@@ -23,7 +21,6 @@ export const Block: React.FC<Props> = ({
   tasks,
   block,
   setTopBlock,
-  addTask,
   sourceBlock,
   setEditing
 }) => {
@@ -55,12 +52,16 @@ export const Block: React.FC<Props> = ({
               ref={p.innerRef}
             >
               {tasks?.map((t, idx) => (
-                <TaskContainer
-                  {...t}
-                  idx={idx}
-                  key={t.id}
-                  setEditing={setEditing}
-                />
+                <>
+                  {t !== undefined && (
+                    <TaskContainer
+                      {...t}
+                      idx={idx}
+                      key={t.id}
+                      setEditing={setEditing}
+                    />
+                  )}
+                </>
               ))}
               {p.placeholder}
             </div>
@@ -82,7 +83,7 @@ export const Block: React.FC<Props> = ({
                       sourceBlock !== '' ? 'opacity-25' : ''
                     }`}
                   >
-                    <NewTaskFormContainer block={block} addTask={addTask} />
+                    <NewTaskFormContainer block={block} />
                   </div>
                 </motion.div>
               )}
@@ -106,8 +107,6 @@ const mapStateToProps = (
   setTopBlock: () => setTopBlock(block.id)
 })
 
-const mapDispatchToProps = { addTask }
-
-const ConnectedBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
+const ConnectedBlock = connect(mapStateToProps)(Block)
 
 export default ConnectedBlock
