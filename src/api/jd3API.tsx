@@ -8,6 +8,8 @@ export interface BlockAPI {
     kind: string
     block_list: string
     task_list: string
+    start_date: string
+    end_date: string
   }
 }
 
