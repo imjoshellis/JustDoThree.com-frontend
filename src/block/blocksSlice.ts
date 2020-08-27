@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { BlockAPI, getBlocks } from '../api/jd3API'
+import { BlockAPI, getBlocks, moveTaskPatch } from '../api/jd3API'
 import { AppThunk } from '../app/store'
-import { addTask, deleteTask } from '../task/tasksSlice'
+import { addTask, removeTask } from '../task/tasksSlice'
 
 export interface BlockTypes {
   id: string
   title: string
   kind: string
+  startDate: string
+  endDate: string
   blockList: string[]
   taskList: string[]
 }
@@ -21,7 +23,7 @@ const blockSlice = createSlice({
   name: 'blocks',
   initialState: initialState,
   reducers: {
-    moveTask (state, action) {
+    tempMoveTask (state, action) {
       const { id, start, end, source, destination } = action.payload
       if (
         destination === undefined ||
@@ -56,12 +58,37 @@ const blockSlice = createSlice({
         }
       }
     },
+    moveTask (state, action) {
+      if (action.payload.length === 2) {
+        console.log(action.payload)
+        action.payload.forEach((b: BlockAPI) => {
+          state[b.id] = {
+            ...state[b.id],
+            taskList:
+              b.attributes.task_list.length > 0
+                ? b.attributes.task_list.split(',')
+                : []
+          }
+        })
+      } else {
+        const b = action.payload
+        state[b.id] = {
+          ...state[b.id],
+          taskList:
+            b.attributes.task_list.length > 0
+              ? b.attributes.task_list.split(',')
+              : []
+        }
+      }
+    },
     getBlocksSuccess (state, action: PayloadAction<BlockAPI[]>) {
       action.payload.forEach(b => {
         state[b.id] = {
           id: b.id,
           title: b.attributes.title,
           kind: b.attributes.kind,
+          startDate: b.attributes.start_date,
+          endDate: b.attributes.end_date,
           taskList:
             b.attributes.task_list.length > 0
               ? b.attributes.task_list.split(',')
@@ -80,18 +107,20 @@ const blockSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(addTask, (state, action) => {
-        const { id, block } = action.payload
-        const newTaskList = block.taskList.concat()
+        const { id } = action.payload
+        const blockId = action.payload.attributes.block_id
+
+        const newTaskList = state[blockId].taskList.concat()
         newTaskList.push(id)
 
-        state[block.id] = {
-          ...block,
+        state[blockId] = {
+          ...state[blockId],
           taskList: newTaskList
         }
       })
-      .addCase(deleteTask, (state, action) => {
-        const { id, blockId } = action.payload
-        const block = state[blockId]
+      .addCase(removeTask, (state, action) => {
+        const { id, attributes } = action.payload
+        const block = state[attributes.block_id]
         const newTaskList = block.taskList.filter(
           (taskId: string) => taskId !== id
         )
@@ -103,6 +132,7 @@ const blockSlice = createSlice({
 })
 
 export const {
+  tempMoveTask,
   moveTask,
   getBlocksSuccess,
   getBlocksFailed
@@ -114,6 +144,15 @@ export const fetchBlocks = (): AppThunk => async dispatch => {
   try {
     const blocks = await getBlocks()
     dispatch(getBlocksSuccess(blocks))
+  } catch (err) {
+    dispatch(getBlocksFailed(err.toString()))
+  }
+}
+
+export const moveTaskThunk = (payload: any): AppThunk => async dispatch => {
+  try {
+    const blocks = await moveTaskPatch(payload)
+    dispatch(moveTask(blocks))
   } catch (err) {
     dispatch(getBlocksFailed(err.toString()))
   }

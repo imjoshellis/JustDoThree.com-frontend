@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
+import { pushTask } from '../task/tasksSlice'
 import { BlockTypes } from './blocksSlice'
 import NewTaskFormView from './NewTaskFormView'
-import shortid from 'shortid'
+import { connect } from 'react-redux'
 
 interface Props {
-  addTask: ({
-    title,
-    block
-  }: {
-    title: string
-    block: BlockTypes
-    id: string
-  }) => void
+  pushTask: ({ title, block }: { title: string; block: BlockTypes }) => void
   block: BlockTypes
 }
 
@@ -33,10 +27,9 @@ export class NewTaskFormContainer extends Component<Props, State> {
   handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
     if (this.state.text.trim().length > 0) {
-      this.props.addTask({
+      this.props.pushTask({
         title: this.state.text.trim(),
-        block: this.props.block,
-        id: shortid.generate()
+        block: this.props.block
       })
       this.setState({ text: '', valid: false })
     }
@@ -63,4 +56,9 @@ export class NewTaskFormContainer extends Component<Props, State> {
   }
 }
 
-export default NewTaskFormContainer
+const mapDispatchToProps = { pushTask }
+const ConnectedNewTaskFormContainer = connect(
+  null,
+  mapDispatchToProps
+)(NewTaskFormContainer)
+export default ConnectedNewTaskFormContainer

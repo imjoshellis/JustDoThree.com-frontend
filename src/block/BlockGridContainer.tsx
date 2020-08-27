@@ -1,31 +1,30 @@
 import React, { Component } from 'react'
 import {
   DragDropContext,
-  DropResult,
   DragStart,
-  DragUpdate
+  DragUpdate,
+  DropResult
 } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import { MoveTaskPayload } from '../api/jd3API'
 import { RootState } from '../app/reducer'
+import { AppDispatch } from '../app/store'
+import { TaskObj, TaskTypes } from '../task/tasksSlice'
 import BlockGridView from './BlockGridView'
-import { BlockObj, BlockTypes, moveTask } from './blocksSlice'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import {
+  BlockObj,
+  BlockTypes,
+
+  moveTaskThunk, tempMoveTask
+} from './blocksSlice'
 import EditTaskModal from './EditTaskModal'
-import { TaskTypes, TaskObj, editTask, deleteTask } from '../task/tasksSlice'
 
 interface Props {
   blocks: BlockObj
   tasks: TaskObj
   topBlock: BlockTypes
-  editTask: ActionCreatorWithPayload<TaskTypes>
-  deleteTask: ActionCreatorWithPayload<TaskTypes>
-  moveTask: ActionCreatorWithPayload<{
-    id: string
-    source: DropResult['source']
-    destination: DropResult['destination']
-    start: BlockTypes
-    end: BlockTypes
-  }>
+  moveTaskThunk: (payload: MoveTaskPayload) => void
+  tempMoveTask: (payload: any) => void
 }
 
 interface State {
@@ -50,6 +49,12 @@ export class BlockGridContainer extends Component<Props, State> {
       destinationBlock: '',
       editing: '',
       editingTask: null
+    }
+  }
+
+  componentDidUpdate = (prevProps: Props): void => {
+    if (prevProps.topBlock !== this.props.topBlock) {
+      this.setState({ topBlockId: this.props.topBlock.id })
     }
   }
 
@@ -101,12 +106,20 @@ export class BlockGridContainer extends Component<Props, State> {
     const draggableId = r.draggableId
     this.setState({ sourceBlock: '', destinationBlock: '' })
 
-    if (destination === undefined) {
+    if (destination === undefined || destination === null) {
       return
     }
     const start = this.props.blocks[source.droppableId]
     const end = this.props.blocks[destination.droppableId]
-    this.props.moveTask({
+    this.props.tempMoveTask({
+      id: draggableId,
+      source,
+      destination,
+      start,
+      end
+    })
+
+    this.props.moveTaskThunk({
       id: draggableId,
       source,
       destination,
@@ -159,8 +172,6 @@ export class BlockGridContainer extends Component<Props, State> {
           <EditTaskModal
             setEditing={this.setEditing}
             editingTask={this.state.editingTask}
-            editTask={this.props.editTask}
-            deleteTask={this.props.deleteTask}
           />
         )}
       </>
@@ -170,13 +181,16 @@ export class BlockGridContainer extends Component<Props, State> {
 
 const mapStateToProps = (
   state: RootState
-): { topBlock: BlockTypes; blocks: BlockObj; tasks: TaskObj } => ({
-  topBlock: Object.values(state.blocks).filter(b => b.kind === 'life')[0],
+): { blocks: BlockObj; tasks: TaskObj } => ({
   blocks: state.blocks,
   tasks: state.tasks
 })
 
-const mapDispatchToProps = { moveTask, editTask, deleteTask }
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  moveTaskThunk: (payload: MoveTaskPayload) => dispatch(moveTaskThunk(payload)),
+  tempMoveTask: (payload: any) => dispatch(tempMoveTask(payload))
+})
 
 const ConnectedBlockGridContainer = connect(
   mapStateToProps,
