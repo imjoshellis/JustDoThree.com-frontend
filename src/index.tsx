@@ -25,11 +25,37 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
+let currentUser = null
+
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user !== null) {
+    // User is signed in.
+    // var displayName = user.displayName
+    // var email = user.email
+    // var emailVerified = user.emailVerified
+    // var photoURL = user.photoURL
+    // var isAnonymous = user.isAnonymous
+    // var uid = user.uid
+    // var providerData = user.providerData
+    currentUser = user
+    console.log(user.email, user.uid, user.displayName)
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+    currentUser = null
+  }
+})
+
+const UserContext = React.createContext(null)
+
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <UserContext.Provider value={currentUser}>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </UserContext.Provider>,
   document.getElementById('root')
 )
