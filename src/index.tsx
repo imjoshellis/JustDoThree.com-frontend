@@ -11,14 +11,14 @@ import './index.css'
 import './tailwind.output.css'
 
 const firebaseConfig = {
-  apiKey: process.env.firebaseKey,
-  authDomain: process.env.firebaseAuthDomain,
-  databaseURL: process.env.firebaseDatabaseURL,
-  projectId: process.env.firebaseProjectId,
-  storageBucket: process.env.firebaseStorageBucket,
-  messagingSenderId: process.env.firebaseSenderId,
-  appId: process.env.fierbaseAppId,
-  measurementId: process.env.firebaseMeasurementId
+  apiKey: process.env.REACT_APP_firebaseKey,
+  authDomain: process.env.REACT_APP_firebaseAuthDomain,
+  databaseURL: process.env.REACT_APP_firebaseDatabaseURL,
+  projectId: process.env.REACT_APP_firebaseProjectId,
+  storageBucket: process.env.REACT_APP_firebaseStorageBucket,
+  messagingSenderId: process.env.REACT_APP_firebaseSenderId,
+  appId: process.env.REACT_APP_firebaseAppId,
+  measurementId: process.env.REACT_APP_firebaseMeasurementId
 }
 
 // Initialize Firebase
